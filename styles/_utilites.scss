@@ -12,9 +12,19 @@ $media-fhd: 1620px !default;
  * Images
  */
 
-.full { max-width: auto !important; }
-.cyrcle { border-radius: 50% !important; }
-.rounded { border-radius: 4px !important; }
+.full {
+    max-width: auto !important;
+}
+.wide {
+    max-width: auto !important;
+    width: 100%;
+}
+.cyrcle {
+    border-radius: 50% !important;
+}
+.rounded {
+    border-radius: 4px !important;
+}
 .scale {
     position: relative;
     overflow: hidden;
