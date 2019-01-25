@@ -59,6 +59,8 @@
   }
   .two-columns > div:nth-child(2n+1), .two-columns li:nth-child(2n+1) {
     clear: both;
+  }
+  .two-columns > div:nth-child(2n+2), .two-columns li:nth-child(2n+2) {
     float: right;
   }
 }
