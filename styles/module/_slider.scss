@@ -2,7 +2,24 @@
     display: flex;
     justify-content: space-between;
 
-    .slick-slide {
-        margin-bottom: 1rem;
+    a {
+        display: block;
+        margin: 0 auto 1rem;
+        @extend .circle;
+        @include img-center(200px, 200px);
+        @include scale(120%, 100%);
+    }
+
+    .slick-slide, a {
+        &:focus {
+            outline: none;
+        }
+    }
+
+    @media screen and (max-width: $media-xl) {
+        a {
+            width: 150px;
+            height: 150px;
+        }
     }
 }

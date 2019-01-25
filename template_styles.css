@@ -1,5 +1,14 @@
 @charset "UTF-8";
 /* Site settings */
+/**
+ * Fonts
+ */
+/**
+ * Blocks
+ */
+/**
+ * Images
+ */
 /* Base */
 /**
  * Images
@@ -8,78 +17,50 @@
   max-width: auto !important;
 }
 
-.cyrcle {
-  -webkit-border-radius: 50% !important;
-          border-radius: 50% !important;
+.wide {
+  max-width: auto !important;
+  width: 100%;
 }
 
 .rounded {
-  -webkit-border-radius: 4px !important;
-          border-radius: 4px !important;
+  -webkit-border-radius: 4px;
+          border-radius: 4px;
 }
 
-.scale {
-  position: relative;
-  overflow: hidden;
-  text-align: center;
-  vertical-align: middle;
-}
-
-.scale > * {
-  -webkit-transition: .4s ease all;
-  -o-transition: .4s ease all;
-  transition: .4s ease all;
-}
-
-.thumb-center {
-  position: relative;
-  overflow: hidden;
-  width: 250px;
-  height: 250px;
-}
-
-.thumb-center > * {
+.circle, .slider a {
   display: block;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  -webkit-transform: translate(-50%, -50%);
-      -ms-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
-  max-width: 98%;
+  position: relative;
+  overflow: hidden;
+  -webkit-border-radius: 50%;
+          border-radius: 50%;
+}
+
+.circle img, .slider a img {
+  -webkit-clip-path: circle(50% at 50% 50%);
+          clip-path: circle(50% at 50% 50%);
 }
 
 /**
- * Lists
+ * Elements
  */
 .clear-list {
   list-style: none;
   padding-left: 0;
 }
 
-.two-columns {
-  position: relative;
-  overflow: hidden;
-}
-
-.two-columns > div, .two-columns li {
-  float: left;
-  width: 50%;
-}
-
-.two-columns > div:nth-child(2n+1), .two-columns li:nth-child(2n+1) {
-  clear: both;
-}
-
-.two-columns-vertical {
-  -webkit-column-count: 2;
-  column-count: 2;
-}
-
-.two-columns-vertical > div, .two-columns-vertical li {
-  display: inline-block;
-  position: relative;
-  width: 100%;
+@media screen and (min-width: 1200px) {
+  .two-columns {
+    position: relative;
+    overflow: hidden;
+  }
+  .two-columns > div, .two-columns li {
+    float: left;
+    width: 49%;
+  }
+  .two-columns > div:nth-child(2n+1), .two-columns li:nth-child(2n+1) {
+    clear: both;
+    float: right;
+  }
 }
 
 /**
@@ -233,6 +214,11 @@ html {
   line-height: 1.4;
 }
 
+img {
+  max-width: 100%;
+  height: auto;
+}
+
 ::-moz-selection {
   background: #b3d4fc;
   text-shadow: none;
@@ -262,7 +248,7 @@ h1 {
   font-size: 5vw;
 }
 
-@media screen and (min-width: 1439px) {
+@media screen and (min-width: 1440px) {
   h1 {
     font-size: 3.84615vw;
   }
@@ -284,10 +270,10 @@ h1 {
   font-size: 16px;
 }
 
-@media (min-width: 992px) and (max-width: 1440px) {
+@media (min-width: 992px) and (max-width: 1439px) {
   .archive-description {
-    font-size: -webkit-calc( 16px + 4 * (100vw - 992px) / 448);
-    font-size: calc( 16px + 4 * (100vw - 992px) / 448);
+    font-size: -webkit-calc( 16px + 4 * (100vw - 992px) / 448);
+    font-size: calc( 16px + 4 * (100vw - 992px) / 448);
   }
 }
 
@@ -330,6 +316,23 @@ h1 {
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
+}
+
+.sidebar__title {
+  margin-top: 4.5rem;
+}
+
+@media screen and (max-width: 576px) {
+  .post img {
+    margin-bottom: 1rem;
+  }
+  .post.media {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
 }
 
 /* Modules */
@@ -662,6 +665,48 @@ h1 {
           justify-content: space-between;
 }
 
-.slider .slick-slide {
-  margin-bottom: 1rem;
+.slider a {
+  display: block;
+  margin: 0 auto 1rem;
+  position: relative;
+  width: 200px;
+  height: 200px;
+}
+
+.slider a > img {
+  display: block;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  width: 100%;
+}
+
+.slider a > img {
+  max-width: 120%;
+  width: 999%;
+  -webkit-transition: 0.25s ease max-width;
+  -o-transition: 0.25s ease max-width;
+  transition: 0.25s ease max-width;
+}
+
+.slider a > img:hover {
+  max-width: 100%;
+}
+
+.touch .slider a > img {
+  max-width: 100%;
+}
+
+.slider .slick-slide:focus, .slider a:focus {
+  outline: none;
+}
+
+@media screen and (max-width: 1200px) {
+  .slider a {
+    width: 150px;
+    height: 150px;
+  }
 }

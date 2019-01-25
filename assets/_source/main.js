@@ -15,18 +15,23 @@ jQuery(document).ready(function($) {
 
             var $container = $( SETTINGS.stickySelector );
 
-            if( $container.length ) {
-                try {
-                    $container.sticky({
-                        topSpacing: space,
-                        zIndex: 1100,
-                        height: SETTINGS.stickyHeight,
-                    });
+            try {
+                if( $container.length ) {
+                    if( undefined !== $container.sticky ) {
+                        $container.sticky({
+                            topSpacing: space,
+                            zIndex: 1100,
+                            height: SETTINGS.stickyHeight,
+                        });
 
-                    $container.parent('.sticky-wrapper').css('margin-bottom', $container.css('margin-bottom') );
-                } catch(e) {
-                    console.error('Sticky library is not available!');
+                        $container.parent('.sticky-wrapper').css('margin-bottom', $container.css('margin-bottom') );
+                    }
+                    else {
+                        console.error('Sticky library is not available!');
+                    }
                 }
+            } catch(e) {
+                console.error(e);
             }
         }
     }
@@ -133,11 +138,9 @@ jQuery(document).ready(function($) {
             if( !props ) props = {};
             this.props = Object.assign(_defaults, props);
         } catch(e) {
-            console.log('Init props is distorted.');
+            console.log('Init props is demaged.');
             this.props = _defaults;
         }
-
-        console.log( this.props );
 
         this.$slider = $( target );
         this.isInit = false;
@@ -147,13 +150,18 @@ jQuery(document).ready(function($) {
         init: function( minWidth ) {
             if( !this.$slider.length ) return false;
 
-            if( !this.isInit ) {
-                try {
-                    this.$slider.slick( this.props );
-                    this.isInit = this.$slider.hasClass('slick-initialized');
-                } catch(e) {
-                    console.error('Slick library is not available!');
+            try {
+                if( !this.isInit ) {
+                    if( undefined !== this.$slider.slick ) {
+                        this.$slider.slick( this.props );
+                        this.isInit = this.$slider.hasClass('slick-initialized');
+                    }
+                    else {
+                        console.error('Slick library is not available!');
+                    }
                 }
+            } catch(e) {
+                console.error(e);
             }
         },
         responsive: function( minWidth ) {
