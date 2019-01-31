@@ -1,5 +1,5 @@
 //  strip units helper function
-@function num($input){
+@function num($input) {
     @return $input/($input * 0 + 1);
 }
 
@@ -84,6 +84,28 @@ $wfhd: (1 / (num($media-fhd) * 0.01)) * 1vw;
 }
 
 /**
+ * Define vertical, horizontal, or both ABSOLUTE* position
+ * * Must be in absolute or relative parent
+ */
+@mixin absolute-center($position: both) {
+    position: absolute;
+
+    @if $position == 'vertical' {
+        top: 50%;
+        transform: translateY(-50%);
+    }
+    @else if $position == 'horizontal' {
+        left: 50%;
+        transform: translate(-50%);
+    }
+    @else if $position == 'both' {
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+}
+
+/**
  * Blocks
  */
 @mixin two-columns($direct: horizontal, $min-media: $media-xl) {
@@ -142,17 +164,22 @@ $retina: "only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (
     }
 }
 
-@mixin img-center($width: 150px, $height: 150px) {
-    position: relative;
-    width: $width;
-    height: $height;
+@mixin thumbnail-center($width, $height) {
+    & {
+        position: relative;
+
+        @if $width {
+            width: $width;
+        }
+
+        @if $height {
+            height: $height;
+        }
+    }
 
     > img {
         display: block;
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        transform: translate(-50%, -50%);
         width: 100%;
+        @include absolute-center();
     }
 }
