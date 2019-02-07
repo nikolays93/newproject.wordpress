@@ -3,8 +3,6 @@ jQuery(document).ready(function($) {
     // Sticky removed in favour native css
 
     var SETTINGS = {
-        stickySelector: '.site-header, .site-navigation',
-        stickyHeight: 45
         appearJs: false, // || true,
         countTo: false, // || '.counter',
     }

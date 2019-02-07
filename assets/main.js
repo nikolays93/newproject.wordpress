@@ -35,46 +35,16 @@
 })()({
   1: [function (require, module, exports) {
     jQuery(document).ready(function ($) {
+      // @see about https://github.com/wilddeer/stickyfill
+      // Sticky removed in favour native css
       var SETTINGS = {
-        sticky: 'everywhere',
-        // false || mobile
-        stickySelector: '.site-header, .site-navigation',
-        stickyHeight: 45 // wow: false, // || 'everywhere' || 'desktop',
-        // appearJs: false, // || true,
-        // countTo: false, // || '.counter',
+        appearJs: false,
+        // || true,
+        countTo: false // || '.counter',
+        // Do you want some animate?
+        // new WOW().init();
 
       };
-
-      if (SETTINGS.stickySelector) {
-        if ('mobile' == SETTINGS.sticky && SETTINGS.is_mobile || SETTINGS.sticky == 'everywhere') {
-          var $panel = $('#wpadminbar, #bx-panel');
-          var space = $panel.length ? $panel.height() : 0;
-          var $container = $(SETTINGS.stickySelector);
-
-          try {
-            if ($container.length) {
-              if (undefined !== $container.sticky) {
-                $container.sticky({
-                  topSpacing: space,
-                  zIndex: 1100,
-                  height: SETTINGS.stickyHeight
-                });
-                $container.parent('.sticky-wrapper').css('margin-bottom', $container.css('margin-bottom'));
-              } else {
-                console.error('Sticky library is not available!');
-              }
-            }
-          } catch (e) {
-            console.error(e);
-          }
-        }
-      }
-
-      if (SETTINGS.wow) {
-        if ('desktop' == SETTINGS.wow && !SETTINGS.is_mobile || SETTINGS.wow == 'everywhere') {
-          new WOW().init();
-        }
-      }
 
       if (SETTINGS.appearJs) {
         if (SETTINGS.countTo) {
@@ -87,6 +57,24 @@
       } else if (SETTINGS.countTo) {
         $(SETTINGS.countTo).countTo();
       }
+
+      window.scrollTo = function (selector) {
+        var returnTop = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 40;
+        var delay = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 500;
+        // try get jQuery object by selector
+        var $obj = $(selector),
+            // try get by classic anchors (if is not found)
+        offset = $obj.length && $obj.offset() || $('a[name=' + selector.slice(1) + ']').offset();
+
+        if (offset) {
+          $('html, body').animate({
+            scrollTop: offset.top - returnTop
+          }, delay);
+        } // not found
+        else {
+            console.log('Element not exists.');
+          }
+      };
       /******************************** Fancybox ********************************/
 
 

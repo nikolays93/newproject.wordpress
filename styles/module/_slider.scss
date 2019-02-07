@@ -6,7 +6,7 @@
         display: block;
         margin: 0 auto 1rem;
         @extend .circle;
-        @include img-center(200px, 200px);
+        @include thumbnail-center(200px, 200px);
         @include scale(120%, 100%);
     }
 
