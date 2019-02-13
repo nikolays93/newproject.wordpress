@@ -31,9 +31,9 @@ module.exports = function () {
 
     paths.src = {
         html: [
-            dir + '**/index.html',
+            dir + '**/index.tpl',
             '!' + assets + '**/*',
-            '!' + dir + 'components/**/*'
+            '!' + dir + 'inc/**/*.tpl'
         ],
         styles: [
             dir + '**/*.scss',
@@ -53,8 +53,8 @@ module.exports = function () {
 
     paths.watch = {
         html: [
-            dir + '**/index.html',
-            dir + 'components/**/*.html'
+            dir + '**/index.tpl',
+            dir + 'inc/**/*.tpl'
         ],
         styles: [
             dir + '*.scss',
@@ -62,7 +62,7 @@ module.exports = function () {
         ],
         scripts: [
             js + raw + '**/*.js',
-            js + raw + 'components/**/*.js',
+            js + raw + 'inc/**/*.js',
         ]
     }
 

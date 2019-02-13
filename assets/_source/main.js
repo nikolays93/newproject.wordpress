@@ -26,6 +26,8 @@ jQuery(document).ready(function($) {
     }
 
     window.scrollTo = function(selector, returnTop = 40, delay = 500) {
+        if( !selector || selector.length <= 1 ) return;
+
         // try get jQuery object by selector
         var $obj = $( selector ),
         // try get by classic anchors (if is not found)

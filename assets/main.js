@@ -61,7 +61,8 @@
       window.scrollTo = function (selector) {
         var returnTop = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 40;
         var delay = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 500;
-        // try get jQuery object by selector
+        if (!selector || selector.length <= 1) return; // try get jQuery object by selector
+
         var $obj = $(selector),
             // try get by classic anchors (if is not found)
         offset = $obj.length && $obj.offset() || $('a[name=' + selector.slice(1) + ']').offset();
