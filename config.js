@@ -1,4 +1,6 @@
 module.exports = function () {
+    global.dir += 'wp-content/themes/project/';
+
     const assets = dir + 'assets/';
     const scss   = dir + 'styles/';
     const js     = dir + 'assets/';
@@ -31,9 +33,7 @@ module.exports = function () {
 
     paths.src = {
         html: [
-            dir + '**/index.tpl',
-            '!' + assets + '**/*',
-            '!' + dir + 'inc/**/*.tpl'
+            dir + 'index.tpl'
         ],
         styles: [
             dir + '**/*.scss',
@@ -53,8 +53,7 @@ module.exports = function () {
 
     paths.watch = {
         html: [
-            dir + '**/index.tpl',
-            dir + 'inc/**/*.tpl'
+            dir + 'index.tpl'
         ],
         styles: [
             dir + '*.scss',
@@ -75,5 +74,3 @@ module.exports = function () {
 
     return paths;
 };
-
-
