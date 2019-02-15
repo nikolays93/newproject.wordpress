@@ -66,7 +66,7 @@ jQuery(document).ready(function($) {
         ERROR: "Контент по запросу не найден. <br/> Пожалуйста, попробуйте позже.",
         PLAY_START: "Начать слайдшоу",
         PLAY_STOP: "Остановить слайдшоу",
-        FULL_SCREEN "На весь экран",
+        FULL_SCREEN: "На весь экран",
         THUMBS: "Эскизы",
         DOWNLOAD: "Скачать",
         SHARE: "Поделиться",
