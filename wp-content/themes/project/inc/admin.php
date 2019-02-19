@@ -13,26 +13,26 @@ add_filter( 'login_headerurl', 'home_url', 10, 0 );
  * Change to own login header logotype
  */
 add_action('login_header', 'login_header_logo_css');
-if( function_exists('login_header_logo_css') ) {
+if( !function_exists('login_header_logo_css') ) {
     function login_header_logo_css() {
-        /**
-         * Get custom logotype attachment ID
-         */
+        /** @var Int $logo_id custom logotype attachment ID */
         if( $logo_id = get_theme_mod( 'custom_logo' ) ) {
             @list($src, $width, $height) = wp_get_attachment_image_src( $logo_id, 'full' );
 
-            printf('
+            if( $src && $width && $height ) {
+            ?>
             <style type="text/css">
                 .login h1 a {
-                    background: url("%s");
-                    width: %dpx;
-                    height: %dpx;
+                    background: url("<?= $src ?>");
+                    width: <?= $width ?>px;
+                    height: <?= $height ?>px;
+                    position: relative;
+                    left: 50%;
+                    transform: translateX(-50%);
                 }
-            </style>',
-                $src,
-                $width,
-                $height
-            );
+            </style>
+            <?php
+            }
         }
     }
 }
