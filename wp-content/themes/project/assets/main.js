@@ -34,6 +34,8 @@
   return r;
 })()({
   1: [function (require, module, exports) {
+    "use strict";
+
     jQuery(document).ready(function ($) {
       // @see about https://github.com/wilddeer/stickyfill
       // Sticky removed in favour native css
