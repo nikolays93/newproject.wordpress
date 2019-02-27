@@ -7,6 +7,4 @@ if( is_show_sidebar() ) {
     woocommerce_get_sidebar();
 }
 ?>
-		</div><!-- .col -->
-	</div><!-- .row -->
-</div><!-- .container -->
+	</main>

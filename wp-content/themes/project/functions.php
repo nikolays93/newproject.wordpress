@@ -143,6 +143,9 @@ if( class_exists('woocommerce') ) {
 // add_action( 'theme_after_title', '_after_title' );
 // function _after_title() {}
 
+add_action( 'before_main_content', 'default_theme_nav', 10, 1 );
+add_action( 'before_main_content', 'breadcrumbs_from_yoast', 10, 1 );
+
 add_filter( 'content_columns', 'content_columns_default', 10, 1 );
 function content_columns_default($columns) {
     if( is_singular() ) {
@@ -156,7 +159,9 @@ function content_columns_default($columns) {
 /**
  * Yoast breadcrumbs instead woocommerce default
  */
+
 remove_action( 'woocommerce_before_main_content', 'woocommerce_breadcrumb', 20 );
+add_action( 'woocommerce_before_main_content', 'woo_breadcrumbs_from_yoast', 5 );
 
 /**
  * Remove it after configuring (if need)

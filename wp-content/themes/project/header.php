@@ -34,9 +34,9 @@
                 <div class="row head-info">
                     <div class="col-4 logotype">
                     <?php
-                        echo ( shortcode_exists( 'company' ) ) ? do_shortcode('[company field="image"]') : get_bloginfo("name");
+                        // echo ( shortcode_exists( 'company' ) ) ? do_shortcode('[company field="image"]') : get_bloginfo("name");
+                        // the_custom_logo();
                         bloginfo( 'description' );
-                        // or the_custom_logo();
                     ?>
                     </div>
                     <div class="col-4 contacts">
@@ -68,8 +68,15 @@
             <!-- </div> -->
         </div><!-- .site-header -->
 
-        <?php default_theme_nav(); ?>
-        <?php if ( !is_front_page() )  breadcrumbs_from_yoast(); ?>
+        <?php
+        /**
+         * Hook: before_main_content.
+         *
+         * @hooked default_theme_nav - 10
+         * may be @hooked breadcrumbs_from_yoast - 10
+         */
+        do_action( 'before_main_content' );
+        ?>
 
         <div id="content" class="site-content">
             <div class="<?= apply_filters('site-container', 'container'); ?>">

@@ -214,7 +214,6 @@ h1 {
   .site-navigation .navbar {
     z-index: 1100;
     background: #fff;
-    padding: 0;
     border-radius: 0; }
     .site-navigation .navbar .nav-link,
     .site-navigation .navbar .nav-link:hover,
@@ -486,5 +485,10 @@ h1 {
     .slider a {
       width: 150px;
       height: 150px; } }
+
+.woocommerce .products ul, .woocommerce ul.products {
+  margin: 0 -15px 1em; }
+  .woocommerce .products ul li.product, .woocommerce ul.products li.product {
+    margin-bottom: 1em; }
 
 /*# sourceMappingURL=assets/maps/template_styles.css.map */
