@@ -19,6 +19,7 @@ $wfhd: (1 / (num($media-fhd) * 0.01)) * 1vw;
 
 /**
  * Fonts
+ * @note we have a some bugs on some devices
  */
 @mixin responsive-font(
     $min,                       // font-size

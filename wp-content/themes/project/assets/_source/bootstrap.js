@@ -1,16 +1,16 @@
 //= ../popper.js/popper.js
 
-//= bootstrap/js/dist/util.js
-//  bootstrap/js/dist/alert.js
-//  bootstrap/js/dist/button.js
-//  bootstrap/js/dist/carousel.js
-//= bootstrap/js/dist/collapse.js
-//  bootstrap/js/dist/modal.js
-//= bootstrap/js/dist/scrollspy.js
-//= bootstrap/js/dist/tab.js
-//  bootstrap/js/dist/toast.js
+//= ../bootstrap/util.js
+//  ../bootstrap/alert.js
+//  ../bootstrap/button.js
+//  ../bootstrap/carousel.js
+//= ../bootstrap/collapse.js
+//  ../bootstrap/modal.js
+//= ../bootstrap/scrollspy.js
+//= ../bootstrap/tab.js
+//  ../bootstrap/toast.js
 
 // ** required popper.js ** //
-//= bootstrap/js/dist/dropdown.js
-//  bootstrap/js/dist/tooltip.js
-//  bootstrap/js/dist/popover.js
+//= ../bootstrap/dropdown.js
+//  ../bootstrap/tooltip.js
+//  ../bootstrap/popover.js
