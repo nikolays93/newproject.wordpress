@@ -3,29 +3,6 @@
 if ( ! defined( 'ABSPATH' ) )
     exit; // Exit if accessed directly
 
-add_action('wp_head', 'template_viewport_html');
-if( !function_exists('template_viewport_html') ) {
-    function template_viewport_html() {
-        if( TPL_RESPONSIVE ) {
-            echo '
-            <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">';
-        }
-        else {
-            $max_width = TPL_VIEWPORT - ( TPL_PADDINGS * 2 );
-
-            echo '
-            <meta name="viewport" content="width='.TPL_VIEWPORT.'">
-            <style type="text/css">
-            .container {
-                max-width: '.$max_width.'px !important;
-                width: '.$max_width.'px !important;
-            }
-            </style>';
-        }
-    }
-}
-
 /**
  * Title template
  */
@@ -145,6 +122,105 @@ if( !function_exists('add_thumbnail_link') ) {
             $thumbnail);
 
         return $thumbnail_html;
+    }
+}
+
+/**
+ * Navigation
+ */
+if( !function_exists('wp_bootstrap_nav') ) {
+    function wp_bootstrap_nav( $args = array() ) {
+        $defaults = array(
+            'menu' => 'main_nav',
+            'menu_class' => 'nav navbar-nav',
+            'theme_location' => 'primary',
+            'walker' => new Bootstrap_Nav_Walker(),
+            // 'allow_click' => get_theme_mod( 'allow_click', false )
+        );
+
+        $args = array_merge($defaults, $args);
+        wp_nav_menu( $args );
+    }
+}
+
+if( !function_exists('default_theme_nav') ) {
+    function default_theme_nav( $args = array(), $before = '<div class="container">', $after = '</div>' ) {
+
+        $args = wp_parse_args( $args, array(
+            'brand' => get_custom_logo(),
+            'container_id' => TPL_RESPONSIVE ? 'default-collapse' : '',
+            'container_class' => TPL_RESPONSIVE ?
+                'collapse navbar-collapse navbar-responsive-collapse' : 'container',
+            'togglerClass' => TPL_RESPONSIVE ? 'hamburger hamburger--elastic' : '',
+            'sectionClass' => 'site-navigation navbar-default',
+            'navClass' => TPL_RESPONSIVE ?
+                'navbar navbar-expand-lg navbar-light bg-light' : 'navbar navbar-default non-responsive';
+        ) );
+
+        printf('<section class="%s"><nav class="%s">%s',
+            esc_attr($args['sectionClass']),
+            esc_attr($args['navClass']),
+            $_before
+        );
+
+        if( $args['togglerClass'] ) :
+        // default bootstrap toggler
+        // <button class="navbar-toggler navbar-toggler-left" type="button" data-toggle="collapse" data-target="#'.$args['container_id'].'">
+        //     <span class="navbar-toggler-icon"></span>
+        // </button>
+        ?>
+        <button type="button"
+            class="navbar-toggler <?= $args['togglerClass'] ?>"
+            data-toggle="collapse"
+            data-target="#<?= $args['container_id'] ?>"
+            aria-controls="<?= $args['container_id'] ?>"
+            aria-expanded="false"
+            aria-label="Toggle navigation">
+            <span class="hamburger-box">
+                <span class="hamburger-inner"></span>
+            </span>
+        </button>
+        <?php
+        endif;
+
+        echo $args['brand'];
+        wp_bootstrap_nav( $args );
+        printf('%s</nav></section>', $after);
+    }
+}
+
+if( !function_exists('wp_footer_links') ) {
+    function wp_footer_links() {
+        wp_nav_menu(
+            array(
+                'menu' => 'footer_links', /* menu name */
+                'theme_location' => 'footer', /* where in the theme it's assigned */
+                'container_class' => 'footer clearfix', /* container class */
+            )
+        );
+    }
+}
+
+/**
+* Принятые настройки постраничной навигации
+*/
+if( !function_exists('the_template_pagination') ) {
+    function the_template_pagination( $echo = true ) {
+        $args = apply_filters( 'theme_template_pagination', array(
+            'show_all'     => false,
+            'end_size'     => 1,
+            'mid_size'     => 1,
+            'prev_next'    => true,
+            'prev_text'    => '« Пред.',
+            'next_text'    => 'След. »',
+            'add_args'     => false,
+        ) );
+
+        if( ! $echo ) {
+            return get_the_posts_pagination($args);
+        }
+
+        the_posts_pagination($args);
     }
 }
 
@@ -272,114 +348,5 @@ if( !function_exists('is_show_sidebar') ) {
         }
 
         return apply_filters( 'is_show_sidebar', $show_sidebar );
-    }
-}
-
-
-/*******************************************************************************
- * Default Template Filters and Actions
- */
-add_action( 'dynamic_sidebar_before', 'aside_start', 10 );
-if( !function_exists('aside_start') ) {
-    function aside_start() {
-        echo '</div>';
-        echo '<div id="secondary" class="sidebar col-12 col-lg-3 order-lg-2">';
-        echo '    <aside class="widget-area" role="complementary">';
-    }
-}
-
-add_action( 'dynamic_sidebar_after',  'aside_end', 10 );
-if( !function_exists('aside_end') ) {
-    function aside_end() {
-        echo '    </aside>';
-    }
-}
-
-add_filter( 'post_class', 'add_theme_post_class', 10, 3 );
-if( !function_exists('add_theme_post_class') ) {
-    function add_theme_post_class($classes, $class, $post_id) {
-        if( 'product' !== get_post_type() ) {
-            if( is_singular() ) {
-                $columns = apply_filters( 'single_content_columns', 1 );
-            }
-            else {
-                $columns = apply_filters( 'content_columns', 1 );
-            }
-
-            $classes[] = function_exists('get_default_bs_columns') ?
-                get_default_bs_columns( (int)$columns ) : array();
-        }
-
-        return $classes;
-    }
-}
-
-/**
- * Русскоязычная дата
- */
-add_filter('the_time', 'the_russian_date');
-add_filter('get_the_time', 'the_russian_date');
-add_filter('the_date', 'the_russian_date');
-add_filter('get_the_date', 'the_russian_date');
-add_filter('the_modified_time', 'the_russian_date');
-add_filter('get_the_modified_date', 'the_russian_date');
-add_filter('get_post_time', 'the_russian_date');
-add_filter('get_comment_date', 'the_russian_date');
-
-if( !function_exists('the_russian_date') ) {
-    function the_russian_date( $tdate = '' ) {
-        if ( substr_count($tdate , '---') > 0 ) {
-            return str_replace('---', '', $tdate);
-        }
-
-        $treplace = array (
-            "Январь" => "января",
-            "Февраль" => "февраля",
-            "Март" => "марта",
-            "Апрель" => "апреля",
-            "Май" => "мая",
-            "Июнь" => "июня",
-            "Июль" => "июля",
-            "Август" => "августа",
-            "Сентябрь" => "сентября",
-            "Октябрь" => "октября",
-            "Ноябрь" => "ноября",
-            "Декабрь" => "декабря",
-
-            "January" => "января",
-            "February" => "февраля",
-            "March" => "марта",
-            "April" => "апреля",
-            "May" => "мая",
-            "June" => "июня",
-            "July" => "июля",
-            "August" => "августа",
-            "September" => "сентября",
-            "October" => "октября",
-            "November" => "ноября",
-            "December" => "декабря",
-
-            "Sunday" => "воскресенье",
-            "Monday" => "понедельник",
-            "Tuesday" => "вторник",
-            "Wednesday" => "среда",
-            "Thursday" => "четверг",
-            "Friday" => "пятница",
-            "Saturday" => "суббота",
-
-            "Sun" => "воскресенье",
-            "Mon" => "понедельник",
-            "Tue" => "вторник",
-            "Wed" => "среда",
-            "Thu" => "четверг",
-            "Fri" => "пятница",
-            "Sat" => "суббота",
-
-            "th" => "",
-            "st" => "",
-            "nd" => "",
-            "rd" => ""
-            );
-        return strtr($tdate, $treplace);
     }
 }

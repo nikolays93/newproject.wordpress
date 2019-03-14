@@ -129,6 +129,7 @@ require_once THEME . '/inc/admin.php';      // * Фильтры и функци�
 require_once THEME . '/inc/tpl.php';        // * Основные функции вывода информации в шаблон
 require_once THEME . '/inc/bootstrap.php';  // * Поддержка bootstrap framework 4.*
 require_once THEME . '/inc/gallery.php';    // * Шаблон встроенной галереи wordpress
+require_once THEME . '/inc/hooks.php';      // * Предустановленные Фильтры и хуки
 
 if( class_exists('woocommerce') ) {
     require_once THEME . '/inc/woocommerce.php';
