@@ -26,22 +26,6 @@ if( !function_exists('template_viewport_html') ) {
     }
 }
 
-add_action( 'dynamic_sidebar_before', 'aside_start', 10 );
-if( !function_exists('aside_start') ) {
-    function aside_start() {
-        echo '</div>';
-        echo '<div id="secondary" class="sidebar col-12 col-lg-3 order-lg-2">';
-        echo '    <aside class="widget-area" role="complementary">';
-    }
-}
-
-add_action( 'dynamic_sidebar_after',  'aside_end', 10 );
-if( !function_exists('aside_end') ) {
-    function aside_end() {
-        echo '    </aside>';
-    }
-}
-
 /**
  * Title template
  */
@@ -293,8 +277,24 @@ if( !function_exists('is_show_sidebar') ) {
 
 
 /*******************************************************************************
- * Template Filters and Actions
+ * Default Template Filters and Actions
  */
+add_action( 'dynamic_sidebar_before', 'aside_start', 10 );
+if( !function_exists('aside_start') ) {
+    function aside_start() {
+        echo '</div>';
+        echo '<div id="secondary" class="sidebar col-12 col-lg-3 order-lg-2">';
+        echo '    <aside class="widget-area" role="complementary">';
+    }
+}
+
+add_action( 'dynamic_sidebar_after',  'aside_end', 10 );
+if( !function_exists('aside_end') ) {
+    function aside_end() {
+        echo '    </aside>';
+    }
+}
+
 add_filter( 'post_class', 'add_theme_post_class', 10, 3 );
 if( !function_exists('add_theme_post_class') ) {
     function add_theme_post_class($classes, $class, $post_id) {
