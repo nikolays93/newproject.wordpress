@@ -27,7 +27,7 @@
         <p class="browserupgrade">Вы используете <strong>устаревший</strong> браузер. Пожалуйста <a href="https://browsehappy.com/">обновите ваш браузер</a> для лучшего отображения и безопасности.</p>
     <![endif]-->
     <div id="page" class="site">
-        <a class="skip-link screen-reader-text" href="#content"><?php esc_html_e( 'Skip to content', '_s' ); ?></a>
+        <!-- <a class="skip-link screen-reader-text sr-only" href="#content"><?php esc_html_e( 'Skip to content', '_s' ); ?></a> -->
 
         <div id="masthead" class="container site-header">
             <!-- <div itemscope itemtype="http://schema.org/LocalBusiness"> -->

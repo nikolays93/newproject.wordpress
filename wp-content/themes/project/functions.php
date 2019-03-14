@@ -73,8 +73,8 @@ class ProjectTheme
         /**
          * Bootstrap framework
          */
-        wp_enqueue_script('bootstrap', TPL . '/assets/bootstrap.min.js', array('jquery'), '4.1', true);
-        wp_enqueue_style( 'bootstrap-style', TPL . '/assets/bootstrap.min.css', array() );
+        wp_enqueue_script('bootstrap', TPL . '/assets/bootstrap'. $is_compressed .'.js', array('jquery'), '4.1', true);
+        wp_enqueue_style( 'bootstrap-style', TPL . '/assets/bootstrap'. $is_compressed .'.css', array() );
         // */
 
         /**
@@ -92,8 +92,8 @@ class ProjectTheme
         wp_enqueue_style( 'slick-theme', TPL . 'assets/slick/slick-theme.css', array() );
         // */
 
-        wp_enqueue_style( 'style', TPL . '/template_styles.css', array(), @filemtime( THEME . '/template_styles.scss' ) );
-        wp_enqueue_script('script', TPL . '/assets/main.js', array('jquery'), '1.0', true);
+        wp_enqueue_style( 'style', TPL . '/template_styles'.$is_compressed.'.css', array(), @filemtime( THEME . '/template_styles.scss' ) );
+        wp_enqueue_script('script', TPL . '/assets/main'.$is_compressed.'.js', array('jquery'), '1.0', true);
     }
 
     static function head_cleanup()

@@ -154,13 +154,13 @@ if( !function_exists('default_theme_nav') ) {
             'togglerClass' => TPL_RESPONSIVE ? 'hamburger hamburger--elastic' : '',
             'sectionClass' => 'site-navigation navbar-default',
             'navClass' => TPL_RESPONSIVE ?
-                'navbar navbar-expand-lg navbar-light bg-light' : 'navbar navbar-default non-responsive';
+                'navbar navbar-expand-lg navbar-light bg-light' : 'navbar navbar-default non-responsive',
         ) );
 
         printf('<section class="%s"><nav class="%s">%s',
             esc_attr($args['sectionClass']),
             esc_attr($args['navClass']),
-            $_before
+            $before
         );
 
         if( $args['togglerClass'] ) :

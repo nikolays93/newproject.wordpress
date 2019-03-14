@@ -48,36 +48,12 @@ jQuery(document).ready(function($) {
     }
 
     /******************************** Fancybox ********************************/
-    $.fancybox.defaults.buttons = [
-        "zoom",
-        //"share",
-        "slideShow",
-        "fullScreen",
-        //"download",
-        // "thumbs",
-        "close"
-    ];
-
-    $.fancybox.defaults.lang = "ru";
-    $.fancybox.defaults.i18n.ru = {
-        CLOSE: "Закрыть",
-        NEXT: "Следующий",
-        PREV: "Предыдущий",
-        ERROR: "Контент по запросу не найден. <br/> Пожалуйста, попробуйте позже.",
-        PLAY_START: "Начать слайдшоу",
-        PLAY_STOP: "Остановить слайдшоу",
-        FULL_SCREEN: "На весь экран",
-        THUMBS: "Эскизы",
-        DOWNLOAD: "Скачать",
-        SHARE: "Поделиться",
-        ZOOM: "Приблизить"
-    }
-
     /**
      * Fancybox preloader
      */
     var preloaderClass = 'fb-loading';
     window.showPreloader = function( message ) {
+        if( !$.fancybox ) return false;
         if(!message) message = 'Загрузка..';
         var $preload = $('<p>'+ message +'</p>').css({
             'margin-top': '50px',
@@ -108,6 +84,7 @@ jQuery(document).ready(function($) {
     };
 
     window.hidePreloader = function() {
+        if( !$.fancybox ) return false;
         var $body = $('body');
 
         if( $body.hasClass(preloaderClass) ) {
