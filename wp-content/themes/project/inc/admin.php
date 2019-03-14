@@ -71,8 +71,8 @@ if( !function_exists('custom_admin_footer') ) {
             return $msg;
         }
 
-        $dev_message = sprintf( '<span id="footer-thankyou">%s</span>.',
-            __('Developed by %s', 'theme'),
+        $dev_message = sprintf( '<span id="footer-thankyou">%s %s</span>.',
+            __('Developed by', 'theme'),
             DEVELOPER_NAME
         );
 
