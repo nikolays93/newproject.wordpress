@@ -135,71 +135,6 @@ if( !function_exists('get_default_bs_columns') ) {
 /**
  * Navigation
  */
-if( !function_exists('default_theme_nav') ) {
-    function default_theme_nav( $args = array(), $brand = '', $before = '', $after = '', $togglerClass = 'hamburger hamburger--elastic' )
-    {
-        if( !is_array($args) ) $args = array();
-
-        if( empty($args) ) {
-            if( TPL_RESPONSIVE ) {
-                $args['container_class'] = 'collapse navbar-collapse navbar-responsive-collapse';
-                $args['container_id'] = 'default-collapse';
-            }
-            else {
-                // reset toggler
-                $togglerClass = '';
-                $args['container_class'] = 'container';
-            }
-        }
-
-        if( empty($before) && empty($after) ) {
-            if( TPL_RESPONSIVE ) {
-                $before = '<section class="site-navigation navbar-default"><nav class="navbar navbar-expand-lg navbar-light bg-light"><div class="container">';
-                $after  = '</div></nav></section>';
-            }
-            else {
-                $before = '<section class="site-navigation navbar-default"><nav class="navbar navbar-default non-responsive">';
-                $after  = '</nav></section>';
-            }
-        }
-
-        if( !$brand ) {
-            $brand = get_custom_logo();
-
-            $atts = 'class="$1 navbar-brand hidden-lg-up text-center text-primary"';
-            if( false !== strpos($brand, 'title') ) {
-                $atts .= ' title="'. get_bloginfo("description") .'"';
-            }
-
-            $brand = preg_replace('/class=["\'](.+)["\']/', $atts, $brand);
-        }
-
-        echo $before;
-        if( $togglerClass ) :
-        // default bootstrap toggler
-        // <button class="navbar-toggler navbar-toggler-left" type="button" data-toggle="collapse" data-target="#'.$args['container_id'].'">
-        //     <span class="navbar-toggler-icon"></span>
-        // </button>
-        ?>
-        <button type="button"
-            class="navbar-toggler <?= $togglerClass ?>"
-            data-toggle="collapse"
-            data-target="#<?= $args['container_id'] ?>"
-            aria-controls="<?= $args['container_id'] ?>"
-            aria-expanded="false"
-            aria-label="Toggle navigation">
-            <span class="hamburger-box">
-                <span class="hamburger-inner"></span>
-            </span>
-        </button>
-        <?php
-        endif;
-        echo $brand;
-        echo wp_bootstrap_nav( $args );
-        echo $after;
-    }
-}
-
 if( !function_exists('wp_bootstrap_nav') ) {
     function wp_bootstrap_nav( $args = array() ) {
         $defaults = array(
@@ -212,6 +147,52 @@ if( !function_exists('wp_bootstrap_nav') ) {
 
         $args = array_merge($defaults, $args);
         wp_nav_menu( $args );
+    }
+}
+
+if( !function_exists('default_theme_nav') ) {
+    function default_theme_nav( $args = array(), $before = '<div class="container">', $after = '</div>' ) {
+
+        $args = wp_parse_args( $args, array(
+            'brand' => get_custom_logo(),
+            'container_id' => TPL_RESPONSIVE ? 'default-collapse' : '',
+            'container_class' => TPL_RESPONSIVE ?
+                'collapse navbar-collapse navbar-responsive-collapse' : 'container',
+            'togglerClass' => TPL_RESPONSIVE ? 'hamburger hamburger--elastic' : '',
+            'sectionClass' => 'site-navigation navbar-default',
+            'navClass' => TPL_RESPONSIVE ?
+                'navbar navbar-expand-lg navbar-light bg-light' : 'navbar navbar-default non-responsive';
+        ) );
+
+        printf('<section class="%s"><nav class="%s">%s',
+            esc_attr($args['sectionClass']),
+            esc_attr($args['navClass']),
+            $_before
+        );
+
+        if( $args['togglerClass'] ) :
+        // default bootstrap toggler
+        // <button class="navbar-toggler navbar-toggler-left" type="button" data-toggle="collapse" data-target="#'.$args['container_id'].'">
+        //     <span class="navbar-toggler-icon"></span>
+        // </button>
+        ?>
+        <button type="button"
+            class="navbar-toggler <?= $args['togglerClass'] ?>"
+            data-toggle="collapse"
+            data-target="#<?= $args['container_id'] ?>"
+            aria-controls="<?= $args['container_id'] ?>"
+            aria-expanded="false"
+            aria-label="Toggle navigation">
+            <span class="hamburger-box">
+                <span class="hamburger-inner"></span>
+            </span>
+        </button>
+        <?php
+        endif;
+
+        echo $args['brand'];
+        wp_bootstrap_nav( $args );
+        printf('%s</nav></section>', $after);
     }
 }
 
