@@ -30,7 +30,8 @@ add_filter( 'woocommerce_enqueue_styles', 'dp_dequeue_styles' );
 function dp_dequeue_styles( $enqueue_styles ) {
     // unset( $enqueue_styles['woocommerce-general'] );     // Отключение общих стилей
     unset( $enqueue_styles['woocommerce-layout'] );      // Отключение стилей шаблонов
-    // unset( $enqueue_styles['woocommerce-smallscreen'] ); // Отключение оптимизации для маленьких экранов
+    unset( $enqueue_styles['woocommerce-smallscreen'] ); // Отключение оптимизации для маленьких экранов
+
     return $enqueue_styles;
 }
 
@@ -103,16 +104,14 @@ function woo_change_tabs( $tabs ) {
 
 	if(isset($post->post_content) && strlen($post->post_content) < 55) {
 		unset($tabs['description']);
-	} else {
+	}
+    else {
 		if(isset($tabs['description']))
 			$tabs['description']['title'] = 'Описание товара';
 	}
 
-	if(isset($tabs['reviews']))
-		unset( $tabs['reviews'] );
-
-	if(isset($tabs['additional_information']))
-		unset( $tabs['additional_information'] );
+	if(isset($tabs['reviews'])) unset( $tabs['reviews'] );
+	if(isset($tabs['additional_information'])) unset( $tabs['additional_information'] );
 
 	return $tabs;
 }
@@ -157,8 +156,10 @@ function change_wc_order_statuses( $order_statuses ) {
     //  'wc-failed'     => _x( 'Failed', 'Order status', 'woocommerce' ),
     //  );
 
-    if( isset($order_statuses['wc-completed']) )
+    if( isset($order_statuses['wc-completed']) ) {
+        // Выполнен to Оплачен
         $order_statuses['wc-completed'] = _x( 'Оплачен', 'Order status', 'woocommerce' );
+    }
 
     return $order_statuses;
 }
