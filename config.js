@@ -54,8 +54,9 @@ global.paths.src = {
         '!' + dir + 'inc/**/*.tpl'
     ],
     styles: [
-        dir + '**/*.scss',
-        '!' + scss + '**/*'
+        '!' + scss + '**/_*.scss',
+        scss + '**/*.scss',
+        dir + '*.scss'
     ],
     scripts: js + raw + 'main.js',
 
@@ -186,10 +187,10 @@ export const smartGrid = cb => {
  * Assets
  */
 export const bsStyle = () => src('./node_modules/bootstrap/scss/**/*')
-    .pipe(dest(scss + 'module/bootstrap/'));
+    .pipe(dest(assets + 'bootstrap/scss/'));
 
 export const bsScript = () => src('./node_modules/bootstrap/js/dist/**/*')
-    .pipe(dest(assets + 'bootstrap/'));
+    .pipe(dest(assets + 'bootstrap/js/'));
 
 export const popper = () => src('./node_modules/popper.js/dist/umd/**/*')
     .pipe(dest(assets + 'popper.js/'));
@@ -198,7 +199,7 @@ export const fancybox = () => src('./node_modules/@fancyapps/fancybox/dist/**/*'
     .pipe(dest(assets + 'fancybox/'));
 
 export const hamburgers = () => src('./node_modules/hamburgers/_sass/hamburgers/**/*')
-    .pipe(dest(scss + 'module/hamburgers/'));
+    .pipe(dest(assets + 'hamburgers/'));
 
 export const jquery = () => src('./node_modules/jquery/dist/**/*')
     .pipe(dest(assets + 'jquery/'));

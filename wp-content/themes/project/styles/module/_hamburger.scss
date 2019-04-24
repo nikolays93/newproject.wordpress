@@ -15,7 +15,7 @@ $hamburger-active-hover-filter: $hamburger-hover-filter !default;
 
 $hamburger-types: ( elastic );
 
-@import "hamburgers/hamburgers";
+@import "../../assets/hamburgers/hamburgers";
 
 .hamburger {
     &:focus {
