@@ -20,7 +20,7 @@
     <!-- <link rel="apple-touch-icon" href="icon.png"> -->
     <!-- Place favicon.ico in the root directory -->
 
-    <script>window.jQuery || document.write('<script src="assets/jquery.min.js"><\/script>')</script>
+    <script>window.jQuery || document.write('<script src="assets/jquery/jquery.min.js"><\/script>')</script>
 </head>
 <body <?php body_class(); ?>>
     <!--[if lte IE 9]>

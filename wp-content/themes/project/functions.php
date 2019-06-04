@@ -92,8 +92,18 @@ class ProjectTheme
         wp_enqueue_style( 'slick-theme', TPL . 'assets/slick/slick-theme.css', array() );
         // */
 
-        wp_enqueue_style( 'style', TPL . '/template_styles'.$minify.'.css', array(), @filemtime( THEME . '/template_styles.scss' ) );
-        wp_enqueue_script('script', TPL . '/assets/main'.$minify.'.js', array('jquery'), '1.0', true);
+        wp_enqueue_style( 'hamburgers', TPL . '/assets/hamburgers'.$minify.'.css' );
+
+        if( is_front_page() ) {
+            $path = '/css/front'.$minify.'.css';
+            wp_enqueue_style( 'front-style', TPL . $path, array(), @filemtime( THEME . $path ) );
+        }
+
+        $path = '/template_styles'.$minify.'.css';
+        wp_enqueue_style( 'style', TPL . $path, array(), @filemtime( THEME . $path ) );
+
+        $path = '/assets/main'.$minify.'.js';
+        wp_enqueue_script('script', TPL . $path, array('jquery'), @filemtime( THEME . $path ), true);
     }
 
     static function head_cleanup()
