@@ -4,14 +4,37 @@ if ( ! defined( 'ABSPATH' ) )
     exit; // Exit if accessed directly
 
 /**
+ * Set singular related products id list
+ */
+add_filter('woocommerce_related_products', 'set_woo_related_products_query', 10, 3);
+function set_woo_related_products_query($__related_posts, $product_id, $args) {
+    if( is_singular('product') ) {
+        global $related_posts;
+
+        if( empty($related_posts) ) $related_posts = $__related_posts;
+    }
+
+    return $__related_posts;
+}
+
+
+/**
  * Set default bootstrap column class
  */
 add_filter( 'post_class', 'add_theme_product_post_class', 10, 3 );
 function add_theme_product_post_class($classes, $class, $post_id) {
-    if( 'product' === get_post_type() && ! is_singular() ) {
-        $columns = apply_filters( 'product_content_columns', get_theme_mod( 'woocommerce_catalog_columns', 4 ) );
+    global $related_posts;
+
+    $is_related = is_singular('product') && in_array($post_id, $related_posts);
+
+    if( 'product' === get_post_type() && (!is_singular('product') || $is_related) ) {
+        $columns = apply_filters( 'product_content_columns', get_theme_mod( 'woocommerce_catalog_columns', 4 ), $classes );
         $classes[] = function_exists('get_default_bs_columns') ?
             get_default_bs_columns( (int)$columns ) : '';
+    }
+
+    if( $is_related ) {
+        $classes[] = 'product-related';
     }
 
     return $classes;
