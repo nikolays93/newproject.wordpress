@@ -157,6 +157,15 @@ if( !function_exists('default_theme_nav') ) {
                 'navbar navbar-expand-lg navbar-light bg-light' : 'navbar navbar-default non-responsive',
         ) );
 
+        if( !$args['brand'] ) {
+            $args['brand'] = sprintf(
+                '<a class="navbar-brand hidden-lg-up text-center" title="%s" href="%s">%s</a>',
+                get_bloginfo("description"),
+                get_bloginfo('url'),
+                get_bloginfo("name")
+            );
+        }
+
         printf('<section class="%s"><nav class="%s">%s',
             esc_attr($args['sectionClass']),
             esc_attr($args['navClass']),
