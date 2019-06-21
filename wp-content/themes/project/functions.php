@@ -142,6 +142,7 @@ require_once THEME . '/inc/gallery.php';    // * Шаблон встроенно
 require_once THEME . '/inc/hooks.php';      // * Предустановленные Фильтры и хуки
 
 if( class_exists('woocommerce') ) {
+    require_once THEME . '/woocommerce/functions.php';
     require_once THEME . '/inc/woocommerce.php';
     require_once THEME . '/inc/wc-customizer.php';
 }
@@ -166,16 +167,13 @@ function content_columns_default($columns) {
     return $columns;
 }
 
-/********************** Woocommerce Actions and Filters ***********************/
 /**
- * Yoast breadcrumbs instead woocommerce default
+ * Development server attention
  */
-
-remove_action( 'woocommerce_before_main_content', 'woocommerce_breadcrumb', 20 );
-add_action( 'woocommerce_before_main_content', 'woo_breadcrumbs_from_yoast', 5 );
-
-/**
- * Remove it after configuring (if need)
- */
-remove_action( 'woocommerce_before_shop_loop', 'woocommerce_result_count', 20 );
-remove_action( 'woocommerce_before_shop_loop', 'woocommerce_catalog_ordering', 30 );
+add_action( 'wp_footer', 'local_attention' );
+function local_attention() {
+    if( is_local() ) {
+        $top = is_user_logged_in() ? '32px' : '0';
+        echo '<h3 style="position: fixed;top: '.$top.';">Это локальный сервер</h3>';
+    }
+}

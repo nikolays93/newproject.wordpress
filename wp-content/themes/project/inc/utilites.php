@@ -1,16 +1,18 @@
 <?php
 
 /**
- * Get formatted developer title html string
+ * Get real user ip
  */
-if( !function_exists( 'get_developer_title' ) ) {
-    function get_developer_title() {
-        return sprintf('<a%s href="%s" target="_blank">%s%s</a>',
-            apply_filters( 'developer_link_need_nofollow', false ) ? ' rel="nofollow"' : '',
-            defined('DEVELOPER_LINK') ? DEVELOPER_LINK : '#',
-            defined('DEVELOPER_NAME') ? DEVELOPER_NAME : '',
-            defined('DEVELOPER_SLOGAN') ? ' - ' . DEVELOPER_SLOGAN : ''
-        );
+if( !function_exists('get_current_ip') ) {
+    function get_current_ip() {
+        if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
+            $ip = $_SERVER['HTTP_CLIENT_IP'];
+        } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+            $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+        } else {
+            $ip = $_SERVER['REMOTE_ADDR'];
+        }
+        return $ip;
     }
 }
 
@@ -65,6 +67,42 @@ if( !function_exists('the_thumbnail') ) {
 }
 
 /**
+ * Получить стандартные классы ячейки bootstrap сетки
+ */
+if( !function_exists('get_default_bs_columns') ) {
+    function get_default_bs_columns($columns_count="4", $non_responsive=true) {
+        switch ($columns_count) {
+            case '1': $col = 'col-12'; break;
+            case '2': $col = (!$non_responsive) ? 'col-6 col-sm-6 col-md-6 col-lg-6' : 'col-6'; break;
+            case '3': $col = (!$non_responsive) ? 'col-12 col-sm-6 col-md-4 col-lg-4' : 'col-4'; break;
+            case '4': $col = (!$non_responsive) ? 'col-6 col-sm-4 col-md-3 col-lg-3' : 'col-3'; break;
+            case '5': $col = (!$non_responsive) ? 'col-12 col-sm-6 col-md-2-4 col-lg-2-4' : 'col-2-4'; break; // be careful
+            case '6': $col = (!$non_responsive) ? 'col-6 col-sm-4 col-md-2 col-lg-2' : 'col-2'; break;
+            case '12': $col= (!$non_responsive) ? 'col-4 col-sm-3 col-md-1 col-lg-1' : 'col-1'; break;
+
+            default: $col = false; break;
+        }
+        return $col;
+    }
+}
+
+/**
+ * Get full depth post ID (after front page)
+ */
+if( !function_exists('get_parent_page_id') ) {
+    function get_parent_page_id( $post ) {
+        if ($post->post_parent)  {
+            $ancestors = get_post_ancestors( $post->ID );
+            $parent = $ancestors[ count($ancestors) - 1 ];
+        } else {
+            $parent = $post->ID;
+        }
+
+        return $parent;
+    }
+}
+
+/**
  * Check sub terms exists
  */
 if( !function_exists('has_children_terms') ) {
@@ -97,42 +135,6 @@ if( !function_exists('has_children_terms') ) {
 }
 
 /**
- * Get full depth post ID (after front page)
- */
-if( !function_exists('get_parent_page_id') ) {
-    function get_parent_page_id( $post ) {
-        if ($post->post_parent)  {
-            $ancestors = get_post_ancestors( $post->ID );
-            $parent = $ancestors[ count($ancestors) - 1 ];
-        } else {
-            $parent = $post->ID;
-        }
-
-        return $parent;
-    }
-}
-
-/**
- * Получить стандартные классы ячейки bootstrap сетки
- */
-if( !function_exists('get_default_bs_columns') ) {
-    function get_default_bs_columns($columns_count="4", $non_responsive=true) {
-        switch ($columns_count) {
-            case '1': $col = 'col-12'; break;
-            case '2': $col = (!$non_responsive) ? 'col-6 col-sm-6 col-md-6 col-lg-6' : 'col-6'; break;
-            case '3': $col = (!$non_responsive) ? 'col-12 col-sm-6 col-md-4 col-lg-4' : 'col-4'; break;
-            case '4': $col = (!$non_responsive) ? 'col-6 col-sm-4 col-md-3 col-lg-3' : 'col-3'; break;
-            case '5': $col = (!$non_responsive) ? 'col-12 col-sm-6 col-md-2-4 col-lg-2-4' : 'col-2-4'; break; // be careful
-            case '6': $col = (!$non_responsive) ? 'col-6 col-sm-4 col-md-2 col-lg-2' : 'col-2'; break;
-            case '12': $col= (!$non_responsive) ? 'col-4 col-sm-3 col-md-1 col-lg-1' : 'col-1'; break;
-
-            default: $col = false; break;
-        }
-        return $col;
-    }
-}
-
-/**
  * Вернет объект таксономии если на странице есть категории товара
  * @param  string $taxonomy название таксаномии (Не уверен что логично изменять)
  * @return array  ids дочерних категорий
@@ -160,5 +162,28 @@ if( !function_exists('get_children_product_terms') ) {
         }
 
         return $children;
+    }
+}
+
+/**
+ * It's development server
+ */
+if( !function_exists('is_local') ) {
+    function is_local() {
+        return in_array(get_current_ip(), array('127.0.0.1', '94.181.95.199'));
+    }
+}
+
+/**
+ * Get formatted developer title html string
+ */
+if( !function_exists( 'get_developer_title' ) ) {
+    function get_developer_title() {
+        return sprintf('<a%s href="%s" target="_blank">%s%s</a>',
+            apply_filters( 'developer_link_need_nofollow', false ) ? ' rel="nofollow"' : '',
+            defined('DEVELOPER_LINK') ? DEVELOPER_LINK : '#',
+            defined('DEVELOPER_NAME') ? DEVELOPER_NAME : '',
+            defined('DEVELOPER_SLOGAN') ? ' - ' . DEVELOPER_SLOGAN : ''
+        );
     }
 }
