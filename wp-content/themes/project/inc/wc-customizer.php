@@ -25,7 +25,7 @@ add_filter( 'post_class', 'add_theme_product_post_class', 10, 3 );
 function add_theme_product_post_class($classes, $class, $post_id) {
     global $related_posts;
 
-    $is_related = is_singular('product') && in_array($post_id, $related_posts);
+    $is_related = is_singular('product') && is_array($related_posts) && in_array($post_id, $related_posts);
 
     if( 'product' === get_post_type() && (!is_singular('product') || $is_related) ) {
         $columns = apply_filters( 'product_content_columns', get_theme_mod( 'woocommerce_catalog_columns', 4 ), $classes );
@@ -102,16 +102,16 @@ function woo_remove_category_products_count( $count_html ) {
 
 add_action( 'customize_register', 'print_wc_settings' );
 function print_wc_settings( $wp_customize ) {
-    $section = 'display_wc_options';
+    $section = 'wc_advanced_settings';
 
     $wp_customize->add_section(
         $section,
         array(
-            'title'     => 'Настройки WooCommerce',
-            'priority'  => 60,
-            'description' => 'Настройки шаблона WooCommerce'
-            )
-        );
+            'title'    => 'Advanced settings',
+            'priority' => 999,
+            'panel'    => 'woocommerce',
+        )
+    );
 
     /**
      * @see customize_per_page()
