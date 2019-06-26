@@ -73,3 +73,12 @@ function change_menu_slider() {
     $last_submenu_item = array_pop($submenu['edit.php?post_type=slide']);
     array_unshift($submenu['edit.php?post_type=slide'], $last_submenu_item);
 }
+
+add_filter( 'slider_row_actions', 'slider_before_actions', 10, 2 );
+function slider_before_actions($actions, $tag) {
+    echo '<div class="form-field">';
+    printf('<input type="text" onclick="this.select()" value=\'[slider id="%d" columns="4"]\'>', $tag->term_id);
+    echo '</div>';
+
+    return $actions;
+}
