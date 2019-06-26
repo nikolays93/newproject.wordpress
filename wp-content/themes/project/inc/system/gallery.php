@@ -8,21 +8,19 @@ if( !function_exists('theme_gallery_callback') ) {
     function theme_gallery_callback($output, $att) {
         global $post;
 
-        if (isset($att['orderby'])) {
-            $att['orderby'] = sanitize_sql_orderby($att['orderby']);
-            if (!$att['orderby'])
-                unset($att['orderby']);
+        if ( isset($att['orderby']) && ! $att['orderby'] = sanitize_sql_orderby($att['orderby']) ) {
+            unset($att['orderby']);
         }
 
         $att = shortcode_atts(array(
             'order'        => 'ASC',
             'orderby'      => 'menu_order ID',
             'gallery_id'   => $post->ID,
-            'itemtag'      => 'div',//'dl',
+            'itemtag'      => 'div', // dafault: 'dl'
             'itemclass'    => 'row text-center',
-            'icontag'      => 'div',//'dt',
+            'icontag'      => 'div', // dafault: 'dt'
             'iconclass'    => '',
-            'captiontag'   => 'div',//'dd',
+            'captiontag'   => 'div', // dafault: 'dd'
             'captionclass' => 'desc',
             'linkclass'    => 'zoom',
             'columns'      => 3,
@@ -31,14 +29,14 @@ if( !function_exists('theme_gallery_callback') ) {
             'exclude'      => '',
         ), $att);
 
-        if ('RAND' == $att['order'])
-            $orderby = 'none';
+        if ('RAND' == $att['order']) $orderby = 'none';
 
         if ( $att['include'] ) {
-          // $include = preg_replace('/[^0-9,]+/', '', $include);
-          // $include = array_filter( explode(',', $include), 'intval' );
+            $include = preg_replace('/[^0-9,]+/', '', $att['include']);
+            $include = array_filter( explode(',', $include), 'intval' );
+
             $attachments = get_posts( array(
-                'include'        => $att['include'],
+                'include'        => $include,
                 'post_status'    => 'inherit',
                 'post_type'      => 'attachment',
                 'post_mime_type' => 'image',
@@ -49,27 +47,26 @@ if( !function_exists('theme_gallery_callback') ) {
 
         if ( empty($attachments) ) return '';
 
-        if( ! $att['iconclass'] && ! $iconclass = get_default_bs_columns( $att['columns'] ) ) {
-            $iconclass = 'item';
+        if( ! $att['iconclass'] ) {
+            $att['iconclass'] = function_exists('get_default_bs_columns') ?
+                get_default_bs_columns( $att['columns'] ) : 'item';
         }
 
         $output = array();
         $output[] = '<section class="gallery-wrapper">';
-        $output[] = "\t".'<div class="preloader"></div>';
+        $output[] = "\t".'<div class="preloader" style="display: none;"></div>';
         $output[] = "\t".sprintf('<%s class="%s">', esc_html($att['itemtag']), esc_attr($att['itemclass']) );
 
-        foreach ($attachments as $attachment) {
+        foreach ($attachments as $attachment)
+        {
             $url = wp_get_attachment_url( $attachment->ID );
             $img = wp_get_attachment_image_src($attachment->ID, $att['size']);
 
-            $output[] = "\t\t".sprintf('<%s class="%s">', esc_html($att['icontag']), esc_attr($iconclass) );
-
-            $output[] = "\t\t\t".sprintf('<a href="%s" class="%s" rel="group-%d">',
-                $url, $att['linkclass'], $att['gallery_id']);
+            $output[] = "\t\t".sprintf('<%s class="%s">', esc_html($att['icontag']), esc_attr($att['iconclass']) );
+            $output[] = "\t\t\t".sprintf('<a href="%s" class="%s" rel="group-%d">', $url, $att['linkclass'], $att['gallery_id']);
             $output[] = "\t\t\t\t".sprintf('<img src="%s" width="%s" height="%s" alt="" />', $img[0], $img[1], $img[2]);
             $output[] = "\t\t\t\t".sprintf('<%1$s>%2$s</%1$s>', esc_html($att['captiontag']), $attachment->post_excerpt);
             $output[] = "\t\t\t".'</a>';
-
             $output[] = "\t\t".sprintf('</%s>', esc_html($att['icontag']) );
         }
 

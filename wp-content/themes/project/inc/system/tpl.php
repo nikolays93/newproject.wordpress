@@ -3,6 +3,41 @@
 if ( ! defined( 'ABSPATH' ) )
     exit; // Exit if accessed directly
 
+// add_action( 'dynamic_sidebar_before', 'aside_start', 10 );
+// if( !function_exists('aside_start') ) {
+//     function aside_start() {
+//         echo '</div>';
+//         echo '<div id="secondary" class="sidebar col-12 col-lg-3 order-lg-2">';
+//         echo '    <aside class="widget-area" role="complementary">';
+//     }
+// }
+
+// add_action( 'dynamic_sidebar_after',  'aside_end', 10 );
+// if( !function_exists('aside_end') ) {
+//     function aside_end() {
+//         echo '    </aside>';
+//     }
+// }
+
+// add_filter( 'post_class', 'add_theme_post_class', 10, 3 );
+// if( !function_exists('add_theme_post_class') ) {
+//     function add_theme_post_class($classes, $class, $post_id) {
+//         if( 'product' !== get_post_type() ) {
+//             if( is_singular() ) {
+//                 $columns = apply_filters( 'single_content_columns', 1 );
+//             }
+//             else {
+//                 $columns = apply_filters( 'content_columns', 1 );
+//             }
+
+//             $classes[] = function_exists('get_default_bs_columns') ?
+//                 get_default_bs_columns( (int)$columns ) : array();
+//         }
+
+//         return $classes;
+//     }
+// }
+
 /**
  * Title template
  */

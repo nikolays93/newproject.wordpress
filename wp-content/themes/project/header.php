@@ -14,13 +14,28 @@
 <head>
     <meta charset="<?php bloginfo( 'charset' ); ?>">
     <link rel="profile" href="https://gmpg.org/xfn/11">
-    <?php wp_head(); ?>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <?php /* $viewport = 1170; $max_width = $viewport - (15*2); ?>
+    <meta name="viewport" content="width='<?= $viewport ?>'">
+    <style type="text/css">
+    .container {
+        max-width: <?= $max_width ?>px !important;
+        width: <?= $max_width ?>px !important;
+    }
+    </style>
 
     <!-- <link rel="manifest" href="site.webmanifest"> -->
     <!-- <link rel="apple-touch-icon" href="icon.png"> -->
     <!-- Place favicon.ico in the root directory -->
+    <?php // */ wp_head(); ?>
 
-    <script>window.jQuery || document.write('<script src="assets/jquery/jquery.min.js"><\/script>')</script>
+    <!--[if lt IE 9]>
+    <script data-skip-moving="true" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
+    <![endif]-->
+
+
+    <script>window.jQuery || document.write('<script src="<?= TPL ?>/assets/jquery/jquery.min.js"><\/script>')</script>
 </head>
 <body <?php body_class(); ?>>
     <!--[if lte IE 9]>

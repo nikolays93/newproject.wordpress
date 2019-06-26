@@ -4,6 +4,9 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit; // Exit if accessed directly
 }
 
+if( !defined('DEVELOPER_LINK') )   define('DEVELOPER_LINK', '//seo18.ru');
+if( !defined('DEVELOPER_NAME') )   define('DEVELOPER_NAME', 'SEO18');
+
 /**
  * Set url to home on login header logotype
  */
@@ -18,12 +21,11 @@ if( !function_exists('login_header_logo_css') ) {
         /** @var Int $logo_id custom logotype attachment ID */
         if( $logo_id = get_theme_mod( 'custom_logo' ) ) {
             @list($src, $width, $height) = wp_get_attachment_image_src( $logo_id, 'full' );
-
-            if( $src && $width && $height ) {
             ?>
+            <?php if( $src && $width && $height ): ?>
             <style type="text/css">
                 .login h1 a {
-                    background: url("<?= $src ?>");
+                    background: url("<?= $src ?>") no-repeat;
                     width: <?= $width ?>px;
                     height: <?= $height ?>px;
                     position: relative;
@@ -31,8 +33,8 @@ if( !function_exists('login_header_logo_css') ) {
                     transform: translateX(-50%);
                 }
             </style>
+            <?php endif; ?>
             <?php
-            }
         }
     }
 }
@@ -41,8 +43,8 @@ if( !function_exists('login_header_logo_css') ) {
  * Link by developer in admin bar
  */
 add_action('admin_bar_menu', 'customize_toolbar_link', 9999);
-    if( !function_exists('customize_toolbar_link') ) {
-        function customize_toolbar_link( $wp_admin_bar ) {
+if( !function_exists('customize_toolbar_link') ) {
+    function customize_toolbar_link( $wp_admin_bar ) {
         if( !defined('DEVELOPER_NAME') || !defined('DEVELOPER_LINK') ) {
             return false;
         }
@@ -67,16 +69,14 @@ add_action('admin_bar_menu', 'customize_toolbar_link', 9999);
 add_filter('admin_footer_text', 'custom_admin_footer', 10, 1);
 if( !function_exists('custom_admin_footer') ) {
     function custom_admin_footer( $msg ) {
-        if( !defined('DEVELOPER_NAME') || !defined('DEVELOPER_LINK') ) {
-            return $msg;
-        }
+        if( !defined('DEVELOPER_NAME') ) return $msg;
 
         $dev_message = sprintf( '<span id="footer-thankyou">%s %s</span>.',
             __('Developed by', 'theme'),
             DEVELOPER_NAME
         );
 
-        $wp_message = sprintf( '<small><a href="wordpress.com">%s WordPress %s</a>. </small>',
+        $wp_message = sprintf( '<small><a href="wordpress.com">%s WordPress (%s)</a>. </small>',
             __('Based on', 'theme'),
             get_bloginfo('version') . '-'. get_bloginfo('charset')
         );

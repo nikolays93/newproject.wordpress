@@ -110,8 +110,8 @@ function print_wc_settings( $wp_customize ) {
             'title'     => 'Настройки WooCommerce',
             'priority'  => 60,
             'description' => 'Настройки шаблона WooCommerce'
-            )
-        );
+        )
+    );
 
     /**
      * @see customize_per_page()
@@ -124,8 +124,8 @@ function print_wc_settings( $wp_customize ) {
             'label'       => '',
             'description' => 'Товаров на странице',
             'type'        => 'number',
-            )
-        );
+        )
+    );
 
     /**
      * @see customize_per_page()
@@ -138,8 +138,8 @@ function print_wc_settings( $wp_customize ) {
             'label'       => '',
             'description' => 'Товаров на странице (Для мал. экранов)',
             'type'        => 'number',
-            )
-        );
+        )
+    );
 
     /**
      * @see replace_cat_description_to_bottom()
@@ -152,8 +152,8 @@ function print_wc_settings( $wp_customize ) {
             'label'       => 'Описание категорий снизу',
             'description' => 'Показывать описание к категории после содержания',
             'type'        => 'checkbox',
-            )
-        );
+        )
+    );
 
     /**
      * @see change_product_labels() AND change_wc_menu_labels()
@@ -166,8 +166,8 @@ function print_wc_settings( $wp_customize ) {
             'label'       => '',
             'description' => 'Заменить "Товары" на..',
             'type'        => 'text',
-            )
-        );
+        )
+    );
 
     /**
      * @see woo_remove_category_products_count()
@@ -180,6 +180,6 @@ function print_wc_settings( $wp_customize ) {
             'label'       => 'Показывать колличество товара таксономии в скобках',
             'description' => '',
             'type'        => 'checkbox',
-            )
-        );
+        )
+    );
 }
