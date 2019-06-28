@@ -44,7 +44,7 @@ function add_theme_product_post_class($classes, $class, $post_id) {
  * Products count per page
  */
 add_filter( 'loop_shop_per_page', 'customize_per_page', 20 );
-function customize_per_page($cols){
+function customize_per_page($cols) {
     if( wp_is_mobile() ) {
         return get_theme_mod( 'woo_item_count_mobile', 8 );
     }
@@ -54,6 +54,7 @@ function customize_per_page($cols){
 
 add_action('woocommerce_archive_description', 'replace_cat_description_to_bottom', -1);
 function replace_cat_description_to_bottom() {
+    /** @todo check and repair this */
     if( !get_theme_mod( 'archive_description_bottom' ) ) return;
 
     remove_action( 'woocommerce_archive_description', 'woocommerce_taxonomy_archive_description', 10 );
@@ -102,12 +103,12 @@ function woo_remove_category_products_count( $count_html ) {
 
 add_action( 'customize_register', 'print_wc_settings' );
 function print_wc_settings( $wp_customize ) {
-    $section = 'wc_advanced_settings';
+    $section = 'display_wc_options';
 
     $wp_customize->add_section(
         $section,
         array(
-            'title'    => 'Advanced settings',
+            'title'    => 'Дополнительно',
             'priority' => 999,
             'panel'    => 'woocommerce',
         )
@@ -124,8 +125,8 @@ function print_wc_settings( $wp_customize ) {
             'label'       => '',
             'description' => 'Товаров на странице',
             'type'        => 'number',
-            )
-        );
+        )
+    );
 
     /**
      * @see customize_per_page()
@@ -138,8 +139,8 @@ function print_wc_settings( $wp_customize ) {
             'label'       => '',
             'description' => 'Товаров на странице (Для мал. экранов)',
             'type'        => 'number',
-            )
-        );
+        )
+    );
 
     /**
      * @see replace_cat_description_to_bottom()
@@ -152,8 +153,8 @@ function print_wc_settings( $wp_customize ) {
             'label'       => 'Описание категорий снизу',
             'description' => 'Показывать описание к категории после содержания',
             'type'        => 'checkbox',
-            )
-        );
+        )
+    );
 
     /**
      * @see change_product_labels() AND change_wc_menu_labels()
@@ -166,8 +167,8 @@ function print_wc_settings( $wp_customize ) {
             'label'       => '',
             'description' => 'Заменить "Товары" на..',
             'type'        => 'text',
-            )
-        );
+        )
+    );
 
     /**
      * @see woo_remove_category_products_count()
@@ -180,6 +181,6 @@ function print_wc_settings( $wp_customize ) {
             'label'       => 'Показывать колличество товара таксономии в скобках',
             'description' => '',
             'type'        => 'checkbox',
-            )
-        );
+        )
+    );
 }

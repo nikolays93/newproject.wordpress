@@ -1,6 +1,5 @@
 <?php
-
-/**
+/*
  * @Override
  */
 function wc_theme_dequeue_styles( $enqueue_styles ) {
@@ -15,7 +14,6 @@ function wc_theme_dequeue_styles( $enqueue_styles ) {
 /**
  * Yoast breadcrumbs instead woocommerce default
  */
-
 remove_action( 'woocommerce_before_main_content', 'woocommerce_breadcrumb', 20 );
 add_action( 'woocommerce_before_main_content', 'woo_breadcrumbs_from_yoast', 5 );
 

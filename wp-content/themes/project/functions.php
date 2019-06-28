@@ -3,25 +3,12 @@
  * Добавление поддержки функций
  * Добавление областей 'primary', 'footer'
  * Регистрация Сайдбара: Архивы и записи
- * Фильтры шаблона
  */
-
-define('TPL_RESPONSIVE', true);
-
-define('TPL_VIEWPORT', 1170);
-define('TPL_PADDINGS', 15);
-
-define('TPL_DISABLE_SIDEBAR', false);
 
 define('THEME', get_template_directory());
 define('TPL', get_template_directory_uri());
 
-/**
- * @note use get_developer_title() for get formatted string
- */
-define('DEVELOPER_NAME', 'SEO18');
-define('DEVELOPER_SLOGAN', 'создание и продвижение сайтов');
-define('DEVELOPER_LINK', '//seo18.ru');
+define('DEVELOPMENT_ID', '94.181.95.199');
 
 class ProjectTheme
 {
@@ -65,7 +52,7 @@ class ProjectTheme
         $minify = $is_compressed ? '.min' : '';
 
         wp_deregister_script( 'jquery' );
-        wp_register_script( 'jquery', 'https://code.jquery.com/jquery-3.3.1.min.js', array(), '3.3.1' );
+        wp_register_script( 'jquery', 'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js', array(), '3.4.1' );
         wp_enqueue_script( 'jquery' );
 
         wp_enqueue_script( 'modernizr', 'https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js', array(), '3.3.1' );
@@ -80,22 +67,22 @@ class ProjectTheme
         /**
          * Fancybox: Modal windows
          * /
-        wp_enqueue_script('fancybox', TPL . 'assets/fancybox/jquery.fancybox.min.js', array('jquery'), '3', true);
-        wp_enqueue_style( 'fancybox-style', TPL . 'assets/fancybox/jquery.fancybox.min.css', array() );
+        wp_enqueue_script('fancybox', TPL . '/assets/fancybox/jquery.fancybox.min.js', array('jquery'), '3', true);
+        wp_enqueue_style( 'fancybox-style', TPL . '/assets/fancybox/jquery.fancybox.min.css', array() );
         // */
 
         /**
          * Slick: Slider
          * /
-        wp_enqueue_script('slick', TPL . 'assets/slick/slick.min.js', array('jquery'), '1.8.1', true);
-        wp_enqueue_style( 'slick-style', TPL . 'assets/slick/slick.css', array() );
-        wp_enqueue_style( 'slick-theme', TPL . 'assets/slick/slick-theme.css', array() );
+        wp_enqueue_script('slick', TPL . '/assets/slick/slick.min.js', array('jquery'), '1.8.1', true);
+        wp_enqueue_style( 'slick-style', TPL . '/assets/slick/slick.css', array() );
+        wp_enqueue_style( 'slick-theme', TPL . '/assets/slick/slick-theme.css', array() );
         // */
 
         wp_enqueue_style( 'hamburgers', TPL . '/assets/hamburgers'.$minify.'.css' );
 
         if( is_front_page() ) {
-            $path = '/css/front'.$minify.'.css';
+            $path = '/pages/index/style'.$minify.'.css';
             wp_enqueue_style( 'front-style', TPL . $path, array(), @filemtime( THEME . $path ) );
         }
 
@@ -134,24 +121,7 @@ add_action('init',               array('ProjectTheme', 'head_cleanup'));
     }
  */
 
-require_once THEME . '/inc/utilites.php';   // * Вспомогательные функции
-require_once THEME . '/inc/admin.php';      // * Фильтры и функции административной части WP
-require_once THEME . '/inc/tpl.php';        // * Основные функции вывода информации в шаблон
-require_once THEME . '/inc/bootstrap.php';  // * Поддержка bootstrap framework 4.*
-require_once THEME . '/inc/gallery.php';    // * Шаблон встроенной галереи wordpress
-require_once THEME . '/inc/hooks.php';      // * Предустановленные Фильтры и хуки
-
-if( class_exists('woocommerce') ) {
-    require_once THEME . '/woocommerce/functions.php';
-    require_once THEME . '/inc/woocommerce.php';
-    require_once THEME . '/inc/wc-customizer.php';
-}
-
 /************************ Template Actions and Filters ************************/
-// add_filter( 'archive_reviews_title', function($t) {
-//     return 'Отзывы наших покупателей';
-// } );
-
 // add_action( 'theme_after_title', '_after_title' );
 // function _after_title() {}
 
@@ -173,7 +143,22 @@ function content_columns_default($columns) {
 add_action( 'wp_footer', 'local_attention' );
 function local_attention() {
     if( is_local() ) {
-        $top = is_user_logged_in() ? '32px' : '0';
-        echo '<h3 style="position: fixed;top: '.$top.';">Это локальный сервер</h3>';
+        echo '<h3 id="development" style="position: fixed;bottom: 0;background-color: red;margin: 0;padding: 8px;">Это локальный сервер</h3>',
+             '<script type="text/javascript">setTimeout(function() {document.getElementById("development").style.display = "none"}, 10000);</script>';
     }
+}
+
+require_once THEME . '/inc/post-type.php';
+require_once THEME . '/inc/shortcode.php';
+
+require THEME . '/inc/system/utilites.php';   // * Вспомогательные функции
+require THEME . '/inc/system/admin.php';      // * Фильтры и функции административной части WP
+require THEME . '/inc/system/tpl.php';        // * Основные функции вывода информации в шаблон
+require THEME . '/inc/system/bootstrap.php';  // * Поддержка bootstrap framework 4.*
+require THEME . '/inc/system/gallery.php';    // * Шаблон встроенной галереи wordpress
+
+if( class_exists('woocommerce') ) {
+    require THEME . '/woocommerce/functions.php';
+    require THEME . '/inc/system/woocommerce.php';
+    require THEME . '/inc/system/wc-customizer.php';
 }
