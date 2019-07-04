@@ -10,15 +10,12 @@
  */
 
 ?>
-                    </div><!-- .col -->
-                </div><!-- .row -->
-
                 <div class="slider row justify-content-between mt-5">
-                    <div><a href="<?= TPL ?>/img/placeholder.png" data-fancybox="gallery"><img src="<?= TPL ?>/img/placeholder.png" width="150" class="ac"></a></div>
-                    <div><a href="<?= TPL ?>/img/placeholder.png" data-fancybox="gallery"><img src="<?= TPL ?>/img/placeholder.png" width="150" class="ac"></a></div>
-                    <div><a href="<?= TPL ?>/img/placeholder.png" data-fancybox="gallery"><img src="<?= TPL ?>/img/placeholder.png" width="150" class="ac"></a></div>
-                    <div><a href="<?= TPL ?>/img/placeholder.png" data-fancybox="gallery"><img src="<?= TPL ?>/img/placeholder.png" width="150" class="ac"></a></div>
-                    <div><a href="<?= TPL ?>/img/placeholder.png" data-fancybox="gallery"><img src="<?= TPL ?>/img/placeholder.png" width="150" class="ac"></a></div>
+                    <div class="col"><a href="<?= TPL ?>/img/placeholder.png" data-fancybox="gal1"><img src="<?= TPL ?>/img/placeholder.png" width="150" class="ac"></a></div>
+                    <div class="col"><a href="<?= TPL ?>/img/placeholder.png" data-fancybox="gal1"><img src="<?= TPL ?>/img/placeholder.png" width="150" class="ac"></a></div>
+                    <div class="col"><a href="<?= TPL ?>/img/placeholder.png" data-fancybox="gal1"><img src="<?= TPL ?>/img/placeholder.png" width="150" class="ac"></a></div>
+                    <div class="col"><a href="<?= TPL ?>/img/placeholder.png" data-fancybox="gal1"><img src="<?= TPL ?>/img/placeholder.png" width="150" class="ac"></a></div>
+                    <div class="col"><a href="<?= TPL ?>/img/placeholder.png" data-fancybox="gal1"><img src="<?= TPL ?>/img/placeholder.png" width="150" class="ac"></a></div>
                 </div>
             </div><!-- .container -->
 		</div><!-- #content -->

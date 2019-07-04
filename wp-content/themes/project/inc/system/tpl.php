@@ -3,41 +3,6 @@
 if ( ! defined( 'ABSPATH' ) )
     exit; // Exit if accessed directly
 
-// add_action( 'dynamic_sidebar_before', 'aside_start', 10 );
-// if( !function_exists('aside_start') ) {
-//     function aside_start() {
-//         echo '</div>';
-//         echo '<div id="secondary" class="sidebar col-12 col-lg-3 order-lg-2">';
-//         echo '    <aside class="widget-area" role="complementary">';
-//     }
-// }
-
-// add_action( 'dynamic_sidebar_after',  'aside_end', 10 );
-// if( !function_exists('aside_end') ) {
-//     function aside_end() {
-//         echo '    </aside>';
-//     }
-// }
-
-// add_filter( 'post_class', 'add_theme_post_class', 10, 3 );
-// if( !function_exists('add_theme_post_class') ) {
-//     function add_theme_post_class($classes, $class, $post_id) {
-//         if( 'product' !== get_post_type() ) {
-//             if( is_singular() ) {
-//                 $columns = apply_filters( 'single_content_columns', 1 );
-//             }
-//             else {
-//                 $columns = apply_filters( 'content_columns', 1 );
-//             }
-
-//             $classes[] = function_exists('get_default_bs_columns') ?
-//                 get_default_bs_columns( (int)$columns ) : array();
-//         }
-
-//         return $classes;
-//     }
-// }
-
 /**
  * Title template
  */
@@ -161,110 +126,18 @@ if( !function_exists('add_thumbnail_link') ) {
 }
 
 /**
- * Navigation
+ * @start Layouts
  */
-if( !function_exists('wp_bootstrap_nav') ) {
-    function wp_bootstrap_nav( $args = array() ) {
-        $defaults = array(
-            'menu' => 'main_nav',
-            'menu_class' => 'nav navbar-nav',
-            'theme_location' => 'primary',
-            'walker' => new Bootstrap_Nav_Walker(),
-            // 'allow_click' => get_theme_mod( 'allow_click', false )
-        );
-
-        $args = array_merge($defaults, $args);
-        wp_nav_menu( $args );
-    }
-}
-
-if( !function_exists('default_theme_nav') ) {
-    function default_theme_nav( $args = array(), $before = '<div class="container">', $after = '</div>' ) {
-
-        $args = wp_parse_args( $args, array(
-            'brand' => get_custom_logo(),
-            'container_id' => TPL_RESPONSIVE ? 'default-collapse' : '',
-            'container_class' => TPL_RESPONSIVE ?
-                'collapse navbar-collapse navbar-responsive-collapse' : 'container',
-            'togglerClass' => TPL_RESPONSIVE ? 'hamburger hamburger--elastic' : '',
-            'sectionClass' => 'site-navigation navbar-default',
-            'navClass' => TPL_RESPONSIVE ?
-                'navbar navbar-expand-lg navbar-light bg-light' : 'navbar navbar-default non-responsive',
-        ) );
-
-        if( !$args['brand'] ) {
-            $args['brand'] = sprintf(
-                '<a class="navbar-brand hidden-lg-up text-center" title="%s" href="%s">%s</a>',
-                get_bloginfo("description"),
-                get_bloginfo('url'),
-                get_bloginfo("name")
-            );
-        }
-
-        printf('<section class="%s"><nav class="%s">%s',
-            esc_attr($args['sectionClass']),
-            esc_attr($args['navClass']),
-            $before
-        );
-
-        if( $args['togglerClass'] ) :
-        // default bootstrap toggler
-        // <button class="navbar-toggler navbar-toggler-left" type="button" data-toggle="collapse" data-target="#'.$args['container_id'].'">
-        //     <span class="navbar-toggler-icon"></span>
-        // </button>
+if( !function_exists('the_sidebar') ) {
+    function the_sidebar() {
+        $sidebar_class = apply_filters('site_sidebar_class', 'site-sidebar col-12 col-lg-3');
         ?>
-        <button type="button"
-            class="navbar-toggler <?= $args['togglerClass'] ?>"
-            data-toggle="collapse"
-            data-target="#<?= $args['container_id'] ?>"
-            aria-controls="<?= $args['container_id'] ?>"
-            aria-expanded="false"
-            aria-label="Toggle navigation">
-            <span class="hamburger-box">
-                <span class="hamburger-inner"></span>
-            </span>
-        </button>
+        <div id="secondary" class="<?= $sidebar_class ?>">
+            <aside class="widget-area" role="complementary">
+                <?php get_sidebar(); ?>
+            </aside>
+        </div>
         <?php
-        endif;
-
-        echo $args['brand'];
-        wp_bootstrap_nav( $args );
-        printf('%s</nav></section>', $after);
-    }
-}
-
-if( !function_exists('wp_footer_links') ) {
-    function wp_footer_links() {
-        wp_nav_menu(
-            array(
-                'menu' => 'footer_links', /* menu name */
-                'theme_location' => 'footer', /* where in the theme it's assigned */
-                'container_class' => 'footer clearfix', /* container class */
-            )
-        );
-    }
-}
-
-/**
-* Принятые настройки постраничной навигации
-*/
-if( !function_exists('the_template_pagination') ) {
-    function the_template_pagination( $echo = true ) {
-        $args = apply_filters( 'theme_template_pagination', array(
-            'show_all'     => false,
-            'end_size'     => 1,
-            'mid_size'     => 1,
-            'prev_next'    => true,
-            'prev_text'    => '« Пред.',
-            'next_text'    => 'След. »',
-            'add_args'     => false,
-        ) );
-
-        if( ! $echo ) {
-            return get_the_posts_pagination($args);
-        }
-
-        the_posts_pagination($args);
     }
 }
 
@@ -359,38 +232,107 @@ if( !function_exists('get_tpl_search_content') ) {
 }
 
 /**
- * if is shidebar exists
- *
- * @return boolean / (string) sidebar name
+ * Navigation
  */
-if( !function_exists('is_show_sidebar') ) {
-    function is_show_sidebar() {
-        $show_sidebar = false;
+if( !function_exists('wp_bootstrap_nav') ) {
+    function wp_bootstrap_nav( $args = array() ) {
+        $defaults = array(
+            'menu' => 'main_nav',
+            'menu_class' => 'nav navbar-nav',
+            'theme_location' => 'primary',
+            'walker' => new Bootstrap_Nav_Walker(),
+            // 'allow_click' => get_theme_mod( 'allow_click', false )
+        );
 
-        if( TPL_DISABLE_SIDEBAR ) return false;
+        $args = array_merge($defaults, $args);
+        wp_nav_menu( $args );
+    }
+}
 
-        if( ! is_singular() ) {
-            $post_type = get_post_type();
-            $enable_types = apply_filters( 'sidebar_archive_enable_on_type', array('post', 'page') );
+if( !function_exists('default_theme_nav') ) {
+    function default_theme_nav( $args = array(), $before = '<div class="container">', $after = '</div>' ) {
 
-            if( function_exists('is_woocommerce') ) {
-                if( (is_woocommerce() || is_shop()) && is_active_sidebar('woocommerce') ) {
-                    $show_sidebar = 'woocommerce';
-                }
-                if( is_cart() || is_checkout() || is_account_page() ) {
-                    $show_sidebar = false;
-                }
-                elseif( is_active_sidebar('archive') && in_array($post_type, $enable_types) ) {
-                    $show_sidebar = 'archive';
-                }
-            }
-            else {
-                if( is_active_sidebar('archive') && in_array($post_type, $enable_types) ) {
-                    $show_sidebar = 'archive';
-                }
-            }
+        $args = wp_parse_args( $args, array(
+            'brand'           => get_custom_logo(),
+            'container_id'    => 'default-collapse',
+            'container_class' => 'collapse navbar-collapse navbar-responsive-collapse',
+            'togglerClass'    => 'hamburger hamburger--elastic',
+            'sectionClass'    => 'site-navigation navbar-default',
+            'navClass'        => 'navbar navbar-expand-lg navbar-light bg-light',
+        ) );
+
+        if( !$args['brand'] ) {
+            $args['brand'] = sprintf(
+                '<a class="navbar-brand hidden-lg-up text-center" title="%s" href="%s">%s</a>',
+                get_bloginfo("description"),
+                get_bloginfo('url'),
+                get_bloginfo("name")
+            );
         }
 
-        return apply_filters( 'is_show_sidebar', $show_sidebar );
+        printf('<section class="%s"><nav class="%s">%s',
+            esc_attr($args['sectionClass']),
+            esc_attr($args['navClass']),
+            $before
+        );
+
+        if( $args['togglerClass'] ) :
+        // default bootstrap toggler
+        // <button class="navbar-toggler navbar-toggler-left" type="button" data-toggle="collapse" data-target="#'.$args['container_id'].'">
+        //     <span class="navbar-toggler-icon"></span>
+        // </button>
+        ?>
+        <button type="button"
+            class="navbar-toggler <?= $args['togglerClass'] ?>"
+            data-toggle="collapse"
+            data-target="#<?= $args['container_id'] ?>"
+            aria-controls="<?= $args['container_id'] ?>"
+            aria-expanded="false"
+            aria-label="Toggle navigation">
+            <span class="hamburger-box">
+                <span class="hamburger-inner"></span>
+            </span>
+        </button>
+        <?php
+        endif;
+
+        echo $args['brand'];
+        wp_bootstrap_nav( $args );
+        printf('%s</nav></section>', $after);
+    }
+}
+
+if( !function_exists('wp_footer_links') ) {
+    function wp_footer_links() {
+        wp_nav_menu(
+            array(
+                'menu' => 'footer_links', /* menu name */
+                'theme_location' => 'footer', /* where in the theme it's assigned */
+                'container_class' => 'footer clearfix', /* container class */
+            )
+        );
+    }
+}
+
+/**
+* Принятые настройки постраничной навигации
+*/
+if( !function_exists('the_template_pagination') ) {
+    function the_template_pagination( $echo = true ) {
+        $args = apply_filters( 'theme_template_pagination', array(
+            'show_all'     => false,
+            'end_size'     => 1,
+            'mid_size'     => 1,
+            'prev_next'    => true,
+            'prev_text'    => '« Пред.',
+            'next_text'    => 'След. »',
+            'add_args'     => false,
+        ) );
+
+        if( ! $echo ) {
+            return get_the_posts_pagination($args);
+        }
+
+        the_posts_pagination($args);
     }
 }

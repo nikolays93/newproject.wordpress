@@ -10,4 +10,4 @@
  * @version 1.0
  */
 
-dynamic_sidebar( is_show_sidebar() );
+dynamic_sidebar( is_singular() ? 'page' : 'archive' );

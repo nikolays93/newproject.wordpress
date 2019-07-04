@@ -38,7 +38,17 @@ class ProjectTheme
         register_sidebar( array(
             'name'          => 'Архивы и записи',
             'id'            => 'archive',
-            'description'   => 'Эти виджеты показываются в архивах и остальных страницах',
+            'description'   => 'Эти виджеты показываются в архивах',
+            'before_widget' => '<section id="%1$s" class="widget %2$s">',
+            'after_widget'  => '</section>',
+            'before_title'  => '<h3 class="widget-title">',
+            'after_title'   => '</h3>',
+        ) );
+
+        register_sidebar( array(
+            'name'          => 'Страницы',
+            'id'            => 'page',
+            'description'   => 'Эти виджеты показываются на страницах',
             'before_widget' => '<section id="%1$s" class="widget %2$s">',
             'after_widget'  => '</section>',
             'before_title'  => '<h3 class="widget-title">',
@@ -156,6 +166,7 @@ require THEME . '/inc/system/admin.php';      // * Фильтры и функц�
 require THEME . '/inc/system/tpl.php';        // * Основные функции вывода информации в шаблон
 require THEME . '/inc/system/bootstrap.php';  // * Поддержка bootstrap framework 4.*
 require THEME . '/inc/system/gallery.php';    // * Шаблон встроенной галереи wordpress
+require THEME . '/inc/system/customizer.php'; // *
 
 if( class_exists('woocommerce') ) {
     require THEME . '/woocommerce/functions.php';

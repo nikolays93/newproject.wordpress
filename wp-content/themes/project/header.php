@@ -95,5 +95,3 @@
 
         <div id="content" class="site-content">
             <div class="<?= apply_filters('site-container', 'container'); ?>">
-                <div class="row">
-                    <div id="primary" class="<?php echo ( is_show_sidebar() ) ? "col-12 col-lg-9" : "col-12"; ?>">
