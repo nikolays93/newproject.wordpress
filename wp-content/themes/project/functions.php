@@ -8,7 +8,7 @@
 define('THEME', get_template_directory());
 define('TPL', get_template_directory_uri());
 
-define('DEVELOPMENT_ID', '94.181.95.199');
+define('DEVELOPMENT_ID', '88.212.237.4');
 
 class ProjectTheme
 {
@@ -153,8 +153,8 @@ function content_columns_default($columns) {
 add_action( 'wp_footer', 'local_attention' );
 function local_attention() {
     if( is_local() ) {
-        echo '<h3 id="development" style="position: fixed;bottom: 0;background-color: red;margin: 0;padding: 8px;">Это локальный сервер</h3>',
-             '<script type="text/javascript">setTimeout(function() {document.getElementById("development").style.display = "none"}, 10000);</script>';
+        echo '<h3 id="development" style="position:fixed;bottom:32px;background-color:red;margin:0;padding:8px;">Это локальный сервер</h3>',
+             '<script type="text/javascript">setTimeout(function(){document.getElementById("development").style.display="none"},10000);</script>';
     }
 }
 

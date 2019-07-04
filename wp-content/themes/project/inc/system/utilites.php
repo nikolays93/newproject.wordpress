@@ -1,28 +1,12 @@
 <?php
 
 /**
- * Get real user ip
- */
-if( !function_exists('get_current_ip') ) {
-    function get_current_ip() {
-        if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
-            $ip = $_SERVER['HTTP_CLIENT_IP'];
-        } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-            $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
-        } else {
-            $ip = $_SERVER['REMOTE_ADDR'];
-        }
-        return $ip;
-    }
-}
-
-/**
  * It's development server
  */
 if( !function_exists('is_local') ) {
     function is_local() {
-        return in_array(get_current_ip(),
-            array('127.0.0.1', defined('DEVELOPMENT_ID') ? DEVELOPMENT_ID : 0));
+        return in_array($_SERVER['SERVER_ADDR'],
+            array('127.0.0.1', defined('DEVELOPMENT_ID') ? DEVELOPMENT_ID : ''));
     }
 }
 
