@@ -26,11 +26,6 @@ class ProjectTheme
             'gallery',
             'caption',
         ) );
-
-        register_nav_menus( array(
-            'primary' => 'Главное меню',
-            'footer' => 'Меню в подвале',
-        ) );
     }
 
     static function widgets()
@@ -135,7 +130,7 @@ add_action('init',               array('ProjectTheme', 'head_cleanup'));
 // add_action( 'theme_after_title', '_after_title' );
 // function _after_title() {}
 
-add_action( 'before_main_content', 'default_theme_nav', 10, 1 );
+add_action( 'before_main_content', 'bootstrap_navbar', 10, 1 );
 add_action( 'before_main_content', 'breadcrumbs_from_yoast', 10, 1 );
 
 add_filter( 'content_columns', 'content_columns_default', 10, 1 );
@@ -152,7 +147,7 @@ function content_columns_default($columns) {
  */
 add_action( 'wp_footer', 'local_attention' );
 function local_attention() {
-    if( is_local() ) {
+    if( function_exists('is_local') && is_local() ) {
         echo '<h3 id="development" style="position:fixed;bottom:32px;background-color:red;margin:0;padding:8px;">Это локальный сервер</h3>',
              '<script type="text/javascript">setTimeout(function(){document.getElementById("development").style.display="none"},10000);</script>';
     }
@@ -161,10 +156,11 @@ function local_attention() {
 require_once THEME . '/inc/post-type.php';
 require_once THEME . '/inc/shortcode.php';
 
+require THEME . '/inc/system/class-wp-bootstrap-navwalker.php';
 require THEME . '/inc/system/utilites.php';   // * Вспомогательные функции
 require THEME . '/inc/system/admin.php';      // * Фильтры и функции административной части WP
 require THEME . '/inc/system/tpl.php';        // * Основные функции вывода информации в шаблон
-require THEME . '/inc/system/bootstrap.php';  // * Поддержка bootstrap framework 4.*
+require THEME . '/inc/system/navigation.php'; // *
 require THEME . '/inc/system/gallery.php';    // * Шаблон встроенной галереи wordpress
 require THEME . '/inc/system/customizer.php'; // *
 

@@ -18,3 +18,14 @@ if( !function_exists('add_theme_post_class') ) {
         return $classes;
     }
 }
+
+apply_filters( 'nav_menu_link_attributes', 'nav_menu_link_allow_click', 10, 4 );
+if( !function_exists('nav_menu_link_allow_click') ) {
+    function nav_menu_link_allow_click($atts, $item, $args, $depth) {
+        if( get_theme_mod( 'allow_click', false ) ) {
+            unset($atts['data-toggle']);
+        }
+
+        return $atts;
+    }
+}
