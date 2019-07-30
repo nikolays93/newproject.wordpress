@@ -1,96 +1,50 @@
 "use strict";
 
-/** @type {String} For use proxy */
-export const domain = 'wordpress.cms';
+module.exports = {
+    /** {String} Path to the source directory. Target is root + src + ${*.*} */
+    src: 'wp-content/themes/project/',
+    /** {String} Path to the destination directory. Target is root + dest + ${*.*} */
+    dest: 'wp-content/themes/project/',
 
-/** {String} Path to the root directory */
-export const dir   = './public_html/';
-export const dist = './public_html/wp-content/themes/project/';
+    scssExt: '*.scss',
+    jsExt:   '*.js',
+    imgExt:  '*.{jpg,jpeg,png,gif,svg}',
 
-export const assets = 'assets/';
-export const scss   = 'scss/';
-export const js     = 'assets/';
-export const img    = 'img/';
-export const raw    = '_raw/';
+    paths: {
+        assets: 'assets/',
+        module: 'assets/module/',
 
-export const assetslist = [
-    {
-        name: 'Jquery',
-        src: './node_modules/jquery/dist/**/*',
-        dest: 'jquery/'
-    },
-    {
-        name: 'Fancybox',
-        src: './node_modules/@fancyapps/fancybox/dist/**/*',
-        dest: 'fancybox/'
-    },
-    {
-        name: 'Slick',
-        src: './node_modules/slick-carousel/slick/**/*',
-        dest: 'slick/',
-    },
-    {
-        name: 'Appear',
-        src: './node_modules/appear/dist/**/*',
-        dest: 'appear/'
-    },
-    {
-        name: 'Lettering',
-        src: './node_modules/lettering/dist/**/*',
-        dest: 'lettering/'
-    },
-    { // (Required for bootstrap dropdowns)
-        name: 'Popper',
-        src: './node_modules/popper.js/dist/umd/**/*',
-        dest: raw + 'popper.js/'
-    },
-    {
-        name: 'Botstrap js',
-        src: './node_modules/bootstrap/js/dist/**/*',
-        dest: raw + 'bootstrap/js/'
-    },
-    {
-        name: 'Botstrap scss',
-        src: './node_modules/bootstrap/scss/**/*',
-        dest: raw + 'bootstrap/scss/'
-    },
-    {
-        name: 'Hamburgers',
-        src: './node_modules/hamburgers/_sass/hamburgers/**/*',
-        dest: raw + 'hamburgers/'
-    },
-    {
-        name: 'Animatewithsass',
-        src: './node_modules/animatewithsass/**/*',
-        dest: 'animatewithsass/'
-    },
-    {
-        name: 'Swiper',
-        src: './node_modules/swiper/dist/**/*',
-        dest: 'swiper/'
-    },
-];
+        html: false, // index.raw.html
+        pug: 'index.pug',
 
-export const autoPrefixerConf = {
-    browsers: ["last 12 versions", "> 1%", "ie 8", "ie 7"]
-};
-
-export const cleanCSSConf = {
-    compatibility: "ie8",
-    level: {
-        1: {
-            specialComments: 0,
-            removeEmpty: true,
-            removeWhitespace: true
+        blocks: {
+            src: 'assets/pages/',
+            dest: 'pages/',
         },
-        2: {
-            mergeMedia: true,
-            removeEmpty: true,
-            removeDuplicateFontRules: true,
-            removeDuplicateMediaBlocks: true,
-            removeDuplicateRules: true,
-            removeUnusedAtRules: false
-        }
-    },
-    rebase: false
-};
+
+        vendor: {
+            src:  'assets/vendor/_source/',
+            dest: 'assets/vendor/',
+        },
+
+        styles: {
+            src:  'assets/_source/',
+            dest: 'assets/',
+        },
+
+        script: {
+            src:  false,
+            dest: 'assets/',
+        },
+
+        webpack: {
+            src:  'assets/_source/',
+            dest: 'assets/',
+        },
+
+        images: {
+            src:  'img/HD/',
+            dest: 'img/',
+        },
+    }
+}
