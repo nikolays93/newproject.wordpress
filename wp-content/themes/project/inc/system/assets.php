@@ -7,7 +7,7 @@ function enqueue_template_assets() {
 	/**
 	 * Enqueue styles
 	 */
-	$path = '/assets/template' . $min . '.css';
+	$path = 'assets/template' . $min . '.css';
 	if ( file_exists( THEME . $path ) ) {
 		wp_enqueue_style( 'style', TPL . $path, array(), @filemtime( THEME . $path ) );
 	}
@@ -15,7 +15,7 @@ function enqueue_template_assets() {
 	/**
 	 * Enqueue scripts
 	 */
-	$path = '/assets/main' . $min . '.js';
+	$path = 'assets/main' . $min . '.js';
 	if ( file_exists( THEME . $path ) ) {
 		wp_enqueue_script( 'script', TPL . $path, array( 'jquery' ), @filemtime( THEME . $path ), true );
 	}
@@ -31,7 +31,7 @@ function enqueue_page_assets() {
 	/**
 	 * Enqueue current page style
 	 */
-	$stylePath = "/pages/$curDir/style$min.css";
+	$stylePath = "pages/$curDir/style$min.css";
 	if ( file_exists( THEME . $stylePath ) ) {
 		wp_enqueue_style( 'page-style', TPL . $stylePath, array(), @filemtime( THEME . $stylePath ) );
 	}
@@ -39,7 +39,7 @@ function enqueue_page_assets() {
 	/**
 	 * Enqueue current page script
 	 */
-	$scriptPath = "/pages/$curDir/script$min.js";
+	$scriptPath = "pages/$curDir/script$min.js";
 	if ( file_exists( THEME . $scriptPath ) ) {
 		wp_enqueue_script( 'page-script', TPL . $scriptPath, array( 'jquery' ), @filemtime( THEME . $scriptPath ),
 			true );

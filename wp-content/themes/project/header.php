@@ -24,16 +24,13 @@
         width: <?= $max_width ?>px !important;
     }
     </style>
+    <?php // */ ?>
 
-    <!-- <link rel="manifest" href="site.webmanifest"> -->
-    <!-- <link rel="apple-touch-icon" href="icon.png"> -->
-    <!-- Place favicon.ico in the root directory -->
-    <?php // */ wp_head(); ?>
+    <?php wp_head(); ?>
 
     <!--[if lt IE 9]>
     <script data-skip-moving="true" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
     <![endif]-->
-
 
     <script>window.jQuery || document.write('<script src="<?= TPL ?>/assets/jquery/jquery.min.js"><\/script>')</script>
 </head>

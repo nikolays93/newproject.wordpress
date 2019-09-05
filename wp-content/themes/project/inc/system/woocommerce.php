@@ -56,7 +56,7 @@ if ( ! function_exists( 'placeholder__change_img_src' ) ) {
 	 * @return string
 	 */
 	function placeholder__change_img_src( $src ) {
-		$ph = '/img/placeholder.png';
+		$ph = 'img/placeholder.png';
 		if ( is_readable( THEME . $ph ) ) {
 			$src = TPL . $ph;
 		}

@@ -6,7 +6,7 @@
 if( !function_exists('is_local') ) {
     function is_local() {
         return in_array($_SERVER['SERVER_ADDR'],
-            array('127.0.0.1', defined('DEVELOPMENT_ID') ? DEVELOPMENT_ID : ''));
+            array('127.0.0.1', defined('DEVELOPMENT_ID') ? DEVELOPMENT_IP : ''));
     }
 }
 
