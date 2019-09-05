@@ -15,16 +15,16 @@ if( !function_exists('is_local') ) {
  *
  * @link https://wordpress.org/plugins/wordpress-seo/
  */
-if( !function_exists('breadcrumbs_from_yoast') ) {
-    function breadcrumbs_from_yoast( $container = true ) {
+if( !function_exists('breadcrumbs_by_yoast') ) {
+    function breadcrumbs_by_yoast( $container = true ) {
         if ( function_exists('yoast_breadcrumb') && !is_front_page() && !is_woocommerce() ) {
             yoast_breadcrumb('<div class="container"><p id="breadcrumbs">','</p></div>');
         }
     }
 }
 
-if( !function_exists('woo_breadcrumbs_from_yoast') ) {
-    function woo_breadcrumbs_from_yoast( $container = true ) {
+if( !function_exists('woo_breadcrumbs_by_yoast') ) {
+    function woo_breadcrumbs_by_yoast( $container = true ) {
         if ( function_exists('yoast_breadcrumb') && !is_front_page() ) {
             yoast_breadcrumb('<p id="breadcrumbs">','</p>');
         }

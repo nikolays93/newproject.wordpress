@@ -1,271 +1,257 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) )
-	exit; // Exit if accessed directly
-
-/**
- * Globals
- * Archive
- * Single Product
- * Order
- * Checkout
- * Account
- * Filters
- */
-
-/********************************** Globals ***********************************/
-/**
- * Add Theme WooCommerce Support
- */
-add_action( 'after_setup_theme', 'add_custom_theme_woocommerce_support' );
-function add_custom_theme_woocommerce_support() {
-
-	add_theme_support( 'woocommerce' );
+if ( ! defined( 'ABSPATH' ) ) { // You shall not pass
+	exit;
 }
 
-/**
- * Disable Default WooCommerce Styles
- */
-add_filter( 'woocommerce_enqueue_styles', 'dp_dequeue_styles' );
-if( !function_exists('dp_dequeue_styles') ) {
-    function dp_dequeue_styles( $enqueue_styles ) {
-        // unset( $enqueue_styles['woocommerce-general'] );     // Отключение общих стилей
-        unset( $enqueue_styles['woocommerce-layout'] );      // Отключение стилей шаблонов
-        unset( $enqueue_styles['woocommerce-smallscreen'] ); // Отключение оптимизации для маленьких экранов
-
-        return $enqueue_styles;
-    }
+if ( ! function_exists( 'theme__woocommerce_support' ) ) {
+	/**
+	 * Add Theme WooCommerce Support
+	 */
+	function theme__woocommerce_support() {
+		add_theme_support( 'woocommerce' );
+	}
 }
 
-/**
- * SideBar For WooCommerce
- */
-add_action( 'widgets_init', 'init_woocommerce_sidebar' );
-if( !function_exists('init_woocommerce_sidebar') ) {
-    function init_woocommerce_sidebar() {
-        register_sidebar( array(
-            'name'          => 'Витрины магазина',
-            'id'            => 'woocommerce',
-            'description'   => 'Показываются на витринах магазина WooCommerce',
-            'before_widget' => '<section id="%1$s" class="widget %2$s">',
-            'after_widget'  => '</section>',
-            'before_title'  => '<h3 class="widget-title">',
-            'after_title'   => '</h3>',
-            ) );
-    }
+if ( ! function_exists( 'theme__dequeue_styles' ) ) {
+	/**
+	 * Disable Default WooCommerce Styles
+	 *
+	 * @param array $enqueue_styles
+	 *
+	 * @return array
+	 */
+	function theme__dequeue_styles( $enqueue_styles ) {
+		// unset( $enqueue_styles['woocommerce-general'] );     // Отключение общих стилей
+		unset( $enqueue_styles['woocommerce-layout'] );      // Отключение стилей шаблонов
+		unset( $enqueue_styles['woocommerce-smallscreen'] ); // Отключение оптимизации для маленьких экранов
+
+		return $enqueue_styles;
+	}
 }
 
-/*********************************** Archive **********************************/
-/**
- * Change Default Placeholder
- */
-add_filter('woocommerce_placeholder_img_src', 'placeholder_img_src');
-if( !function_exists('placeholder_img_src') ) {
-    function placeholder_img_src( $src ) {
-        $ph = '/img/placeholder.png';
-        if( is_readable( THEME . $ph ) ) $src = TPL . $ph;
-
-        return $src;
-    }
+if ( ! function_exists( 'widget__woocommerce' ) ) {
+	/**
+	 * SideBar For WooCommerce pages
+	 */
+	function widget__woocommerce() {
+		register_sidebar( array(
+			'name'          => __( 'Витрины магазина' ),
+			'id'            => 'woocommerce',
+			'description'   => __( 'Показываются на витринах магазина WooCommerce' ),
+			'before_widget' => '<section id="%1$s" class="widget %2$s">',
+			'after_widget'  => '</section>',
+			'before_title'  => '<h3 class="widget-title">',
+			'after_title'   => '</h3>',
+		) );
+	}
 }
 
-/**
- * Используем формат цены вариативного товара WC 2.0 (к пр. "от 30 Р.")
- */
-add_filter( 'woocommerce_variable_sale_price_html', 'wc_wc20_variation_price_format', 10, 2 );
-add_filter( 'woocommerce_variable_price_html', 'wc_wc20_variation_price_format', 10, 2 );
-if( !function_exists('wc_wc20_variation_price_format') ) {
-    function wc_wc20_variation_price_format( $price, $product ) {
-        list($min, $max) = array(
-            $product->get_variation_price( 'min', true ),
-            $product->get_variation_price( 'max', true )
-        );
+if ( ! function_exists( 'placeholder__change_img_src' ) ) {
+	/**
+	 * Change Default Placeholder
+	 *
+	 * @param string $src
+	 *
+	 * @return string
+	 */
+	function placeholder__change_img_src( $src ) {
+		$ph = '/img/placeholder.png';
+		if ( is_readable( THEME . $ph ) ) {
+			$src = TPL . $ph;
+		}
 
-        $price = wc_price( $min );
-        if($min !== $max) $price = 'от ' . $price;
-
-        list($min, $max) = array(
-            $product->get_variation_regular_price( 'min', true ),
-            $product->get_variation_regular_price( 'max', true )
-        );
-
-        $saleprice = wc_price( $min );
-        if( $min !== $max ) $saleprice = 'от ' . $saleprice;
-
-        if ( $price !== $saleprice ) {
-            $price = sprintf('<del>%s</del> <ins>%s</ins>', $saleprice, $price);
-        }
-
-        return $price;
-    }
+		return $src;
+	}
 }
 
-/******************************* Single Product *******************************/
-/**
- * Change Default WC Tabs
- */
-// add_filter( 'woocommerce_product_tabs', 'woo_change_tabs', 98 );
-if( !function_exists('wc_wc20_variation_price_format') ) {
-    function woo_change_tabs( $tabs ) {
-        global $post;
+if ( ! function_exists( 'price__wc20_variation_format' ) ) {
+	/**
+	 * @param WC_Product_Variable $product
+	 */
+	function wc20_get_variation_price( $product ) {
+		return array(
+			'min' => $product->get_variation_price( 'min', true ),
+			'max' => $product->get_variation_price( 'max', true )
+		);
+	}
 
-        if(isset($post->post_content) && strlen($post->post_content) < 55) {
-            unset($tabs['description']);
-        }
-        else {
-            if(isset($tabs['description']))
-                $tabs['description']['title'] = 'Описание товара';
-        }
+	/**
+	 * @param WC_Product_Variable $product
+	 */
+	function wc20_get_variation_regular_price( $product ) {
+		return array(
+			'min' => $product->get_variation_regular_price( 'min', true ),
+			'max' => $product->get_variation_regular_price( 'max', true )
+		);
+	}
 
-        if(isset($tabs['reviews'])) unset( $tabs['reviews'] );
-        if(isset($tabs['additional_information'])) unset( $tabs['additional_information'] );
+	/**
+	 * @param string $price woocommerce 2.0 variation price formatter
+	 * @param WC_Product_Variable $product
+	 *
+	 * @return string
+	 */
+	function price__wc20_variation_format( $price, $product ) {
 
-        return $tabs;
-    }
+		$_price = wc20_get_variation_price( $product );
+		if ( $_price['min'] ) {
+			$price = wc_price( $_price['min'] );
+
+			if ( $_price['min'] !== $_price['max'] ) {
+				$price = 'от ' . $price;
+			}
+		}
+
+		$_regular_price = wc20_get_variation_regular_price( $product );
+		if ( $_regular_price['min'] ) {
+			$sale_price = wc_price( $_regular_price['min'] );
+
+			if ( $_regular_price['min'] !== $_regular_price['max'] ) {
+				$sale_price = 'от ' . $sale_price;
+			}
+
+			if ( $price !== $sale_price ) {
+				$price = sprintf( '<del>%s</del> <ins>%s</ins>', $sale_price, $price );
+			}
+		}
+
+		return $price;
+	}
 }
 
-/************************************ Order ***********************************/
-/**
- * Change Default WC Currency (to FA or 'P.')
- */
-add_filter('woocommerce_currency_symbol', 'change_currency_symbol', 10, 2);
-if( !function_exists('change_currency_symbol') ) {
-    function change_currency_symbol( $currency_symbol, $currency ) {
-        /**
-         * is_woocommerce() return false on mail action
-         * $is_mail = !is_woocommerce();
-         */
-        if( $currency == 'RUB' && !is_admin() ) { // && !$is_mail
-            $currency_symbol = '<i class="fa fa-rub">руб.</i>';
-        }
+if ( ! function_exists( 'price__currency_symbol' ) ) {
+	function price__currency_symbol( $currency_symbol, $currency ) {
+		if ( 'RUB' == $currency ) {
+			$currency_symbol = '<i class="fa fa-rub">руб.</i>';
+		}
 
-        return $currency_symbol;
-    }
+		return $currency_symbol;
+	}
 }
 
-// add_filter( 'wc_order_statuses', 'change_wc_order_statuses' );
-if( !function_exists('change_wc_order_statuses') ) {
-    function change_wc_order_statuses( $order_statuses ) {
-        // $order_statuses = array(
-        //  'wc-pending'    => _x( 'Pending payment', 'Order status', 'woocommerce' ),
-        //  'wc-processing' => _x( 'Processing', 'Order status', 'woocommerce' ),
-        //  'wc-on-hold'    => _x( 'On hold', 'Order status', 'woocommerce' ),
-        //  'wc-completed'  => _x( 'Completed', 'Order status', 'woocommerce' ),
-        //  'wc-cancelled'  => _x( 'Cancelled', 'Order status', 'woocommerce' ),
-        //  'wc-refunded'   => _x( 'Refunded', 'Order status', 'woocommerce' ),
-        //  'wc-failed'     => _x( 'Failed', 'Order status', 'woocommerce' ),
-        //  );
+if ( ! function_exists( 'checkout__default_address_fields' ) ) {
+	function checkout__default_address_fields( $fields ) {
+		// Set required
+		$fields['last_name']['required'] = false;
+		$fields['address_1']['required'] = false;
 
-        if( isset($order_statuses['wc-completed']) ) {
-            // Выполнен to Оплачен
-            $order_statuses['wc-completed'] = _x( 'Оплачен', 'Order status', 'woocommerce' );
-        }
+		// Unset fields
+		unset( $fields['address_2'], $fields['postcode'] );
 
-        return $order_statuses;
-    }
+		// Add bootstrap class for all fields
+		//foreach ( $fields as &$field ) {
+		//	if ( is_array( $field['input_class'] ) && ! in_array( 'form-control', $field['input_class'] ) ) {
+		//		array_push( $field['input_class'], 'form-control' );
+		//	}
+		//}
+
+		return $fields;
+	}
 }
 
-/********************************** Checkout **********************************/
-add_filter( 'woocommerce_default_address_fields', 'change_wc_default_address_fields', 20, 1 );
-if( !function_exists('change_wc_default_address_fields') ) {
-    function change_wc_default_address_fields($fields) {
-        /**
-         * Set priority
-         */
-        // $fields['first_name']['priority'] = 10;
-        // $fields['last_name']['priority'] = 20;
-        // $fields['company']['priority'] = 30;
-        // $fields['country']['priority'] = 40;
-        $fields['address_1']['priority'] = 70;
-        $fields['city']['priority'] = 60;
-        $fields['state']['priority'] = 50;
+if ( ! function_exists( 'checkout__set_fields_priority' ) ) {
+	function checkout__set_fields_priority( $fields ) {
+		$priority = array(
+			'address_1' => 70,
+			'city'      => 60,
+			'state'     => 50,
+			'email'     => 24,
+			'phone'     => 22,
+		);
 
-        /**
-         * Set required
-         */
-        $fields['last_name']['required'] = false;
-        $fields['address_1']['required'] = false;
+		array_map( function ( $label ) use ( &$fields, $priority ) {
 
-        /**
-         * Unset fields
-         */
-        unset( $fields['address_2'], $fields['postcode'] );
+			foreach ( $priority as $k => $v ) {
+				if ( isset( $fields[ $label ]["{$label}_{$k}"] ) ) {
+					$fields[ $label ]["{$label}_{$k}"]['priority'] = $v;
+				}
+			}
 
-        /**
-         * Add bootstrap class for all fields
-         */
-        foreach ($fields as $field)
-        {
-            $field['input_class'][] = 'form-control';
-        }
+		}, array( 'billing', 'shipping' ) );
 
-        return $fields;
-    }
+		return $fields;
+	}
 }
 
-add_filter( 'woocommerce_checkout_fields' , 'change_woocommerce_checkout_fields', 15, 1 );
-if( !function_exists('change_woocommerce_checkout_fields') ) {
-    function change_woocommerce_checkout_fields( $fields ) {
-        /**
-         * Set priority
-         */
-        $fields['billing']['billing_phone']['priority'] = 22;
-        $fields['billing']['billing_email']['priority'] = 24;
+if ( ! function_exists( 'checkout__add_fields_bootstrap_class' ) ) {
+	function checkout__add_fields_bootstrap_class( $fields ) {
+		// For all sections
+		foreach ( array( 'billing', 'shipping', 'account', 'order' ) as $field_key ) {
+			if ( ! isset( $fields[ $field_key ] ) || ! is_array( $fields[ $field_key ] ) ) {
+				continue;
+			}
 
-        /**
-         * For all sections
-         */
-        foreach (array('billing', 'shipping', 'account', 'order') as $field_key) {
-            /**
-             * Add bootstrap class for all fields
-             */
-            foreach ($fields[$field_key] as $key => &$field) {
-                $field['input_class'][] = 'form-control';
-            }
-        }
+			// Add bootstrap class for all fields
+			foreach ( $fields[ $field_key ] as $key => &$field ) {
+				if ( is_array( $field['input_class'] ) && ! in_array( 'form-control', $field['input_class'] ) ) {
+					array_push( $field['input_class'], 'form-control' );
+				}
+			}
+		}
 
-        return $fields;
-    }
+		return $fields;
+	}
 }
 
-/*********************************** Account **********************************/
-// add_filter ( 'woocommerce_account_menu_items', 'change_account_menu_items' );
-if( !function_exists('change_account_menu_items') ) {
-    function change_account_menu_items( $items ) {
-        // $items = array(
-        //     'orders' => __( 'Orders', 'woocommerce' ),
-        //     'edit-address' => __( 'Addresses', 'woocommerce' ),
-        //     'payment-methods' => __( 'Payment methods', 'woocommerce' ),
-        //     'edit-account' => __( 'Account details', 'woocommerce' ),
-        //     'customer-logout' => __( 'Logout', 'woocommerce' ),
-        // );
+if ( ! function_exists( 'account__menu_items' ) ) {
+	function account__menu_items( $items ) {
+		// $items = array(
+		//     'orders' => __( 'Orders', 'woocommerce' ),
+		//     'edit-address' => __( 'Addresses', 'woocommerce' ),
+		//     'payment-methods' => __( 'Payment methods', 'woocommerce' ),
+		//     'edit-account' => __( 'Account details', 'woocommerce' ),
+		//     'customer-logout' => __( 'Logout', 'woocommerce' ),
+		// );
 
-        unset( $items['dashboard'], $items['downloads'] );
+		unset( $items['dashboard'], $items['downloads'] );
 
-        return $items;
-    }
+		return $items;
+	}
 }
 
-// add_filter( 'woocommerce_save_account_details_required_fields', 'change_account_required_inputs' );
-if( !function_exists('change_account_required_inputs') ) {
-    function change_account_required_inputs( $required_fields ) {
-        $required_fields = array(
-            // 'account_first_name' => __( 'First name', 'woocommerce' ),
-            // 'account_last_name'  => __( 'Last name', 'woocommerce' ),
-            'account_email'      => __( 'Email address', 'woocommerce' ),
-        );
+if ( ! function_exists( 'account__required_inputs' ) ) {
+	function account__required_inputs( $required_fields ) {
+		$required_fields = array(
+			// 'account_first_name' => __( 'First name', 'woocommerce' ),
+			// 'account_last_name'  => __( 'Last name', 'woocommerce' ),
+			'account_email' => __( 'Email address', 'woocommerce' ),
+		);
 
-        return $required_fields;
-    }
+		return $required_fields;
+	}
 }
 
-/**
- * Do Not Log in after registration user.
- */
-add_action('woocommerce_registration_redirect', 'logout_after_registration_redirect', 2);
-if( !function_exists('logout_after_registration_redirect') ) {
-    function logout_after_registration_redirect() {
-        wp_logout();
-        return home_url('/my-account/?register_success=1&action=login');
-    }
+if ( ! function_exists( 'change_wc_order_statuses' ) ) {
+	/**
+	 * @param array $order_statuses
+	 *  'wc-pending'    => _x( 'Pending payment', 'Order status', 'woocommerce' )
+	 *  'wc-processing' => _x( 'Processing', 'Order status', 'woocommerce' )
+	 *  'wc-on-hold'    => _x( 'On hold', 'Order status', 'woocommerce' )
+	 *  'wc-completed'  => _x( 'Completed', 'Order status', 'woocommerce' )
+	 *  'wc-cancelled'  => _x( 'Cancelled', 'Order status', 'woocommerce' )
+	 *  'wc-refunded'   => _x( 'Refunded', 'Order status', 'woocommerce' )
+	 *  'wc-failed'     => _x( 'Failed', 'Order status', 'woocommerce' )
+	 *
+	 * @return array
+	 */
+	function change_wc_order_statuses( $order_statuses ) {
+		if ( isset( $order_statuses['wc-completed'] ) ) {
+			// Выполнен to Оплачен
+			$order_statuses['wc-completed'] = _x( 'Оплачен', 'Order status', 'woocommerce' );
+		}
+
+		return $order_statuses;
+	}
+}
+
+if ( ! function_exists( 'logout_after_registration_redirect' ) ) {
+	/**
+	 * Do Not Log in after registration user.
+	 */
+	function logout_after_registration_redirect() {
+		wp_logout();
+
+		return home_url( '/my-account/?register_success=1&action=login' );
+	}
 }
