@@ -4,19 +4,19 @@
 inc/                // Дополнительные файлы расширяющие функционал functions.php
 ├── system/         // Все функции данного каталога можно заранее предопределить
 │   │               // Не рекомендуется изменять - для удобства обновлений файлов.
-│   ├── ./inc/system/class-wp-bootstrap-navwalker.php';
-│   ├── ./inc/system/setup.php         *
-│   ├── ./inc/system/widgets.php       * Сайдбар панели (Виджеты)
-│   ├── ./inc/system/assets.php        * Дополнительные ресурсы
-│   ├── ./inc/system/utilites.php      * Вспомогательные функции
-│   ├── ./inc/system/admin.php         * Фильтры и функции административной части WP
-│   ├── ./inc/system/tpl.php           * Основные функции вывода информации в шаблон
-│   ├── ./inc/system/navigation.php    * Навигация
-│   ├── ./inc/system/gallery.php       * Шаблон встроенной галереи wordpress
-│   ├── ./inc/system/customizer.php    * Дополнительные функии в настройки внешнего вида
-│   ├── ./inc/system/wpcf7.php         * Дополнение к отправке почтовых сообщений
-│   ├── ./inc/system/woocommerce.php   *
-│   └── ./inc/system/wc-customizer.php *
+│   ├── class-wp-bootstrap-navwalker.php';
+│   ├── setup.php         *
+│   ├── widgets.php       * Сайдбар панели (Виджеты)
+│   ├── assets.php        * Дополнительные ресурсы
+│   ├── utilites.php      * Вспомогательные функции
+│   ├── admin.php         * Фильтры и функции административной части WP
+│   ├── tpl.php           * Основные функции вывода информации в шаблон
+│   ├── navigation.php    * Навигация
+│   ├── gallery.php       * Шаблон встроенной галереи wordpress
+│   ├── customizer.php    * Дополнительные функии в настройки внешнего вида
+│   ├── wpcf7.php         * Дополнение к отправке почтовых сообщений
+│   ├── woocommerce.php   *
+│   └── wc-customizer.php *
 │
 ├── post-type.php   // Регистрируем собственный тип записи (Слайдер для примера)
 ├── shortcode.php   // [Шорткод] - вспомогательный код, разделяющий логику и представления
