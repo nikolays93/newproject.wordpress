@@ -84,9 +84,6 @@ function enqueue_assets() {
 require_once __DIR__ . '/inc/post-type.php';
 require_once __DIR__ . '/inc/shortcode.php';
 
-// Register Archive and Single widget area
-require_once __DIR__ . '/inc/widgets.php';
-
 /**
  * Include required files
  * Редактировать файлы в папке system не рекомендуется, так как они обновляются, но..
@@ -95,6 +92,7 @@ require_once __DIR__ . '/inc/widgets.php';
  */
 require __DIR__ . '/inc/system/class-wp-bootstrap-navwalker.php';
 require __DIR__ . '/inc/system/setup.php';      // *
+require __DIR__ . '/inc/system/widgets.php';    // * Сайдбар панели (Виджеты)
 require __DIR__ . '/inc/system/assets.php';     // * Дополнительные ресурсы
 require __DIR__ . '/inc/system/utilites.php';   // * Вспомогательные функции
 require __DIR__ . '/inc/system/admin.php';      // * Фильтры и функции административной части WP
@@ -106,8 +104,14 @@ require __DIR__ . '/inc/system/wpcf7.php';      // * Дополнение к о�
 
 // Подключить поддержку "фишек" wordpress
 add_action( 'after_setup_theme', 'theme_setup' );
+// Зарегистрировать стандартное меню (В шапке/в подвале, ./system/navigation.php)
+add_action( 'after_setup_theme', 'register_theme_navigation' );
+// Зарегистрировать виджеты из файла ./system/widgets.php
+add_action( 'widgets_init', 'theme_widgets' );
 // Очистить тэг head от излишек
 add_action( 'init', 'head_cleanup' );
+// Убрать заголовок Архивы: или Категория: в заголовке страницы списка записей
+add_filter( 'get_the_archive_title', 'theme_archive_title_filter', 10, 1 );
 
 // Подключить скрипты и стили указанные в этом файле
 add_action( 'wp_enqueue_scripts', 'enqueue_assets', 997 );
@@ -121,8 +125,6 @@ add_action( 'before_main_content', 'bootstrap_navbar', 10, 1 );
 // Добавляем мякиш от yoast
 add_action( 'before_main_content', 'breadcrumbs_by_yoast', 10, 1 );
 
-// Зарегистрировать виджеты из файла widgets.php
-add_action( 'widgets_init', 'theme_widgets' );
 
 // Регистрируем тип записи slide
 add_action( 'init', 'register_type__slide' );
@@ -186,7 +188,7 @@ if ( class_exists( 'woocommerce' ) ) {
 	add_filter( 'wc_order_statuses', 'change_wc_order_statuses' );
 	// Не авторизуем новых пользователей (просим авторизироваться самостоятельно после регистрации)
 	add_action( 'woocommerce_registration_redirect', 'logout_after_registration_redirect', 2 );
-	// Меняем вкладки информационной панели (в файле woocommerce/functions.php)
+	// Меняем вкладки информационной панели (в файле ./woocommerce/functions.php)
 	add_filter( 'woocommerce_product_tabs', 'woo_change_tabs', 98 );
 }
 

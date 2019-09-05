@@ -54,7 +54,7 @@ if ( ! function_exists( 'customize_toolbar_link' ) ) {
 			'title' => DEVELOPER_NAME,
 			'href'  => DEVELOPER_LINK,
 			'meta'  => array(
-				'title' => __( 'Go to developer\'s website', 'theme' ),
+				'title' => __( 'Go to developer\'s website', 'project' ),
 			),
 		) );
 	}

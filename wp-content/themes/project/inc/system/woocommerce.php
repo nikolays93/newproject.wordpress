@@ -36,9 +36,9 @@ if ( ! function_exists( 'widget__woocommerce' ) ) {
 	 */
 	function widget__woocommerce() {
 		register_sidebar( array(
-			'name'          => __( 'Витрины магазина' ),
+			'name'          => __( 'Витрины магазина', 'project' ),
 			'id'            => 'woocommerce',
-			'description'   => __( 'Показываются на витринах магазина WooCommerce' ),
+			'description'   => __( 'Показываются на витринах магазина WooCommerce', 'project' ),
 			'before_widget' => '<section id="%1$s" class="widget %2$s">',
 			'after_widget'  => '</section>',
 			'before_title'  => '<h3 class="widget-title">',

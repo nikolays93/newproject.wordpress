@@ -2,7 +2,7 @@
 
 function theme_widgets() {
 	register_sidebar( array(
-		'name'          => __( 'Архивы и записи' ),
+		'name'          => __( 'Архивы и записи', 'project' ),
 		'id'            => 'archive',
 		'description'   => __( 'Эти виджеты показываются в архивах' ),
 		'before_widget' => '<section id="%1$s" class="widget %2$s">',
@@ -12,7 +12,7 @@ function theme_widgets() {
 	) );
 
 	register_sidebar( array(
-		'name'          => __( 'Страницы' ),
+		'name'          => __( 'Страницы', 'project' ),
 		'id'            => 'page',
 		'description'   => __( 'Эти виджеты показываются на страницах' ),
 		'before_widget' => '<section id="%1$s" class="widget %2$s">',
