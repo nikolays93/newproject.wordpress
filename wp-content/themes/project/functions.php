@@ -20,7 +20,7 @@ if ( ! defined( 'THEME' ) ) {
 }
 
 if ( ! defined( 'TPL' ) ) {
-	define( 'TPL', get_template_directory_uri() . DIRECTORY_SEPARATOR );
+	define( 'TPL', get_template_directory_uri() . '/' );
 }
 
 function enqueue_assets() {
@@ -74,8 +74,8 @@ function enqueue_assets() {
 	 * Cleave.js form inputs mask formatter
 	 * @url https://nosir.github.io/cleave.js/
 	 */
-	wp_enqueue_script( 'cleave', TPL . 'assets/vendor/cleave/cleave.min.js', array(), false, true );
-	wp_enqueue_script( 'cleave-phone', TPL . 'assets/vendor/cleave/addons/cleave-phone.ru.js', array(), false, true );
+	// wp_enqueue_script( 'cleave', TPL . 'assets/vendor/cleave/cleave.min.js', array(), false, true );
+	// wp_enqueue_script( 'cleave-phone', TPL . 'assets/vendor/cleave/addons/cleave-phone.ru.js', array(), false, true );
 }
 
 /**
