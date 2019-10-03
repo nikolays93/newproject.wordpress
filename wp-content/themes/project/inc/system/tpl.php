@@ -5,101 +5,19 @@ if ( ! defined( 'ABSPATH' ) ) { // You shall not pass
 }
 
 /**
- * Title template
- * @todo morph to the_title filter
+ * Add edit icon after title if current user has permissions
  */
-if ( ! function_exists( 'get_advanced_title' ) ) {
-	function get_advanced_title( $post_id = null, $args = array() ) {
-		$args = wp_parse_args( $args, array(
-			'title_tag'   => '',
-			'title_class' => 'post-title',
-			'clear'       => false,
-			'force'       => false, // multiple | single
-		) );
+add_filter('the_title', function($title, $post_id) {
+    // Add Edit Post Icon
+    if( current_user_can( 'edit_pages' ) ) {
+        $title .= sprintf( '<object><a href="%s" class="%s"></a></object>',
+            get_edit_post_link( $post_id ),
+            'dashicons dashicons-welcome-write-blog no-underline'
+        );
+    }
 
-		switch ( $args['force'] ) {
-			case 'single':
-				$is_singular = true;
-				break;
-
-			case 'multiple':
-				$is_singular = false;
-				break;
-
-			default:
-				$is_singular = is_singular();
-				break;
-		}
-
-		if ( ! $args['title_tag'] ) {
-			$args['title_tag'] = $is_singular ? 'h1' : 'h2';
-		}
-
-		if ( is_404() ) {
-			return sprintf( '<%1$s class="%2$s error_not_found"> Ошибка #404: страница не найдена. </%1$s>',
-				esc_html( $args['title_tag'] ),
-				esc_attr( $args['title_class'] )
-			);
-		}
-
-		/**
-		 * Get Title
-		 */
-		if ( ! $title = get_the_title( $post_id ) ) {
-			// Title Not Found
-			return false;
-		}
-
-		/**
-		 * Get Edit Post Icon
-		 */
-		$edit_tpl = sprintf( '<object><a href="%s" class="%s"></a></object>',
-			get_edit_post_link( $post_id ),
-			'dashicons dashicons-welcome-write-blog no-underline'
-		);
-
-		if ( $args['clear'] ) {
-			return $title . ' ' . $edit_tpl;
-		}
-
-		$result = array();
-
-		if ( ! $is_singular ) {
-			$result[] = sprintf( '<a href="%s">', get_permalink( $post_id ) );
-		}
-
-		$title_html = sprintf( '<%1$s class="%2$s">%3$s %4$s</%1$s>',
-			esc_html( $args['title_tag'] ),
-			esc_attr( $args['title_class'] ),
-			$title,
-			$edit_tpl
-		);
-
-		if ( ! $is_singular ) {
-			$title_html = sprintf( '<a href="%s">%s</a>',
-				get_permalink( $post_id ),
-				$title_html
-			);
-		}
-
-		return $title_html;
-	}
-}
-
-if ( ! function_exists( 'the_advanced_title' ) ) {
-	function the_advanced_title( $post_id = null, $args = array() ) {
-		$args = wp_parse_args( $args, array(
-			'before' => '',
-			'after'  => '',
-		) );
-
-		if ( $title = get_advanced_title( $post_id, $args ) ) {
-			echo $args['before'] . $title . $args['after'];
-		}
-
-		do_action( 'theme_after_title', $title );
-	}
-}
+    return $title;
+}, 10, 2);
 
 if ( ! function_exists( 'theme_archive_title_filter' ) ) {
 	/**
