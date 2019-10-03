@@ -157,7 +157,6 @@ if ( ! function_exists( 'the_sidebar' ) ) {
  */
 if ( ! function_exists( 'get_tpl_content' ) ) {
 	function get_tpl_content( $affix = false, $return = false, $container = 'row', $query = null ) {
-		$templates = array();
 		$slug      = 'template-parts/content';
 
 		if ( ! $affix ) {
@@ -177,11 +176,12 @@ if ( ! function_exists( 'get_tpl_content' ) ) {
 		}
 
 		if ( $container ) {
-			echo sprintf( '<div class="%s">', esc_attr( $container ) );
+			printf( '<div class="%s">', esc_attr( $container ) );
 		}
 
 		while ( $query ? $query->have_posts() : have_posts() ) {
 			$query ? $query->the_post() : the_post();
+			$templates = array();
 
 			// need for search
 			if ( $affix === false ) {
