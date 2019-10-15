@@ -16,73 +16,103 @@ if ( ! defined( 'DEVELOPMENT_IP' ) ) {
 }
 
 if ( ! defined( 'THEME' ) ) {
+	// Путь на сервере до папки шаблона (с завершающим слэшем)
 	define( 'THEME', get_template_directory() . DIRECTORY_SEPARATOR );
 }
 
 if ( ! defined( 'TPL' ) ) {
+	// Ссылка на страницу папки шаблона
 	define( 'TPL', get_template_directory_uri() . '/' );
 }
 
-function enqueue_assets() {
-	$is_compressed = ! defined( 'SCRIPT_DEBUG' ) || SCRIPT_DEBUG === false;
-	$min           = $is_compressed ? '.min' : '';
-
+if( !function_exists('enqueue_assets') ) {
 	/**
-	 * jQuery required*
-	 * @url https://jquery.com/
+	 * Import dependences (include css/js vendor files to site)
+	 * @return void
 	 */
-	wp_deregister_script( 'jquery' );
-	wp_register_script( 'jquery', 'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js', array(),
-		'3.4.1' );
-	wp_enqueue_script( 'jquery' );
+    function enqueue_assets() {
+		$is_compressed = ! defined( 'SCRIPT_DEBUG' ) || SCRIPT_DEBUG === false;
+		$min           = $is_compressed ? '.min' : '';
 
-	/**
-	 * Modernizr. It can detect browser support
-	 * @url https://modernizr.com/
-	 */
-	wp_enqueue_script( 'modernizr', 'https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js',
-		array(), '3.3.1' );
+		/**
+		 * jQuery required*
+		 * @url https://jquery.com/
+		 */
+		wp_deregister_script( 'jquery' );
+		wp_register_script( 'jquery', 'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js', array(),
+			'3.4.1' );
+		wp_enqueue_script( 'jquery' );
 
-	/**
-	 * Bootstrap framework
-	 * @url https://getbootstrap.com/
-	 */
-	wp_enqueue_script( 'bootstrap', TPL . 'assets/vendor/bootstrap' . $min . '.js', array( 'jquery' ), '4.1',
-		true );
-	wp_enqueue_style( 'bootstrap-style', TPL . 'assets/vendor/bootstrap' . $min . '.css', array() );
+		/**
+		 * Modernizr. It can detect browser support
+		 * @url https://modernizr.com/
+		 */
+		wp_enqueue_script( 'modernizr', 'https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js',
+			array(), '3.3.1' );
 
-	/**
-	 * Hamburgers. Animated menu icons
-	 */
-	wp_enqueue_style( 'hamburgers', TPL . 'assets/vendor/hamburgers' . $min . '.css' );
+		/**
+		 * Bootstrap framework
+		 * @url https://getbootstrap.com/
+		 */
+		wp_enqueue_script( 'bootstrap', TPL . 'assets/vendor/bootstrap' . $min . '.js', array( 'jquery' ), '4.1',
+			true );
+		wp_enqueue_style( 'bootstrap-style', TPL . 'assets/vendor/bootstrap' . $min . '.css', array() );
 
-	/**
-	 * Fancy box. Modern modals
-	 * @url http://fancyapps.com/
-	 */
-	// wp_enqueue_script('fancybox', TPL . 'assets/vendor/fancybox/jquery.fancybox.min.js', array('jquery'), '3', true);
-	// wp_enqueue_style( 'fancybox-style', TPL . 'assets/vendor/fancybox/jquery.fancybox.min.css', array() );
+		/**
+		 * Hamburgers. Animated menu icons
+		 * @url https://jonsuh.com/hamburgers/
+		 */
+		wp_enqueue_style( 'hamburgers', TPL . 'assets/vendor/hamburgers' . $min . '.css' );
 
-	/**
-	 * Slick. Easy slider
-	 */
-	// wp_enqueue_script('slick', TPL . 'assets/vendor/slick/slick.min.js', array('jquery'), '1.8.1', true);
-	// wp_enqueue_style( 'slick-style', TPL . 'assets/vendor/slick/slick.css', array() );
-	// wp_enqueue_style( 'slick-theme', TPL . 'assets/vendor/slick/slick-theme.css', array() );
+		/**
+		 * Fancy box. Modern modals
+		 * @url http://fancyapps.com/
+		 */
+		// wp_enqueue_script('fancybox', TPL . 'assets/vendor/fancybox/jquery.fancybox.min.js', array('jquery'), '3', true);
+		// wp_enqueue_style( 'fancybox-style', TPL . 'assets/vendor/fancybox/jquery.fancybox.min.css', array() );
 
-	/**
-	 * Cleave.js form inputs mask formatter
-	 * @url https://nosir.github.io/cleave.js/
-	 */
-	// wp_enqueue_script( 'cleave', TPL . 'assets/vendor/cleave/cleave.min.js', array(), false, true );
-	// wp_enqueue_script( 'cleave-phone', TPL . 'assets/vendor/cleave/addons/cleave-phone.ru.js', array(), false, true );
+		/**
+		 * Slick. Easy slider
+		 * @url https://kenwheeler.github.io/slick/
+		 */
+		// wp_enqueue_script('slick', TPL . 'assets/vendor/slick/slick.min.js', array('jquery'), '1.8.1', true);
+		// wp_enqueue_style( 'slick-style', TPL . 'assets/vendor/slick/slick.css', array() );
+		// wp_enqueue_style( 'slick-theme', TPL . 'assets/vendor/slick/slick-theme.css', array() );
+
+		/**
+		 * Cleave.js form inputs mask formatter
+		 * @url https://nosir.github.io/cleave.js/
+		 */
+		// wp_enqueue_script( 'cleave', TPL . 'assets/vendor/cleave/cleave.min.js', array(), false, true );
+		// wp_enqueue_script( 'cleave-phone', TPL . 'assets/vendor/cleave/addons/cleave-phone.ru.js', array(), false, true );
+	}
 }
 
-/**
- * Custom post types (slider as example)
- */
-require_once __DIR__ . '/inc/post-type.php';
-require_once __DIR__ . '/inc/shortcode.php';
+if( !function_exists('require_path') ) {
+	/**
+	 * @param  string $path path to required file
+	 * @return void
+	 */
+    function require_path( $path ) {
+    	require __DIR__ . $path;
+    }
+}
+
+array_map( 'require_path', array(
+	'/inc/post-type.php', // * Функции добавления типа записи slide
+	'/inc/shortcode.php', // * Функции добавления шорткода
+) );
+
+// Регистрируем тип записи слайдер "slide" (для примера)
+add_action( 'init', 'register_type__slide' );
+// Регистрируем таксономию slider
+add_action( 'init', 'register_tax__slider' );
+// Меняем местами ссылки на таксономию (Эта ссылка нужна первой) и тип записи
+add_action( 'admin_menu', 'sort_menu_slider', 99 );
+// Показываем принадлежащий слайдеру код вызова
+add_filter( 'slider_row_actions', 'show_slider_shortcode', 10, 2 );
+// Регистрируем шорткод для вывода элементов типа записи с помощью квадратных скобок [slider]
+add_shortcode( 'slider', 'slider_shortcode' );
 
 /**
  * Include required files
@@ -90,17 +120,20 @@ require_once __DIR__ . '/inc/shortcode.php';
  * Все классы и функции можно предопределить, объявив до подключения файла к примеру:
  * function breadcrumbs_by_yoast() { yoast_breadcrumb('<div class="breadcrumbs">','</div>'); }
  */
-require __DIR__ . '/inc/system/class-wp-bootstrap-navwalker.php';
-require __DIR__ . '/inc/system/setup.php';      // *
-require __DIR__ . '/inc/system/widgets.php';    // * Сайдбар панели (Виджеты)
-require __DIR__ . '/inc/system/assets.php';     // * Дополнительные ресурсы
-require __DIR__ . '/inc/system/utilites.php';   // * Вспомогательные функции
-require __DIR__ . '/inc/system/admin.php';      // * Фильтры и функции административной части WP
-require __DIR__ . '/inc/system/tpl.php';        // * Основные функции вывода информации в шаблон
-require __DIR__ . '/inc/system/navigation.php'; // * Навигация
-require __DIR__ . '/inc/system/gallery.php';    // * Шаблон встроенной галереи wordpress
-require __DIR__ . '/inc/system/customizer.php'; // * Дополнительные функии в настройки внешнего вида
-require __DIR__ . '/inc/system/wpcf7.php';      // * Дополнение к отправке почтовых сообщений
+array_map( 'require_path', array(
+	'/inc/system/class-wp-bootstrap-navwalker.php',
+	'/inc/system/setup.php',      // *
+	'/inc/system/widgets.php',    // * Сайдбар панели (Виджеты)
+	'/inc/system/assets.php',     // * Дополнительные ресурсы
+	'/inc/system/utilites.php',   // * Вспомогательные функции
+	'/inc/system/admin.php',      // * Фильтры и функции административной части WP
+	'/inc/system/tpl.php',        // * Основные функции вывода информации в шаблон
+	'/inc/system/navigation.php', // * Навигация
+	'/inc/system/gallery.php',    // * Шаблон встроенной галереи wordpress
+	'/inc/system/customizer.php', // * Дополнительные функии в настройки внешнего вида
+	'/inc/system/wpcf7.php',      // * Дополнение к отправке почтовых сообщений
+) );
+
 
 // Подключить поддержку "фишек" wordpress
 add_action( 'after_setup_theme', 'theme_setup' );
@@ -126,25 +159,16 @@ add_action( 'before_main_content', 'bootstrap_navbar', 10, 1 );
 add_action( 'before_main_content', 'breadcrumbs_by_yoast', 10, 1 );
 
 
-// Регистрируем тип записи slide
-add_action( 'init', 'register_type__slide' );
-// Регистрируем таксономию slider
-add_action( 'init', 'register_tax__slider' );
-// Меняем местами ссылки на таксономию (Эта ссылка нужна первой) и тип записи
-add_action( 'admin_menu', 'sort_menu_slider', 99 );
-// Показываем принадлежащий слайдеру код вызова
-add_filter( 'slider_row_actions', 'show_slider_shortcode', 10, 2 );
-// Регистрируем шорткод для вывода элементов типа записи на странице таксономии
-add_shortcode( 'slider', 'slider_shortcode' );
-
 // Добавляем техническую информацию в письма Contact Form 7
 add_action( 'wpcf7_before_send_mail', 'wpcf7_additional_info', 10, 3 );
 add_filter( 'wpcf7_form_hidden_fields', 'wpcf7_post_id_field' );
 
 if ( class_exists( 'woocommerce' ) ) {
-	require __DIR__ . '/woocommerce/functions.php';
-	require __DIR__ . '/inc/system/woocommerce.php';
-	require __DIR__ . '/inc/system/wc-customizer.php';
+	array_map( 'require_path', array(
+		'/woocommerce/functions.php',	 // *
+		'/inc/system/woocommerce.php',   // *
+		'/inc/system/wc-customizer.php', // *
+	) );
 
 	// Подключаем поддержку Woocommerce
 	add_action( 'after_setup_theme', 'theme__woocommerce_support' );
