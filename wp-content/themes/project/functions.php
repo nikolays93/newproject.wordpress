@@ -25,12 +25,12 @@ if ( ! defined( 'TPL' ) ) {
 	define( 'TPL', get_template_directory_uri() . '/' );
 }
 
-if( !function_exists('enqueue_assets') ) {
+if ( ! function_exists( 'enqueue_assets' ) ) {
 	/**
 	 * Import dependences (include css/js vendor files to site)
 	 * @return void
 	 */
-    function enqueue_assets() {
+	function enqueue_assets() {
 		$is_compressed = ! defined( 'SCRIPT_DEBUG' ) || SCRIPT_DEBUG === false;
 		$min           = $is_compressed ? '.min' : '';
 
@@ -88,14 +88,15 @@ if( !function_exists('enqueue_assets') ) {
 	}
 }
 
-if( !function_exists('require_path') ) {
+if ( ! function_exists( 'require_path' ) ) {
 	/**
-	 * @param  string $path path to required file
+	 * @param string $path path to required file
+	 *
 	 * @return void
 	 */
-    function require_path( $path ) {
-    	require __DIR__ . $path;
-    }
+	function require_path( $path ) {
+		require __DIR__ . $path;
+	}
 }
 
 array_map( 'require_path', array(
@@ -165,7 +166,7 @@ add_filter( 'wpcf7_form_hidden_fields', 'wpcf7_post_id_field' );
 
 if ( class_exists( 'woocommerce' ) ) {
 	array_map( 'require_path', array(
-		'/woocommerce/functions.php',	 // *
+		'/woocommerce/functions.php',     // *
 		'/inc/system/woocommerce.php',   // *
 		'/inc/system/wc-customizer.php', // *
 	) );

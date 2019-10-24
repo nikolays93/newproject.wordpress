@@ -1,9 +1,13 @@
 <?php
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly
+}
+
 /**
  * Gallery template
  */
 add_filter( 'post_gallery', 'theme_gallery_callback', 10, 2 );
-
 if ( ! function_exists( 'theme_gallery_callback' ) ) {
 	function theme_gallery_callback( $output, $att ) {
 		global $post;
@@ -57,7 +61,7 @@ if ( ! function_exists( 'theme_gallery_callback' ) ) {
 		}
 
 		$output   = array();
-		$output[] = sprintf('<section id="gallery-%d" class="gallery-wrapper">', $att['gallery_id']);
+		$output[] = sprintf( '<section id="gallery-%d" class="gallery-wrapper">', $att['gallery_id'] );
 		$output[] = "\t" . '<div class="preloader" style="display: none;"></div>';
 		$output[] = "\t" . sprintf( '<%s class="%s">', esc_html( $att['itemtag'] ), esc_attr( $att['itemclass'] ) );
 

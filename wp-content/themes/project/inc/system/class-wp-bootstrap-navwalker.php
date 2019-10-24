@@ -1,5 +1,9 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly
+}
+
 if ( ! class_exists( 'WP_Bootstrap_Navwalker' ) ) {
 	/**
 	 * WP_Bootstrap_Navwalker class.

@@ -1,5 +1,8 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly
+}
 
 function theme_setup() {
 	load_theme_textdomain( 'project', get_template_directory() . '/languages' );

@@ -1,5 +1,9 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly
+}
+
 if ( ! function_exists( 'register_theme_navigation' ) ) {
 	function register_theme_navigation() {
 		register_nav_menus( array(
@@ -42,17 +46,17 @@ if ( ! function_exists( 'bootstrap_navbar' ) ) {
 			//     <span class="navbar-toggler-icon"></span>
 			// </button>
 			?>
-            <button type="button"
-                    class="navbar-toggler <?= $args['togglerClass'] ?>"
-                    data-toggle="collapse"
-                    data-target="#<?= $args['container_id'] ?>"
-                    aria-controls="<?= $args['container_id'] ?>"
-                    aria-expanded="false"
-                    aria-label="Toggle navigation">
-                <span class="hamburger-box">
-                    <span class="hamburger-inner"></span>
-                </span>
-            </button>
+			<button type="button"
+					class="navbar-toggler <?= $args['togglerClass'] ?>"
+					data-toggle="collapse"
+					data-target="#<?= $args['container_id'] ?>"
+					aria-controls="<?= $args['container_id'] ?>"
+					aria-expanded="false"
+					aria-label="Toggle navigation">
+				<span class="hamburger-box">
+					<span class="hamburger-inner"></span>
+				</span>
+			</button>
 		<?php
 		endif;
 
@@ -94,8 +98,8 @@ if ( ! function_exists( 'the_template_pagination' ) ) {
 			'end_size'  => 1,
 			'mid_size'  => 1,
 			'prev_next' => true,
-			'prev_text' => __('« Пред.', 'project'),
-			'next_text' => __('След. »', 'project'),
+			'prev_text' => __( '« Пред.', 'project' ),
+			'next_text' => __( 'След. »', 'project' ),
 			'add_args'  => false,
 		) );
 

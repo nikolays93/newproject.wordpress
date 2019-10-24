@@ -8,28 +8,42 @@
  * @package project
  * @version 1.0
  */
-
 ?>
-                <div class="slider row justify-content-between mt-5">
-                    <div class="col"><a href="<?= TPL ?>/img/placeholder.png" data-fancybox="gal1"><img src="<?= TPL ?>/img/placeholder.png" width="150" class="ac"></a></div>
-                    <div class="col"><a href="<?= TPL ?>/img/placeholder.png" data-fancybox="gal1"><img src="<?= TPL ?>/img/placeholder.png" width="150" class="ac"></a></div>
-                    <div class="col"><a href="<?= TPL ?>/img/placeholder.png" data-fancybox="gal1"><img src="<?= TPL ?>/img/placeholder.png" width="150" class="ac"></a></div>
-                    <div class="col"><a href="<?= TPL ?>/img/placeholder.png" data-fancybox="gal1"><img src="<?= TPL ?>/img/placeholder.png" width="150" class="ac"></a></div>
-                    <div class="col"><a href="<?= TPL ?>/img/placeholder.png" data-fancybox="gal1"><img src="<?= TPL ?>/img/placeholder.png" width="150" class="ac"></a></div>
-                </div>
-            </div><!-- .container -->
-		</div><!-- #content -->
+			<div class="slider row justify-content-between mt-5">
+				<div class="col">
+					<a href="<?= TPL ?>/img/placeholder.png" data-fancybox="gal1"><img
+						src="<?= TPL ?>/img/placeholder.png" width="150" class="ac"></a>
+				</div>
+				<div class="col">
+					<a href="<?= TPL ?>/img/placeholder.png" data-fancybox="gal1"><img
+						src="<?= TPL ?>/img/placeholder.png" width="150" class="ac"></a>
+				</div>
+				<div class="col">
+					<a href="<?= TPL ?>/img/placeholder.png" data-fancybox="gal1"><img
+						src="<?= TPL ?>/img/placeholder.png" width="150" class="ac"></a>
+				</div>
+				<div class="col">
+					<a href="<?= TPL ?>/img/placeholder.png" data-fancybox="gal1"><img
+						src="<?= TPL ?>/img/placeholder.png" width="150" class="ac"></a>
+				</div>
+				<div class="col">
+					<a href="<?= TPL ?>/img/placeholder.png" data-fancybox="gal1"><img
+						src="<?= TPL ?>/img/placeholder.png" width="150" class="ac"></a>
+				</div>
+			</div>
+		</div><!-- .container -->
+	</div><!-- #content -->
 
-		<footer id="colophon" class="site-footer">
-		</footer><!-- .site-footer -->
-	</div><!-- #page -->
+	<footer id="colophon" class="site-footer">
+	</footer><!-- .site-footer -->
+</div><!-- #page -->
 
-    <!-- Google Analytics: change UA-XXXXX-Y to be your site's ID. -*remove me*->
-    <script>
-        window.ga = function () { ga.q.push(arguments) }; ga.q = []; ga.l = +new Date;
-        ga('create', 'UA-XXXXX-Y', 'auto'); ga('send', 'pageview')
-    </script>
-    <script src="https://www.google-analytics.com/analytics.js" async defer></script> -->
+<!-- Google Analytics: change UA-XXXXX-Y to be your site's ID. -*remove me*->
+<script>
+	window.ga = function () { ga.q.push(arguments) }; ga.q = []; ga.l = +new Date;
+	ga('create', 'UA-XXXXX-Y', 'auto'); ga('send', 'pageview')
+</script>
+<script src="https://www.google-analytics.com/analytics.js" async defer></script> -->
 
 <?php wp_footer(); ?>
 

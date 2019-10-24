@@ -1,23 +1,23 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) { // You shall not pass
-	exit;
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly
 }
 
 /**
  * Add edit icon after title if current user has permissions
  */
-add_filter('the_title', function($title, $post_id) {
-    // Add Edit Post Icon
-    if( current_user_can( 'edit_pages' ) ) {
-        $title .= sprintf( '<object><a href="%s" class="%s"></a></object>',
-            get_edit_post_link( $post_id ),
-            'dashicons dashicons-welcome-write-blog no-underline'
-        );
-    }
+add_filter( 'the_title', function ( $title, $post_id ) {
+	// Add Edit Post Icon
+	if ( current_user_can( 'edit_pages' ) ) {
+		$title .= sprintf( '<object><a href="%s" class="%s"></a></object>',
+			get_edit_post_link( $post_id ),
+			'dashicons dashicons-welcome-write-blog no-underline'
+		);
+	}
 
-    return $title;
-}, 10, 2);
+	return $title;
+}, 10, 2 );
 
 if ( ! function_exists( 'theme_archive_title_filter' ) ) {
 	/**
@@ -56,11 +56,11 @@ if ( ! function_exists( 'the_sidebar' ) ) {
 	function the_sidebar() {
 		$sidebar_class = apply_filters( 'site_sidebar_class', 'site-sidebar col-12 col-lg-3' );
 		?>
-        <div id="secondary" class="<?= $sidebar_class ?>">
-            <aside class="widget-area" role="complementary">
+		<div id="secondary" class="<?= $sidebar_class ?>">
+			<aside class="widget-area" role="complementary">
 				<?php get_sidebar(); ?>
-            </aside>
-        </div>
+			</aside>
+		</div>
 		<?php
 	}
 }
@@ -75,7 +75,7 @@ if ( ! function_exists( 'the_sidebar' ) ) {
  */
 if ( ! function_exists( 'get_tpl_content' ) ) {
 	function get_tpl_content( $affix = false, $return = false, $container = 'row', $query = null ) {
-		$slug      = 'template-parts/content';
+		$slug = 'template-parts/content';
 
 		if ( ! $affix ) {
 			$type = $affix = get_post_type();

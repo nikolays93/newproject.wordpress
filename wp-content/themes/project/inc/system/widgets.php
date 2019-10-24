@@ -1,6 +1,10 @@
 <?php
 
-if( ! function_exists('theme_widgets') ) {
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly
+}
+
+if ( ! function_exists( 'theme_widgets' ) ) {
 	function theme_widgets() {
 		register_sidebar( array(
 			'name'          => __( 'Архивы и записи', 'project' ),

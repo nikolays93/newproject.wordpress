@@ -1,7 +1,7 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) { // You shall not pass
-	exit;
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly
 }
 
 if ( ! function_exists( 'theme__woocommerce_support' ) ) {

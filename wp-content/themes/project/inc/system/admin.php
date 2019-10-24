@@ -20,16 +20,16 @@ if ( ! function_exists( 'login_header_logo_css' ) ) {
 			@list( $src, $width, $height ) = wp_get_attachment_image_src( $logo_id, 'full' );
 			?>
 			<?php if ( $src && $width && $height ): ?>
-                <style type="text/css">
-                    .login h1 a {
-                        background: url("<?= $src ?>") no-repeat;
-                        width: <?= $width ?>px;
-                        height: <?= $height ?>px;
-                        position: relative;
-                        left: 50%;
-                        transform: translateX(-50%);
-                    }
-                </style>
+				<style type="text/css">
+					.login h1 a {
+						background: url("<?= $src ?>") no-repeat;
+						width: <?= $width ?>px;
+						height: <?= $height ?>px;
+						position: relative;
+						left: 50%;
+						transform: translateX(-50%);
+					}
+				</style>
 			<?php endif; ?>
 			<?php
 		}

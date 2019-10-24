@@ -1,5 +1,9 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly
+}
+
 const POST_ID_FIELD_NAME = '_current_post_id';
 
 /**

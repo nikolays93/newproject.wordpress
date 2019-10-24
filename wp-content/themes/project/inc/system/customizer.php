@@ -1,5 +1,9 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly
+}
+
 add_filter( 'post_class', 'add_theme_post_class', 10, 3 );
 if ( ! function_exists( 'add_theme_post_class' ) ) {
 	function add_theme_post_class( $classes, $class, $post_id ) {
