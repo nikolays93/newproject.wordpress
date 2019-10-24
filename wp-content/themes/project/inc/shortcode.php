@@ -49,5 +49,3 @@ function slider_shortcode( $atts = array(), $content = '' ) {
 
 	return implode( "\r\n", $res );
 }
-
-
