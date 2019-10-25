@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 add_filter( 'the_title', function ( $title, $post_id ) {
 	// Add Edit Post Icon
-	if ( current_user_can( 'edit_pages' ) ) {
+	if ( !is_admin() && current_user_can( 'edit_pages' ) ) {
 		$title .= sprintf( '<object><a href="%s" class="%s"></a></object>',
 			get_edit_post_link( $post_id ),
 			'dashicons dashicons-welcome-write-blog no-underline'

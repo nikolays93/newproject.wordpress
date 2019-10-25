@@ -122,17 +122,17 @@ add_shortcode( 'slider', 'slider_shortcode' );
  * function breadcrumbs_by_yoast() { yoast_breadcrumb('<div class="breadcrumbs">','</div>'); }
  */
 array_map( 'require_path', array(
-	'/inc/system/class-wp-bootstrap-navwalker.php',
-	'/inc/system/setup.php',      // *
-	'/inc/system/widgets.php',    // * Сайдбар панели (Виджеты)
-	'/inc/system/assets.php',     // * Дополнительные ресурсы
-	'/inc/system/utilites.php',   // * Вспомогательные функции
-	'/inc/system/admin.php',      // * Фильтры и функции административной части WP
-	'/inc/system/tpl.php',        // * Основные функции вывода информации в шаблон
-	'/inc/system/navigation.php', // * Навигация
-	'/inc/system/gallery.php',    // * Шаблон встроенной галереи wordpress
-	'/inc/system/customizer.php', // * Дополнительные функии в настройки внешнего вида
-	'/inc/system/wpcf7.php',      // * Дополнение к отправке почтовых сообщений
+	'/inc/class/wp-bootstrap-navwalker.php',
+	'/inc/system/setup.php',         // *
+	'/inc/system/widgets.php',       // * Сайдбар панели (Виджеты)
+	'/inc/system/assets.php',        // * Дополнительные ресурсы
+	'/inc/system/utilites.php',      // * Вспомогательные функции
+	'/inc/system/admin.php',         // * Фильтры и функции административной части WP
+	'/inc/system/tpl.php',           // * Основные функции вывода информации в шаблон
+	'/inc/system/navigation.php',    // * Навигация
+	'/inc/system/gallery.php',       // * Шаблон встроенной галереи wordpress
+	'/inc/system/customizer.php',    // * Дополнительные функии в настройки внешнего вида
+	'/inc/system/notifications.php', // * Дополнение к отправке уведомлений
 ) );
 
 
@@ -166,7 +166,7 @@ add_filter( 'wpcf7_form_hidden_fields', 'wpcf7_post_id_field' );
 
 if ( class_exists( 'woocommerce' ) ) {
 	array_map( 'require_path', array(
-		'/woocommerce/functions.php',     // *
+		'/woocommerce/functions.php',    // *
 		'/inc/system/woocommerce.php',   // *
 		'/inc/system/wc-customizer.php', // *
 	) );
@@ -214,7 +214,9 @@ if ( class_exists( 'woocommerce' ) ) {
 	// Не авторизуем новых пользователей (просим авторизироваться самостоятельно после регистрации)
 	add_action( 'woocommerce_registration_redirect', 'logout_after_registration_redirect', 2 );
 	// Меняем вкладки информационной панели (в файле ./woocommerce/functions.php)
-	add_filter( 'woocommerce_product_tabs', 'woo_change_tabs', 98 );
+	add_filter( 'woocommerce_product_tabs', 'change_wc_single_tabs', 98 );
+	// Отправить СМС оповещение при создании нового заказа
+	add_action( 'woocommerce_new_order', 'woocommerce_new_order_send_sms' );
 }
 
 /**

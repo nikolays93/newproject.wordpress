@@ -1,5 +1,4 @@
 <?php
-
 /*************************** Woocommerce Overrides ****************************/
 /**
  * Unset default woocommerce styles override from ./inc/system/woocommerce.php
