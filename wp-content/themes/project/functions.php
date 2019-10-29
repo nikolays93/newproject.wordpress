@@ -123,6 +123,8 @@ add_shortcode( 'slider', 'slider_shortcode' );
  */
 array_map( 'require_path', array(
 	'/inc/class/wp-bootstrap-navwalker.php',
+	'/inc/class/sms.ru.php',
+	'/inc/class/sms-provider.php',
 	'/inc/system/setup.php',         // *
 	'/inc/system/widgets.php',       // * Сайдбар панели (Виджеты)
 	'/inc/system/assets.php',        // * Дополнительные ресурсы
@@ -216,7 +218,7 @@ if ( class_exists( 'woocommerce' ) ) {
 	// Меняем вкладки информационной панели (в файле ./woocommerce/functions.php)
 	add_filter( 'woocommerce_product_tabs', 'change_wc_single_tabs', 98 );
 	// Отправить СМС оповещение при создании нового заказа
-	add_action( 'woocommerce_new_order', 'woocommerce_new_order_send_sms' );
+	// add_action( 'woocommerce_new_order', 'woocommerce_new_order_send_sms' );
 }
 
 /**

@@ -8,6 +8,10 @@ class SMS_Provider {
 	public $translit = 0;
 	public $partner_id = 1;
 
+	public function __construct() {
+		$this->from = apply_filters('theme_sms_from_number', '');
+	}
+
 	public function set_to( $phone ) {
 		$this->to = preg_replace('/\D/', '', $phone);
 
