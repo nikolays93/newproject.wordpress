@@ -38,7 +38,9 @@ if ( ! function_exists( 'require_path' ) ) {
 
 array_map( 'require_path', array(
 	'/inc/assets.php',
-	'/inc/shortcode.php', // * Функции добавления шорткода
+	'/inc/post-types.php', // * Функции добавления типа записи slide
+	'/inc/shortcodes.php', // * Функции добавления шорткода
+	'/inc/widgets.php',    // * Сайдбар панели (Виджеты)
 ) );
 
 // Регистрируем тип записи слайдер "slide" (для примера)
@@ -53,17 +55,22 @@ add_filter( 'slider_row_actions', 'show_slider_shortcode', 10, 2 );
 add_shortcode( 'slider', 'slider_shortcode' );
 
 /**
+ * Include classes
+ */
+array_map( 'require_path', array(
+	'/inc/class/wp-bootstrap-navwalker.php',
+	'/inc/class/sms.ru.php',
+	'/inc/class/sms-provider.php',
+) );
+
+/**
  * Include required files
  * Редактировать файлы в папке system не рекомендуется, так как они обновляются, но..
  * Все классы и функции можно предопределить, объявив до подключения файла к примеру:
  * function breadcrumbs_by_yoast() { yoast_breadcrumb('<div class="breadcrumbs">','</div>'); }
  */
 array_map( 'require_path', array(
-	'/inc/class/wp-bootstrap-navwalker.php',
-	'/inc/class/sms.ru.php',
-	'/inc/class/sms-provider.php',
 	'/inc/system/setup.php',         // *
-	'/inc/system/widgets.php',       // * Сайдбар панели (Виджеты)
 	'/inc/system/assets.php',        // * Дополнительные ресурсы
 	'/inc/system/utilites.php',      // * Вспомогательные функции
 	'/inc/system/admin.php',         // * Фильтры и функции административной части WP
