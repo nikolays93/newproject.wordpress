@@ -34,7 +34,7 @@ if ( ! function_exists( 'theme_gallery_callback' ) ) {
 		), $att );
 
 		if ( 'RAND' == $att['order'] ) {
-			$orderby = 'none';
+			$att['orderby'] = 'none';
 		}
 
 		if ( $att['include'] ) {
