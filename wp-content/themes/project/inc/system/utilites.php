@@ -183,3 +183,15 @@ if ( ! function_exists( 'get_default_bs_columns' ) ) {
 		return apply_filters( 'get_default_bs_columns', $col, $columns_count, $non_responsive );
 	}
 }
+
+if ( ! function_exists( 'get_validate_phone_pattern' ) ) {
+	/**
+	 * Validate russian phone number (for billing phone)
+	 * @return string
+	 */
+	function get_validate_phone_pattern() {
+		$pattern = '^((8|\+7)[\- ]?)?(\(?\d{3,5}\)?[\- ]?)?[\d\- ]{7,10}$';
+
+		return $pattern;
+	}
+}

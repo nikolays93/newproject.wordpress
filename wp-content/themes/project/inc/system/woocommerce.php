@@ -130,6 +130,19 @@ if ( ! function_exists( 'price__currency_symbol' ) ) {
 	}
 }
 
+if ( ! function_exists( 'checkout__validate_billing_phone' ) ) {
+	/**
+	 * @param array $fields
+	 * @param WP_Error $errors
+	 */
+	function checkout__validate_billing_phone( $fields, $errors ) {
+		$pattern = get_validate_phone_pattern();
+		if ( ! empty( $fields['billing_phone'] ) && ! preg_match( "/$pattern/", $fields['billing_phone'] ) ) {
+			$errors->add( 'phone_formatter_err', __( '<strong>Номер телефона</strong> указан не верно.', 'project' ) );
+		}
+	}
+}
+
 if ( ! function_exists( 'checkout__default_address_fields' ) ) {
 	function checkout__default_address_fields( $fields ) {
 		// Set required
