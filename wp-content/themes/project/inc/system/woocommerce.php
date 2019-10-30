@@ -143,6 +143,31 @@ if ( ! function_exists( 'checkout__validate_billing_phone' ) ) {
 	}
 }
 
+/**
+ * #bilig_phone ES validation
+ * @TODO Not working now
+ */
+add_action( 'wp_footer', function () {
+	// we need it only on our checkout page
+	if ( ! is_checkout() ) {
+		return;
+	}
+
+	$pattern = get_validate_phone_pattern();
+
+	?>
+    <script>
+        jQuery(function ($) {
+            $('body').on('blur change', '#billing_phone', function () {
+                $(this).closest('.form-row').addClass(
+                	/<?= $pattern ?>/.test( $(this).val() ) ? 'woocommerce-validated' : 'woocommerce-invalid'
+            	);
+            });
+        });
+    </script>
+	<?php
+} );
+
 if ( ! function_exists( 'checkout__default_address_fields' ) ) {
 	function checkout__default_address_fields( $fields ) {
 		// Set required
