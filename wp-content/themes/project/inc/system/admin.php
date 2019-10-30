@@ -83,3 +83,99 @@ if ( ! function_exists( 'custom_admin_footer' ) ) {
 		return $dev_message . $wp_message;
 	}
 }
+
+if ( ! function_exists( 'wp_authenticate_username_phone_password' ) ) {
+	/**
+	 * Authenticate a user, confirming the username or phonenumber and password are valid.
+	 *
+	 * @param WP_User|WP_Error|null $user WP_User or WP_Error object from a previous callback. Default null.
+	 * @param string $username Username for authentication.
+	 * @param string $password Password for authentication.
+	 *
+	 * @return WP_User|WP_Error WP_User on success, WP_Error on failure.
+	 * @since 2.8.0
+	 *
+	 */
+	function wp_authenticate_username_phone_password( $user, $username, $password ) {
+		if ( $user instanceof WP_User ) {
+			return $user;
+		}
+
+		// Check for empty fields
+		if ( empty( $username ) || empty( $password ) ) {
+			if ( is_wp_error( $user ) ) {
+				return $user;
+			}
+
+			$error = new WP_Error();
+
+			if ( empty( $username ) ) {
+				$error->add( 'empty_username', __( '<strong>ERROR</strong>: The username field is empty.' ) );
+			}
+
+			if ( empty( $password ) ) {
+				$error->add( 'empty_password', __( '<strong>ERROR</strong>: The password field is empty.' ) );
+			}
+
+			return $error;
+		}
+
+		$user_phone = preg_replace( '/[^0-9]/', '', $username );
+
+		// Then username is phone
+		if ( in_array( substr( $user_phone, 0, 1 ), [ 7, 8 ] ) ) {
+			// Check if user exists in WordPress database
+			$user = reset(
+				get_users( [
+					'meta_key'    => 'billing_phone',
+					'meta_value'  => $user_phone,
+					'number'      => 1,
+					'count_total' => false
+				] )
+			);
+		} else {
+			$user = get_user_by( 'login', $username );
+		}
+
+		if ( ! $user ) {
+			return new WP_Error(
+				'invalid_username',
+				__( '<strong>ERROR</strong>: Invalid username or phone number.' ) .
+				' <a href="' . wp_lostpassword_url() . '">' .
+				__( 'Lost your password?' ) .
+				'</a>'
+			);
+		}
+
+		/**
+		 * Filters whether the given user can be authenticated with the provided $password.
+		 *
+		 * @param WP_User|WP_Error $user WP_User or WP_Error object if a previous
+		 *                                   callback failed authentication.
+		 * @param string $password Password to check against the user.
+		 *
+		 * @since 2.5.0
+		 *
+		 */
+		$user = apply_filters( 'wp_authenticate_user', $user, $password );
+		if ( is_wp_error( $user ) ) {
+			return $user;
+		}
+
+		if ( ! wp_check_password( $password, $user->user_pass, $user->ID ) ) {
+			return new WP_Error(
+				'incorrect_password',
+				sprintf(
+				/* translators: %s: user name */
+					__( '<strong>ERROR</strong>: The password you entered for the login %s is incorrect.' ),
+					'<strong>' . $username . '</strong>'
+				) .
+				' <a href="' . wp_lostpassword_url() . '">' .
+				__( 'Lost your password?' ) .
+				'</a>'
+			);
+		}
+
+		return $user;
+	}
+}

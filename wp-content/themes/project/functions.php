@@ -176,3 +176,7 @@ add_action( 'wp_footer', function () {
 		'<script type="text/javascript">setTimeout(function(){document.getElementById("development").style.display="none"},10000);</script>';
 	}
 } );
+
+// change default wordpress to custom authentication
+remove_filter( 'authenticate', 'wp_authenticate_username_password', 20 );
+add_filter( 'authenticate', 'wp_authenticate_username_phone_password', 20, 3 );
