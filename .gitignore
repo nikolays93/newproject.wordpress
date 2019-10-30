@@ -116,3 +116,4 @@ Thumbs.db
 
 !config.js
 !wp-content/themes/project/
+wp-content/themes/project/vendor/*
