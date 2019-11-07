@@ -36,8 +36,20 @@ if ( ! function_exists( 'require_path' ) ) {
 	}
 }
 
+/**
+ * Include classes
+ */
 array_map( 'require_path', array(
-	'/inc/assets.php',
+	'/inc/class/wp-bootstrap-navwalker.php',
+	'/inc/class/sms.ru.php',
+	'/inc/class/sms-provider.php',
+) );
+
+/**
+ * Include custom files
+ */
+array_map( 'require_path', array(
+	'/inc/assets.php',     // * Дополнительные ресурсы
 	'/inc/post-types.php', // * Функции добавления типа записи slide
 	'/inc/shortcodes.php', // * Функции добавления шорткода
 	'/inc/widgets.php',    // * Сайдбар панели (Виджеты)
@@ -55,15 +67,6 @@ add_filter( 'slider_row_actions', 'show_slider_shortcode', 10, 2 );
 add_shortcode( 'slider', 'slider_shortcode' );
 
 /**
- * Include classes
- */
-array_map( 'require_path', array(
-	'/inc/class/wp-bootstrap-navwalker.php',
-	'/inc/class/sms.ru.php',
-	'/inc/class/sms-provider.php',
-) );
-
-/**
  * Include required files
  * Редактировать файлы в папке system не рекомендуется, так как они обновляются, но..
  * Все классы и функции можно предопределить, объявив до подключения файла к примеру:
@@ -71,7 +74,6 @@ array_map( 'require_path', array(
  */
 array_map( 'require_path', array(
 	'/inc/system/setup.php',         // *
-	'/inc/system/assets.php',        // * Дополнительные ресурсы
 	'/inc/system/utilites.php',      // * Вспомогательные функции
 	'/inc/system/admin.php',         // * Фильтры и функции административной части WP
 	'/inc/system/tpl.php',           // * Основные функции вывода информации в шаблон
