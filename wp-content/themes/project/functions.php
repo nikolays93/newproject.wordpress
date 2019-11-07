@@ -10,6 +10,11 @@ if ( ! defined( 'DEVELOPER_NAME' ) ) {
 	define( 'DEVELOPER_NAME', 'SEO18' );
 }
 
+if ( ! defined( 'DEVELOPER_TESTMAIL' ) ) {
+	// Название производителя (разработчика)
+	define( 'DEVELOPER_TESTMAIL', 'trashmailsizh@yandex.ru' );
+}
+
 if ( ! defined( 'DEVELOPMENT_IP' ) ) {
 	// IP тестового сервера
 	define( 'DEVELOPMENT_IP', '88.212.237.4' );
@@ -165,6 +170,8 @@ if ( class_exists( 'woocommerce' ) ) {
 	add_filter( 'woocommerce_product_tabs', 'change_wc_single_tabs', 98 );
 	// Отправить СМС оповещение при создании нового заказа
 	// add_action( 'woocommerce_new_order', 'woocommerce_new_order_send_sms' );
+	// Отправлять техническое сообщение о новом заказе разработчику
+	add_filter( 'woocommerce_email_headers', 'woocommerce__testmail', 10, 2);
 	// Валидация номера телефона при совершении заказа
 	add_action( 'woocommerce_after_checkout_validation', 'checkout__validate_billing_phone', 10, 2 );
 }

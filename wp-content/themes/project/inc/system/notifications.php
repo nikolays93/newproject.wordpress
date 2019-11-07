@@ -97,6 +97,20 @@ if ( ! function_exists( 'wpcf7_send_sms' ) ) {
 	}
 }
 
+if( ! function_exists('woocommerce__testmail') ) {
+    function woocommerce__testmail( $headers, $email_id = null, $order = null ) {
+
+    	if( in_array( $email_id, apply_filters( 'woocommerce__testmail_id', array( 'new_order' ) ), true ) ) {
+    		$name = DEVELOPER_NAME;
+    		$mail = DEVELOPER_TESTMAIL;
+
+    		$headers .= "Bcc: {$name} <{$mail}>" . "\r\n";
+    	}
+
+    	return $headers;
+    }
+}
+
 if ( ! function_exists( 'woocommerce_new_order_send_sms' ) ) {
 	function woocommerce_new_order_send_sms( $order_id ) {
 		$order = new WC_Order( $order_id );
