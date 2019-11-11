@@ -91,9 +91,9 @@ array_map( 'require_path', array(
 
 // Подключить поддержку "фишек" wordpress
 add_action( 'after_setup_theme', 'theme_setup' );
-// Зарегистрировать стандартное меню (В шапке/в подвале, ./system/navigation.php)
+// Зарегистрировать стандартное меню (В шапке/в подвале, ./inc/system/navigation.php)
 add_action( 'after_setup_theme', 'register_theme_navigation' );
-// Зарегистрировать виджеты из файла ./system/widgets.php
+// Зарегистрировать виджеты из файла ./inc/widgets.php
 add_action( 'widgets_init', 'theme_widgets' );
 // Очистить тэг head от излишек
 add_action( 'init', 'head_cleanup' );

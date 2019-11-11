@@ -5,7 +5,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! defined( 'POST_ID_FIELD_NAME' ) ) {
-	define( 'POST_ID_FIELD_NAME', '_current_post_id' );
+	define( 'POST_ID_FIELD_NAME', '_wpcf7_container_post' );
 }
 
 if ( ! defined( 'SMSRU_API_KEY' ) ) {
