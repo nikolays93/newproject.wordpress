@@ -222,6 +222,10 @@ if ( ! function_exists( 'checkout__add_fields_bootstrap_class' ) ) {
 
 			// Add bootstrap class for all fields
 			foreach ( $fields[ $field_key ] as $key => &$field ) {
+				if( empty( $field['input_class'] ) ) {
+					$field['input_class'] = array();
+				}
+
 				if ( is_array( $field['input_class'] ) && ! in_array( 'form-control', $field['input_class'] ) ) {
 					array_push( $field['input_class'], 'form-control' );
 				}
