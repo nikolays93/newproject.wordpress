@@ -41,9 +41,9 @@ if ( ! function_exists( 'require_path' ) ) {
 	}
 }
 
-if( !function_exists('init_theme') ) {
-    function init_theme() {
-    	/**
+if ( ! function_exists( 'init_theme' ) ) {
+	function init_theme() {
+		/**
 		 * Include classes
 		 */
 		array_map( 'require_path', array(
@@ -76,7 +76,7 @@ if( !function_exists('init_theme') ) {
 				'/inc/system/wc-customizer.php', // *
 			) );
 		}
-    }
+	}
 }
 
 /**

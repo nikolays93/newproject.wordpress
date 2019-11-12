@@ -160,8 +160,8 @@ add_action( 'wp_footer', function () {
         jQuery(function ($) {
             $('body').on('blur change', '#billing_phone', function () {
                 $(this).closest('.form-row').addClass(
-                	/<?= $pattern ?>/.test( $(this).val() ) ? 'woocommerce-validated' : 'woocommerce-invalid'
-            	);
+                    /<?= $pattern ?>/.test( $(this).val() ) ? 'woocommerce-validated' : 'woocommerce-invalid'
+                );
             });
         });
     </script>
