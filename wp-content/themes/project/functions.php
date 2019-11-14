@@ -11,7 +11,7 @@ if ( ! defined( 'DEVELOPER_NAME' ) ) {
 }
 
 if ( ! defined( 'DEVELOPER_TESTMAIL' ) ) {
-	// Название производителя (разработчика).
+	// Тестовый емэйл (Емэйл с копиями сообщений для проверки работоспособности).
 	define( 'DEVELOPER_TESTMAIL', 'trashmailsizh@yandex.ru' );
 }
 
@@ -102,6 +102,17 @@ if ( class_exists( 'woocommerce' ) ) {
 
 init_theme();
 
+// Подключить поддержку "фишек" wordpress
+add_action( 'after_setup_theme', 'theme_setup' );
+// Зарегистрировать стандартное меню (В шапке/в подвале, ./system/navigation.php)
+add_action( 'after_setup_theme', 'register_theme_navigation' );
+// Зарегистрировать виджеты из файла ./system/widgets.php
+add_action( 'widgets_init', 'theme_widgets' );
+// Очистить тэг head от излишек
+add_action( 'init', 'head_cleanup' );
+// Убрать заголовок Архивы: или Категория: в заголовке страницы списка записей
+add_filter( 'get_the_archive_title', 'theme_archive_title_filter', 10, 1 );
+
 // Подключить скрипты и стили указанные в файле ./inc/assets.php
 add_action( 'wp_enqueue_scripts', 'enqueue_assets', 997 );
 // Подлкючить скрипты и стили используемые шаблоном (на всем сайте)
@@ -111,6 +122,14 @@ add_action( 'wp_enqueue_scripts', 'enqueue_page_assets', 999 );
 
 // Зарегистрировать виджеты из файла ./inc/widgets.php
 add_action( 'widgets_init', 'theme_widgets' );
+
+// Добавляем bootstrap навигационное меню
+add_action( 'before_main_content', 'bootstrap_navbar', 10, 1 );
+// Добавляем мякиш от yoast
+add_action( 'before_main_content', 'breadcrumbs_by_yoast', 10, 1 );
+// Добавляем техническую информацию в письма Contact Form 7
+add_action( 'wpcf7_before_send_mail', 'wpcf7_additional_info', 10, 3 );
+add_filter( 'wpcf7_form_hidden_fields', 'wpcf7_post_id_field' );
 
 // Регистрируем тип записи слайдер "slide" (для примера)
 add_action( 'init', 'register_type__slide' );
