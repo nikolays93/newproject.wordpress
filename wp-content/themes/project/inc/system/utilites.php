@@ -21,7 +21,9 @@ if ( ! function_exists( 'is_local' ) ) {
  */
 if ( ! function_exists( 'breadcrumbs_by_yoast' ) ) {
 	function breadcrumbs_by_yoast( $container = true ) {
-		if ( function_exists( 'yoast_breadcrumb' ) && ! is_front_page() && ! is_woocommerce() ) {
+		$is_woocommerce = function_exists( 'is_woocommerce' ) && is_woocommerce();
+
+		if ( function_exists( 'yoast_breadcrumb' ) && ! is_front_page() && $is_woocommerce ) {
 			yoast_breadcrumb( '<div class="container"><p id="breadcrumbs">', '</p></div>' );
 		}
 	}
