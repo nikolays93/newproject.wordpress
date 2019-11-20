@@ -122,9 +122,6 @@ add_action( 'wp_enqueue_scripts', 'enqueue_template_assets', 998 );
 // Подлкючить скрипты и стили на данной (сейчас открытой) странице
 add_action( 'wp_enqueue_scripts', 'enqueue_page_assets', 999 );
 
-// Зарегистрировать виджеты из файла ./inc/widgets.php
-add_action( 'widgets_init', 'theme_widgets' );
-
 // Добавляем bootstrap навигационное меню
 add_action( 'before_main_content', 'bootstrap_navbar', 10, 1 );
 // Добавляем мякиш от yoast
@@ -133,16 +130,18 @@ add_action( 'before_main_content', 'breadcrumbs_by_yoast', 10, 1 );
 add_action( 'wpcf7_before_send_mail', 'wpcf7_additional_info', 10, 3 );
 add_filter( 'wpcf7_form_hidden_fields', 'wpcf7_post_id_field' );
 
-// Регистрируем тип записи слайдер "slide" (для примера)
+// Зарегистрировать виджеты из файла ./inc/widgets.php
+add_action( 'widgets_init', 'theme_widgets' );
+// Зарегистрировать тип записи слайдер "slide" (для примера)
 add_action( 'init', 'register_type__slide' );
-// Регистрируем таксономию slider
+// Зарегистрировать таксономию slider
 add_action( 'init', 'register_tax__slider' );
-// Меняем местами ссылки на таксономию (Эта ссылка нужна первой) и тип записи
+// Заменить местами ссылки на таксономию (Эта ссылка нужна первой) и тип записи
 add_action( 'admin_menu', 'sort_menu_slider', 99 );
 
-// Показываем принадлежащий слайдеру код вызова
+// Показать принадлежащий слайдеру код вызова
 add_filter( 'slider_row_actions', 'show_slider_shortcode', 10, 2 );
-// Регистрируем шорткод для вывода элементов типа записи с помощью квадратных скобок [slider]
+// Зарегистрировать шорткод для вывода элементов типа записи с помощью квадратных скобок [slider]
 add_shortcode( 'slider', 'slider_shortcode' );
 
 /**
