@@ -63,7 +63,7 @@ if ( ! function_exists( 'init_theme' ) ) {
 			'/inc/system/setup.php',         // *
 			'/inc/system/utilites.php',      // * Вспомогательные функции
 			'/inc/system/admin.php',         // * Фильтры и функции административной части WP
-			'/inc/system/tpl.php',           // * Основные функции вывода информации в шаблон
+			'/inc/system/template.php',      // * Основные функции вывода информации в шаблон
 			'/inc/system/navigation.php',    // * Навигация
 			'/inc/system/gallery.php',       // * Шаблон встроенной галереи wordpress
 			'/inc/system/customizer.php',    // * Дополнительные функии в настройки внешнего вида
