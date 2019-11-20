@@ -2,23 +2,23 @@
 
 if ( ! function_exists( 'register_type__slide' ) ) {
 	function register_type__slide() {
-		$labels = array(
-			'name'               => __( 'Слайды', 'project' ),
-			'singular_name'      => __( 'Слайд', 'project' ),
-			'add_new'            => __( 'Добавить слайд', 'project' ),
-			'add_new_item'       => __( 'Добавить слайд', 'project' ),
-			'edit_item'          => __( 'Редактировать слайд', 'project' ),
-			'new_item'           => __( 'Новый слайд', 'project' ),
-			'all_items'          => __( 'Все слайды', 'project' ),
-			'view_item'          => __( 'Просмотр слайда на сайте', 'project' ),
-			'search_items'       => __( 'Найти слайд', 'project' ),
-			'not_found'          => __( 'Слайдов не найдено.', 'project' ),
-			'not_found_in_trash' => __( 'В корзине нет слайдов.', 'project' ),
-			'menu_name'          => __( 'Слайды', 'project' ),
-		);
+		$post_type = 'slide';
 
 		$args = array(
-			'labels'              => $labels,
+			'labels'              => array(
+				'name'               => __( 'Слайды', 'project' ),
+				'singular_name'      => __( 'Слайд', 'project' ),
+				'add_new'            => __( 'Добавить слайд', 'project' ),
+				'add_new_item'       => __( 'Добавить слайд', 'project' ),
+				'edit_item'          => __( 'Редактировать слайд', 'project' ),
+				'new_item'           => __( 'Новый слайд', 'project' ),
+				'all_items'          => __( 'Все слайды', 'project' ),
+				'view_item'          => __( 'Просмотр слайда на сайте', 'project' ),
+				'search_items'       => __( 'Найти слайд', 'project' ),
+				'not_found'          => __( 'Слайдов не найдено.', 'project' ),
+				'not_found_in_trash' => __( 'В корзине нет слайдов.', 'project' ),
+				'menu_name'          => __( 'Слайды', 'project' ),
+			),
 			'public'              => true,
 			'publicly_queryable'  => null,
 			'exclude_from_search' => null,
@@ -36,7 +36,16 @@ if ( ! function_exists( 'register_type__slide' ) ) {
 			'description'         => '',
 		);
 
-		register_post_type( 'slide', $args );
+		register_post_type( $post_type, $args );
+
+		// Add breadcrumb item to WPSEO (Yoast seo) breadcrumbs.
+		add_filter( 'wpseo_breadcrumb_links', function( $links ) use ( $post_type ) {
+			if ( is_singular( $post_type ) ) {
+				// Insert breadcrumb custom archive Page.
+				array_splice( $links, 1, 0, array( array( 'id' => 1 ) ) );
+			}
+			return $links;
+		} );
 	}
 }
 
