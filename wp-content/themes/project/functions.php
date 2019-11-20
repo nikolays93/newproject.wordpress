@@ -110,6 +110,8 @@ add_action( 'after_setup_theme', 'register_theme_navigation' );
 add_action( 'widgets_init', 'theme_widgets' );
 // Очистить тэг head от излишек
 add_action( 'init', 'head_cleanup' );
+// Отключить поддержку смайлов емодзи
+add_action( 'init', 'disable_emojis' );
 // Убрать заголовок Архивы: или Категория: в заголовке страницы списка записей
 add_filter( 'get_the_archive_title', 'theme_archive_title_filter', 10, 1 );
 
