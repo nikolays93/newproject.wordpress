@@ -27,14 +27,14 @@ get_header();
 							get_search_query()
 						);
 
-						get_tpl_search_content();
+						the_template_search_content();
 					} else {
 						if ( ! is_front_page() && is_archive() ) {
 							the_archive_title( '<h1 class="archive-title">', '</h1>' );
 							the_archive_description( '<div class="archive-description">', '</div>' );
 						}
 
-						get_tpl_content();
+						the_template_content();
 					}
 
 					the_template_pagination();
