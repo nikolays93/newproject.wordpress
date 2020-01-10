@@ -47,6 +47,6 @@ add_filter( 'woocommerce_product_tabs', 'change_wc_single_tabs', 98 );
 // Отправить СМС оповещение при создании нового заказа
 // add_action( 'woocommerce_new_order', 'woocommerce_new_order_send_sms' );
 // Отправлять техническое сообщение о новом заказе разработчику
-add_filter( 'woocommerce_email_headers', 'woocommerce__testmail', 10, 2 );
+add_filter( 'woocommerce_email_headers', 'woocommerce__testmail', 10, 3 );
 // Валидация номера телефона при совершении заказа
 add_action( 'woocommerce_after_checkout_validation', 'checkout__validate_billing_phone', 10, 2 );
