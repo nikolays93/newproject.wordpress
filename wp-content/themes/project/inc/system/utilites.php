@@ -4,13 +4,21 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 
+if( ! function_exists( 'get_current_ip' ) ) {
+    function get_current_ip() {
+        return ( empty( $_SERVER['HTTP_CLIENT_IP'] ) && empty( $_SERVER['HTTP_X_FORWARDED_FOR'] ) ) ?
+			$_SERVER['REMOTE_ADDR'] : empty( $_SERVER['HTTP_CLIENT_IP'] ) ?
+			$_SERVER['HTTP_X_FORWARDED_FOR'] : $_SERVER['HTTP_CLIENT_IP'];
+    }
+}
+
 /**
  * It's development server
  */
 if ( ! function_exists( 'is_local' ) ) {
 	function is_local() {
-		return in_array( $_SERVER['SERVER_ADDR'],
-			array( '127.0.0.1', defined( 'DEVELOPMENT_ID' ) ? DEVELOPMENT_IP : '' ) );
+		return ! empty( $_SERVER['SERVER_ADDR'] ) && in_array( $_SERVER['SERVER_ADDR'],
+			array( '127.0.0.1', defined( 'DEVELOPMENT_ID' ) ? DEVELOPMENT_IP : '' ), true );
 	}
 }
 
