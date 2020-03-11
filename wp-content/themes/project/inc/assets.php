@@ -85,26 +85,34 @@ function enqueue_template_assets() {
 }
 
 function enqueue_page_assets() {
+	global $wp;
+
 	$is_compressed = ! defined( 'SCRIPT_DEBUG' ) || SCRIPT_DEBUG === false;
 	$min           = $is_compressed ? '.min' : '';
 
 	// define current page path (for used later ./pages/index/style.css as example)
-	$curDir = is_front_page() ? 'index' : get_page_uri();
+	$curDir = '';
+	if( $wp->request ) {
+		list($current) = explode( '/', $wp->request );
+		$curDir .= $current;
+	} else {
+		$curDir .= 'index';
+	}
 
 	/**
 	 * Enqueue current page style
 	 */
-	$stylePath = "pages/$curDir/style$min.css";
-	if ( file_exists( THEME . $stylePath ) ) {
-		wp_enqueue_style( 'page-style', TPL . $stylePath, array(), @filemtime( THEME . $stylePath ) );
+	$stylePath = "/wp-pages/$curDir/style$min.css";
+	if ( realpath( ABSPATH . $stylePath ) ) {
+		wp_enqueue_style( "page-$curDir-style", $stylePath, array(), @filemtime( ABSPATH . $stylePath ) );
 	}
 
 	/**
 	 * Enqueue current page script
 	 */
-	$scriptPath = "pages/$curDir/script$min.js";
-	if ( file_exists( THEME . $scriptPath ) ) {
-		wp_enqueue_script( 'page-script', TPL . $scriptPath, array( 'jquery' ), @filemtime( THEME . $scriptPath ),
+	$scriptPath = "/wp-pages/$curDir/script$min.js";
+	if ( realpath( ABSPATH . $scriptPath ) ) {
+		wp_enqueue_script( "page-$curDir-script", $scriptPath, array( 'jquery' ), @filemtime( ABSPATH . $scriptPath ),
 			true );
 	}
 }

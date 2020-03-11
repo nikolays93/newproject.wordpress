@@ -32,7 +32,7 @@
 			src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
 	<![endif]-->
 
-	<script>window.jQuery || document.write('<script src="<?= TPL ?>/assets/jquery/jquery.min.js"><\/script>')</script>
+	<script>window.jQuery || document.write('<script src="<?= TPL ?>assets/vendor/jquery/jquery.min.js"><\/script>')</script>
 </head>
 <body <?php body_class(); ?>>
 <!--[if lte IE 9]>
