@@ -291,17 +291,13 @@
   margin-right: -15px;
 }
 
-.slider__slide {
+.slider > div {
   padding-left: 15px;
   padding-right: 15px;
 }
 
-.slider__slide a:focus {
-  outline: none;
-}
-
-.slider__slide img {
-  transition: .4s ease all;
+.slider img {
+  transition: .2s ease all;
 }
 
 .slider > div:nth-child(1) img {
