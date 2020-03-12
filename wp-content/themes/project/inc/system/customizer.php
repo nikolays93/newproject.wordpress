@@ -11,15 +11,13 @@ apply_filters( 'nav_menu_link_attributes', 'nav_menu_link_allow_click', 10, 4 );
 
 if ( ! function_exists( 'add_theme_post_class' ) ) {
 	function add_theme_post_class( $classes, $class, $post_id ) {
-		// Do not change product or singular item classes.
-		if ( 'product' === get_post_type() || is_singular() ) {
-			return $classes;
+		if( is_archive() ) {
+			/** @var int $columns Default columns count */
+			$columns = (int) apply_filters( 'content_columns', 4 );
+			// Insert classes in results on start.
+			array_unshift( $classes, function_exists( 'get_default_bs_columns' ) ?
+				get_default_bs_columns( $columns ) : 'columns-' .  $columns );
 		}
-		/** @var int $columns Default columns count */
-		$columns = apply_filters( 'content_columns', 4 );
-		// Insert classes in results on start.
-		array_unshift( $classes, function_exists( 'get_default_bs_columns' ) ?
-			get_default_bs_columns( (int) $columns ) : 'columns-' . (int) $columns );
 
 		return $classes;
 	}
