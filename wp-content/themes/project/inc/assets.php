@@ -58,8 +58,8 @@ if ( ! function_exists( 'enqueue_assets' ) ) {
 		 * Cleave.js form inputs mask formatter
 		 * @url https://nosir.github.io/cleave.js/
 		 */
-		// wp_enqueue_script( 'cleave', TPL . 'assets/vendor/cleave/cleave.min.js', array(), false, true );
-		// wp_enqueue_script( 'cleave-phone', TPL . 'assets/vendor/cleave/addons/cleave-phone.ru.js', array(), false, true );
+		wp_enqueue_script( 'cleave', TPL . 'assets/vendor/cleave/cleave.min.js', array(), false, true );
+		wp_enqueue_script( 'cleave-phone', TPL . 'assets/vendor/cleave/addons/cleave-phone.ru.js', array(), false, true );
 	}
 }
 
@@ -85,30 +85,32 @@ function enqueue_template_assets() {
 }
 
 function enqueue_page_assets() {
+	global $wp;
+
 	$is_compressed = ! defined( 'SCRIPT_DEBUG' ) || SCRIPT_DEBUG === false;
 	$min           = $is_compressed ? '.min' : '';
 
 	// define current page path (for used later ./pages/index/style.css as example)
-    if( is_front_page() ) {
-        $current_location = 'index';
-    } else {
-        list(, $current_location) = explode('/', $_SERVER['REQUEST_URI'] );
-    }
+	if( $wp->request ) {
+		list($location) = explode( '/', $wp->request );
+	} else {
+		$location = 'index';
+	}
 
 	/**
 	 * Enqueue current page style
 	 */
-	$style_path = "pages/$current_location/style$min.css";
-	if ( file_exists( THEME . $style_path ) ) {
-		wp_enqueue_style( 'page-style', TPL . $style_path, array(), @filemtime( THEME . $style_path ) );
+	$style = "/wp-pages/$location/style$min.css";
+	if ( realpath( ABSPATH . $style ) ) {
+		wp_enqueue_style( "page-$location-style", $style, array(), @filemtime( ABSPATH . $style ) );
 	}
 
 	/**
 	 * Enqueue current page script
 	 */
-	$script_path = "pages/$current_location/script$min.js";
-	if ( file_exists( THEME . $script_path ) ) {
-		wp_enqueue_script( 'page-script', TPL . $script_path, array( 'jquery' ), @filemtime( THEME . $script_path ),
+	$script = "/wp-pages/$location/script$min.js";
+	if ( realpath( ABSPATH . $script ) ) {
+		wp_enqueue_script( "page-$location-script", $script, array( 'jquery' ), @filemtime( ABSPATH . $script ),
 			true );
 	}
 }
