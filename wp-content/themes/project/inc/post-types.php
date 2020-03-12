@@ -37,15 +37,6 @@ if ( ! function_exists( 'register_type__slide' ) ) {
 		);
 
 		register_post_type( $post_type, $args );
-
-		// Add breadcrumb item to WPSEO (Yoast seo) breadcrumbs.
-		add_filter( 'wpseo_breadcrumb_links', function( $links ) use ( $post_type ) {
-			if ( is_singular( $post_type ) ) {
-				// Insert breadcrumb custom archive Page.
-				array_splice( $links, 1, 0, array( array( 'id' => 1 ) ) );
-			}
-			return $links;
-		} );
 	}
 }
 
