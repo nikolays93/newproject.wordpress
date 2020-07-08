@@ -10,8 +10,8 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: wordpress
-      MYSQL_USER: wordpress
-      MYSQL_PASSWORD: wordpress
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
     networks:
       - wpsite
   # Database manager
@@ -33,8 +33,8 @@ services:
       - ./www/html:/var/www/html
     environment:
       WORDPRESS_DB_HOST: db:3306
-      WORDPRESS_DB_USER: wordpress
-      WORDPRESS_DB_PASSWORD: wordpress
+      WORDPRESS_DB_USER: root
+      WORDPRESS_DB_PASSWORD: root
       XDEBUG_CONFIG: remote_host=host.docker.internal remote_port=9000 remote_enable=1
       PHP_EXTENSION_XDEBUG: 1
     networks:

@@ -18,6 +18,8 @@ $ docker-compose up
 
 4. Set anywhere in your PHP files a breakpoint
 
+> Also can open http://localhost:8080 for manage databases
+
 ## Docker ##
 #### Настройки Базы данных ####
 Пользователь по умолчанию: __root__ с паролем __root__  
