@@ -115,6 +115,5 @@ Thumbs.db
 
 # !wp-content/plugins/example-plugin/
 
-!.config.js
 !wp-content/themes/project/
 wp-content/themes/project/vendor/*
