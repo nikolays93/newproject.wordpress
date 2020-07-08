@@ -1,0 +1,44 @@
+version: '3'
+
+services:
+  # Database
+  db:
+    image: mariadb
+    volumes:
+      - ./.docker/databases:/var/lib/mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: wordpress
+    networks:
+      - wpsite
+  # Database manager
+  adminer:
+    image: adminer
+    ports:
+      - 8080:8080
+    networks:
+      - wpsite
+  # Wordpress
+  wordpress:
+    depends_on:
+      - db
+    build: ./.docker
+    ports:
+      - '8000:80'
+    restart: always
+    volumes:
+      - ./www/html:/var/www/html
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress
+      XDEBUG_CONFIG: remote_host=host.docker.internal remote_port=9000 remote_enable=1
+      PHP_EXTENSION_XDEBUG: 1
+    networks:
+      - wpsite
+
+networks:
+  wpsite:
