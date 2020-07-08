@@ -1,24 +1,25 @@
-# New WordPress project boilerplate
+# Заготовка нового проекта на WordPress
 
+Это заготовка для разработки нового сайта на Wordpress с использованием Docker и xDebug
 This boilerplate is to build Wordpress websites using Docker and xDebug
 
-## Usage with VSCode
+## Как использовать с VSCode
 
-> Make sure Docker is running and the [PHP Debug](https://marketplace.visualstudio.com/items?itemName=felixfbecker.php-debug) extension for VSCode is installed
+> Убедитесь что Docker запущен и установленно дополнение [PHP Debug](https://marketplace.visualstudio.com/items?itemName=felixfbecker.php-debug) для VSCode
 
 
-1. Run the docker instance
+1. Запустите docker-compose в папке с проектом
 ```sh
 $ docker-compose up
 ```
 
-2. Open http://localhost:8000
+2. Откройте http://localhost:8000
 
-3. Open the debugger tab on the sidebar and run `Listen for XDebug`
+3. Откройте раздел "Запустить" `CTRL+SHIFT+D` в боковой панели редактора и нажмите `Listen for XDebug`
 
-4. Set anywhere in your PHP files a breakpoint
+4. Установите в PHP файле точку останова
 
-> Also can open http://localhost:8080 for manage databases
+> Вы также можете открыть http://localhost:8080 для управления базами данных
 
 ## Docker ##
 #### Настройки Базы данных ####
