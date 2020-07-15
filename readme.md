@@ -1,7 +1,6 @@
 # Заготовка нового проекта на WordPress
 
 Это заготовка для разработки нового сайта на Wordpress с использованием Docker и xDebug
-This boilerplate is to build Wordpress websites using Docker and xDebug
 
 ## Как использовать с VSCode
 
