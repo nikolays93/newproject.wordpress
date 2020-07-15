@@ -13,8 +13,10 @@ $ docker-compose up -d
 
 > Вы также можете открыть http://localhost:8080 для управления базами данных
 
+### Настройки XDebug
+
 <details>
-    <summary>VS Code</summary>
+    <summary>Как использовать PHP xDebug в редакторе VS Code</summary>
 
 > Убедитесь что установленно дополнение [PHP Debug](https://marketplace.visualstudio.com/items?itemName=felixfbecker.php-debug) для VSCode
 
