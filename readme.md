@@ -2,36 +2,64 @@
 
 Это заготовка для разработки нового сайта на Wordpress с использованием Docker и xDebug
 
-## Как использовать с VSCode
-
-> Убедитесь что Docker запущен и установленно дополнение [PHP Debug](https://marketplace.visualstudio.com/items?itemName=felixfbecker.php-debug) для VSCode
-
+## Как использовать
+> Убедитесь что Docker запущен
 
 1. Запустите docker-compose в папке с проектом
 ```sh
-$ docker-compose up
+$ docker-compose up -d
 ```
-
 2. Откройте http://localhost:8000
-
-3. Откройте раздел "Запустить" `CTRL+SHIFT+D` в боковой панели редактора и нажмите `Listen for XDebug`
-
-4. Установите в PHP файле точку останова
 
 > Вы также можете открыть http://localhost:8080 для управления базами данных
 
-## Docker ##
-#### Настройки Базы данных ####
+<details>
+    <summary>VS Code</summary>
+
+> Убедитесь что установленно дополнение [PHP Debug](https://marketplace.visualstudio.com/items?itemName=felixfbecker.php-debug) для VSCode
+
+0. Создайте файл `./.vscode/launch.json` с содержимым:
+```json
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Listen for XDebug",
+      "type": "php",
+      "request": "launch",
+      "port": 9000,
+      "pathMappings": {
+        "/var/www/html": "${workspaceFolder}/www/html"
+      },
+      "xdebugSettings": {
+        "max_data": 65535,
+        "show_hidden": 1,
+        "max_children": 100,
+        "max_depth": 5
+      }
+    }
+  ]
+}
+```
+
+1. Запустите проект
+2. Откройте раздел "Запустить" `CTRL+SHIFT+D` в боковой панели редактора и нажмите `Listen for XDebug`
+3. Установите в PHP файле точку останова
+
+</details>
+
+## Docker
+#### Настройки Базы данных
 Пользователь по умолчанию: __root__ с паролем __root__  
 Таблица: __wordpress__ (уже создана)  
 При установке использовать __db__ вместо __localhost__  
 
-#### Образы ####
+#### Образы
 - wordpress:5-php7.2-apache (with xdebug)
 - mariadb
 - adminer
 
-## Структура шаблона ##
+## Структура шаблона
 
 ```
 inc/                // Дополнительные файлы расширяющие функционал functions.php
