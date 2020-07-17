@@ -1,1 +1,7 @@
+*.lock
+node_modules
 /.docker/databases
+
+_source/
+/www/*
+!/www/html/
