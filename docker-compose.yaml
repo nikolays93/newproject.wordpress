@@ -8,10 +8,10 @@ services:
       - ./.docker/databases:/var/lib/mysql
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: wordpress
       MYSQL_USER: root
       MYSQL_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: root
     networks:
       - wpsite
   # Database manager
