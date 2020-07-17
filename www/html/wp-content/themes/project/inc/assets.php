@@ -29,7 +29,7 @@ if ( ! function_exists( 'enqueue_assets' ) ) {
 		 * Bootstrap framework
 		 * @url https://getbootstrap.com/
 		 */
-		wp_enqueue_script( 'bootstrap', TPL . 'assets/vendor/bootstrap' . $min . '.js', array( 'jquery' ), '4.1',
+		wp_enqueue_script( 'bootstrap', TPL . 'assets/vendor/bootstrap/bootstrap' . $min . '.js', array( 'jquery' ), '4.1',
 			true );
 		wp_enqueue_style( 'bootstrap-style', TPL . 'assets/vendor/bootstrap' . $min . '.css', array() );
 
