@@ -22,8 +22,8 @@ if ( ! function_exists( 'enqueue_assets' ) ) {
 		 * Modernizr. It can detect browser support
 		 * @url https://modernizr.com/
 		 */
-		wp_enqueue_script( 'modernizr', 'https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js',
-			array(), '3.3.1' );
+		// wp_enqueue_script( 'modernizr', 'https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js',
+		// 	array(), '3.3.1' );
 
 		/**
 		 * Bootstrap framework
