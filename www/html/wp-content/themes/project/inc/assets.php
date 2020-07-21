@@ -50,16 +50,9 @@ if ( ! function_exists( 'enqueue_assets' ) ) {
 		 * Slick. Easy slider
 		 * @url https://kenwheeler.github.io/slick/
 		 */
-		// wp_enqueue_script('slick', TPL . 'assets/vendor/slick/slick.min.js', array('jquery'), '1.8.1', true);
-		// wp_enqueue_style( 'slick-style', TPL . 'assets/vendor/slick/slick.css', array() );
+		wp_enqueue_script('slick', TPL . 'assets/vendor/slick/slick.min.js', array('jquery'), '1.8.1', true);
+		wp_enqueue_style( 'slick-style', TPL . 'assets/vendor/slick/slick.css', array() );
 		// wp_enqueue_style( 'slick-theme', TPL . 'assets/vendor/slick/slick-theme.css', array() );
-
-		/**
-		 * Cleave.js form inputs mask formatter
-		 * @url https://nosir.github.io/cleave.js/
-		 */
-		wp_enqueue_script( 'cleave', TPL . 'assets/vendor/cleave/cleave.min.js', array(), false, true );
-		wp_enqueue_script( 'cleave-phone', TPL . 'assets/vendor/cleave/addons/cleave-phone.ru.js', array(), false, true );
 	}
 }
 
@@ -90,17 +83,16 @@ function enqueue_page_assets() {
 	$is_compressed = ! defined( 'SCRIPT_DEBUG' ) || SCRIPT_DEBUG === false;
 	$min           = $is_compressed ? '.min' : '';
 
-	// define current page path (for used later ./pages/index/style.css as example)
+	$location = '';
+	// define current page path (for used later ./wp-pages/about/assets/style.css as example)
 	if( $wp->request ) {
-		list($location) = explode( '/', $wp->request );
-	} else {
-		$location = 'index';
+		list( $location ) = explode( '/', $wp->request, 2 );
 	}
 
 	/**
 	 * Enqueue current page style
 	 */
-	$style = "/wp-pages/$location/style$min.css";
+	$style = "/wp-pages/$location/assets/style$min.css";
 	if ( realpath( ABSPATH . $style ) ) {
 		wp_enqueue_style( "page-$location-style", $style, array(), @filemtime( ABSPATH . $style ) );
 	}
@@ -108,7 +100,7 @@ function enqueue_page_assets() {
 	/**
 	 * Enqueue current page script
 	 */
-	$script = "/wp-pages/$location/script$min.js";
+	$script = "/wp-pages/$location/assets/script$min.js";
 	if ( realpath( ABSPATH . $script ) ) {
 		wp_enqueue_script( "page-$location-script", $script, array( 'jquery' ), @filemtime( ABSPATH . $script ),
 			true );
