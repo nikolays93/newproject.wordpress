@@ -1,7 +1,11 @@
+.idea
+*.sublime-*
+.vscode
 *.lock
 node_modules
 /.docker/databases
 
+_high/
 _source/
 /www/*
 !/www/html/
