@@ -2,6 +2,11 @@
 
 Это заготовка для разработки нового сайта на Wordpress с использованием Docker и xDebug
 
+## Необходимый инструмент
+1. Docker (или [Docker Desktop](https://docs.docker.com/desktop/)) - для запуска сайта
+2. [Node.js](https://nodejs.org/en/download/) - для запуска JavaScript на вашем компьютере
+3. [Yarn](https://yarnpkg.com/en/docs/install/) - для сборки проекта
+
 ## Как использовать
 
 > Убедитесь, что Docker запущен
@@ -10,9 +15,9 @@
 ```sh
 $ docker-compose up -d
 ```
-2. Откройте http://localhost:8000
+2. Перейдите по ссылке http://localhost:8000 или откройте в браузере
 
-> Вы также можете открыть http://localhost:8080 для управления базами данных
+> Вы также можете запустить http://localhost:8080 для управления базами данных
 
 ## Как работать с проектом
 
