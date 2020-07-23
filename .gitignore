@@ -1,11 +1,60 @@
-.idea
-*.sublime-*
-.vscode
-*.lock
-node_modules
-/.docker/databases
+# ignore packager directories
+node_modules/
+bower_components/
 
-_high/
-_source/
-/www/*
-!/www/html/
+# ignore OS generated files
+ehthumbs.db
+Thumbs.db
+.Trashes
+.Spotlight-V100
+.DS_Store
+.DS_Store?
+._*
+
+# ignore all files starting with ~
+~*
+
+# ignore Editor files
+*.sublime-project
+*.sublime-workspace
+*.komodoproject
+*.idea
+*.vscode
+
+# ignore log files and bases
+/.docker/databases
+*.log
+*.lock
+*.sql
+*.sqlite
+
+# ignore compiled files
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+
+# ignore packaged files
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+
+# -------------------------
+# BEGIN Whitelisted Files
+# -------------------------
+
+# track these files, if they exist
+!.gitignore
+!.editorconfig
+!.phpcs.xml.dist
+!README.md
+!CHANGELOG.md
+!composer.json
+!.htaccess
