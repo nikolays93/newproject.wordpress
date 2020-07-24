@@ -58,3 +58,7 @@ Thumbs.db
 !CHANGELOG.md
 !composer.json
 !.htaccess
+
+/www/*
+!/www/html/
+!/www/.composer
