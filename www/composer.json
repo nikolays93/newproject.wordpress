@@ -1,0 +1,12 @@
+{
+    "name": "newproject/wordpress",
+    "authors": [
+        {
+            "name": "NikolayS93",
+            "email": "nikolays93@ya.ru"
+        }
+    ],
+    "require": {
+        "squizlabs/php_codesniffer": "^3.*"
+    }
+}
