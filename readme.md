@@ -7,7 +7,7 @@
 2. [Node.js](https://nodejs.org/en/download/) - для запуска JavaScript на вашем компьютере
 3. [Yarn](https://yarnpkg.com/en/docs/install/) - для сборки проекта
 
-## Как использовать
+## Как запустить сервер
 
 > Убедитесь, что Docker запущен
 
