@@ -1,0 +1,16 @@
+{
+    "name": "newproject/wordpress",
+    "authors": [
+        {
+            "name": "NikolayS93",
+            "email": "nikolays93@ya.ru"
+        }
+    ],
+    "require": {
+        "squizlabs/php_codesniffer": "*"
+    },
+    "scripts" : {
+        "sniff" : "vendor/bin/phpcs --standard=WordPress --extensions=php ./html/wp-content/themes/project/",
+        "fix" : "vendor/bin/phpcbf --standard=WordPress --extensions=php ./html/wp-content/themes/project/"
+    }
+}
