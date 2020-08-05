@@ -5,7 +5,7 @@
 ## Необходимый инструмент
 1. Docker (или [Docker Desktop](https://docs.docker.com/desktop/)) - для запуска сайта
 2. [Node.js](https://nodejs.org/en/download/) - для запуска JavaScript на вашем компьютере
-3. [Yarn](https://yarnpkg.com/en/docs/install/) - для сборки проекта
+3. [Yarn](https://yarnpkg.com/en/docs/install/) - Как альтернатива Npm для сборки проекта
 
 ## Как запустить сервер
 
@@ -23,7 +23,7 @@ $ docker-compose up -d
 
 > Установка может занять некоторое время в зависимости от скорости вашего интернета.
 
-1. Клонируйте репозиторий ```git clone https://github.com/newproject.wordpress/newproject.template.git``` или [скачайте](https://github.com/nikolays93/newproject.wordpress/releases/latest) последнюю версию к себе на компьютер;
+1. Клонируйте репозиторий ```git clone https://github.com/nikolays93/newproject.wordpress.git``` или [скачайте](https://github.com/nikolays93/newproject.wordpress/releases/latest) последнюю версию к себе на компьютер;
 2. Перейдите в папку командой ```cd newproject.wordpress``` или откройте консоль в папке скачанной сборки;
 3. Введите команду ```yarn``` для установки проекта; Начнется перенос библиотек в проект (bootstrap, jQuery и т.д.)
 
