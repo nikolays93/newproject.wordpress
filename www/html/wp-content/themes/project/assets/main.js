@@ -81,10 +81,162 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./public_html/template/new.project/assets/_source/main.js");
+/******/ 	return __webpack_require__(__webpack_require__.s = "./html/wp-content/themes/project/assets/_source/main.js");
 /******/ })
 /************************************************************************/
 /******/ ({
+
+/***/ "./html/wp-content/themes/project/assets/_source/main.js":
+/*!***************************************************************!*\
+  !*** ./html/wp-content/themes/project/assets/_source/main.js ***!
+  \***************************************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var cleave_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! cleave.js */ "./node_modules/cleave.js/dist/cleave-esm.js");
+/* harmony import */ var cleave_js_dist_addons_cleave_phone_ru__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! cleave.js/dist/addons/cleave-phone.ru */ "./node_modules/cleave.js/dist/addons/cleave-phone.ru.js");
+/* harmony import */ var cleave_js_dist_addons_cleave_phone_ru__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(cleave_js_dist_addons_cleave_phone_ru__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _parts_scrollTo_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./parts/_scrollTo.js */ "./html/wp-content/themes/project/assets/_source/parts/_scrollTo.js");
+/* harmony import */ var _parts_preloader_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./parts/_preloader.js */ "./html/wp-content/themes/project/assets/_source/parts/_preloader.js");
+
+
+
+
+
+jQuery(document).ready(function($) {
+    /**
+     * Phone formatter for RU phone numbers.
+     */
+    const $phones = $('[type="tel"]');
+    if (typeof cleave_js__WEBPACK_IMPORTED_MODULE_0__["default"] && $phones.length) {
+        $phones.each(function(i, phoneInput) {
+            new cleave_js__WEBPACK_IMPORTED_MODULE_0__["default"](phoneInput, {
+                phone: true,
+                phoneRegionCode: 'RU'
+            });
+        });
+    }
+
+    /**
+     * Smooth scroll window to target when link href start from a hash.
+     */
+    $(document).on('click', '[href^="#"]', function(event) {
+        event.preventDefault();
+        Object(_parts_scrollTo_js__WEBPACK_IMPORTED_MODULE_2__["default"])(this.getAttribute("href"));
+    });
+
+    /**
+     * Example form submit event.
+     */
+    if (typeof $.fancybox) {
+        $('.modal form').on('submit', function(event) {
+            event.preventDefault();
+            _parts_preloader_js__WEBPACK_IMPORTED_MODULE_3__["default"].show('Загрузка..');
+
+            // Disable retry by 120 seconds
+            const $submit = $(this).find('[type="submit"]');
+            $submit.attr('disabled', 'disabled');
+            setTimeout(() => { $submit.removeAttr('disabled'); }, 120000);
+
+            // Show success
+            setTimeout(() => {
+                _parts_preloader_js__WEBPACK_IMPORTED_MODULE_3__["default"].hide();
+                $.fancybox.open({
+                    content: '<h1>Отлично!</h1><p>Ваша заявка принята, ожидайте звонка.</p>',
+                    type: 'html',
+                });
+            }, 5000);
+        });
+    }
+});
+
+/***/ }),
+
+/***/ "./html/wp-content/themes/project/assets/_source/parts/_preloader.js":
+/*!***************************************************************************!*\
+  !*** ./html/wp-content/themes/project/assets/_source/parts/_preloader.js ***!
+  \***************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+const preloadClass = 'fancy-preloading';
+
+const preloader = {
+    show: (message = '') => {
+        let $preload = $('<p>' + message + '</p>').css({
+            'margin-top': '50px',
+            'margin-bottom': '-40px',
+            'padding-bottom': '',
+            'color': '#ddd'
+        });
+
+        $.fancybox.open({
+            closeExisting: true,
+            content: $preload,
+            type: 'html',
+            smallBtn: false,
+            afterLoad: function(instance, current) {
+                current.$content.css('background', 'none');
+            },
+            afterShow: function(instance, current) {
+                $('body').addClass(preloadClass);
+                instance.showLoading(current);
+            },
+            afterClose: function(instance, current) {
+                $('body').removeClass(preloadClass);
+                instance.hideLoading(current);
+            }
+        });
+    },
+    hide: () => {
+        if ($('body').hasClass(preloadClass)) {
+            $.fancybox.getInstance().close();
+        }
+    }
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (preloader);
+
+/***/ }),
+
+/***/ "./html/wp-content/themes/project/assets/_source/parts/_scrollTo.js":
+/*!**************************************************************************!*\
+  !*** ./html/wp-content/themes/project/assets/_source/parts/_scrollTo.js ***!
+  \**************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+const scrollTo = (target, topOffset = 30, delay = 400) => {
+    if( !target || target.length <= 1 ) return false
+    let $target;
+
+    if( target instanceof jQuery ) {
+        $target = target.first()
+    }
+    else {
+        $target = $(target).length ? $(target).first() : $('a[name='+target.slice(1)+']').first()
+    }
+
+    if( $target.offset().top ) {
+        // for call from dropdown
+        setTimeout(() => {
+            return $('html, body').animate({ scrollTop: $target.offset().top - topOffset }, delay)
+        }, 100)
+        return true
+    }
+
+    return console.log('Element not found.')
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (scrollTo);
+
+/***/ }),
 
 /***/ "./node_modules/cleave.js/dist/addons/cleave-phone.ru.js":
 /*!***************************************************************!*\
@@ -1748,158 +1900,6 @@ try {
 
 module.exports = g;
 
-
-/***/ }),
-
-/***/ "./public_html/template/new.project/assets/_source/main.js":
-/*!*****************************************************************!*\
-  !*** ./public_html/template/new.project/assets/_source/main.js ***!
-  \*****************************************************************/
-/*! no exports provided */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var cleave_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! cleave.js */ "./node_modules/cleave.js/dist/cleave-esm.js");
-/* harmony import */ var cleave_js_dist_addons_cleave_phone_ru__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! cleave.js/dist/addons/cleave-phone.ru */ "./node_modules/cleave.js/dist/addons/cleave-phone.ru.js");
-/* harmony import */ var cleave_js_dist_addons_cleave_phone_ru__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(cleave_js_dist_addons_cleave_phone_ru__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _parts_scrollTo_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./parts/_scrollTo.js */ "./public_html/template/new.project/assets/_source/parts/_scrollTo.js");
-/* harmony import */ var _parts_preloader_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./parts/_preloader.js */ "./public_html/template/new.project/assets/_source/parts/_preloader.js");
-
-
-
-
-
-jQuery(document).ready(function($) {
-    /**
-     * Phone formatter for RU phone numbers.
-     */
-    const $phones = $('[type="tel"]');
-    if (typeof cleave_js__WEBPACK_IMPORTED_MODULE_0__["default"] && $phones.length) {
-        $phones.each(function(i, phoneInput) {
-            new cleave_js__WEBPACK_IMPORTED_MODULE_0__["default"](phoneInput, {
-                phone: true,
-                phoneRegionCode: 'RU'
-            });
-        });
-    }
-
-    /**
-     * Smooth scroll window to target when link href start from a hash.
-     */
-    $(document).on('click', '[href^="#"]', function(event) {
-        event.preventDefault();
-        Object(_parts_scrollTo_js__WEBPACK_IMPORTED_MODULE_2__["default"])(this.getAttribute("href"));
-    });
-
-    /**
-     * Example form submit event.
-     */
-    if (typeof $.fancybox) {
-        $('.modal form').on('submit', function(event) {
-            event.preventDefault();
-            _parts_preloader_js__WEBPACK_IMPORTED_MODULE_3__["default"].show('Загрузка..');
-
-            // Disable retry by 120 seconds
-            const $submit = $(this).find('[type="submit"]');
-            $submit.attr('disabled', 'disabled');
-            setTimeout(() => { $submit.removeAttr('disabled'); }, 120000);
-
-            // Show success
-            setTimeout(() => {
-                _parts_preloader_js__WEBPACK_IMPORTED_MODULE_3__["default"].hide();
-                $.fancybox.open({
-                    content: '<h1>Отлично!</h1><p>Ваша заявка принята, ожидайте звонка.</p>',
-                    type: 'html',
-                });
-            }, 5000);
-        });
-    }
-});
-
-/***/ }),
-
-/***/ "./public_html/template/new.project/assets/_source/parts/_preloader.js":
-/*!*****************************************************************************!*\
-  !*** ./public_html/template/new.project/assets/_source/parts/_preloader.js ***!
-  \*****************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-const preloadClass = 'fancy-preloading';
-
-const preloader = {
-    show: (message = '') => {
-        let $preload = $('<p>' + message + '</p>').css({
-            'margin-top': '50px',
-            'margin-bottom': '-40px',
-            'padding-bottom': '',
-            'color': '#ddd'
-        });
-
-        $.fancybox.open({
-            closeExisting: true,
-            content: $preload,
-            type: 'html',
-            smallBtn: false,
-            afterLoad: function(instance, current) {
-                current.$content.css('background', 'none');
-            },
-            afterShow: function(instance, current) {
-                $('body').addClass(preloadClass);
-                instance.showLoading(current);
-            },
-            afterClose: function(instance, current) {
-                $('body').removeClass(preloadClass);
-                instance.hideLoading(current);
-            }
-        });
-    },
-    hide: () => {
-        if ($('body').hasClass(preloadClass)) {
-            $.fancybox.getInstance().close();
-        }
-    }
-}
-
-/* harmony default export */ __webpack_exports__["default"] = (preloader);
-
-/***/ }),
-
-/***/ "./public_html/template/new.project/assets/_source/parts/_scrollTo.js":
-/*!****************************************************************************!*\
-  !*** ./public_html/template/new.project/assets/_source/parts/_scrollTo.js ***!
-  \****************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-const scrollTo = (target, topOffset = 30, delay = 400) => {
-    if( !target || target.length <= 1 ) return false
-    let $target;
-
-    if( target instanceof jQuery ) {
-        $target = target.first()
-    }
-    else {
-        $target = $(target).length ? $(target).first() : $('a[name='+target.slice(1)+']').first()
-    }
-
-    if( $target.offset().top ) {
-        // for call from dropdown
-        setTimeout(() => {
-            return $('html, body').animate({ scrollTop: $target.offset().top - topOffset }, delay)
-        }, 100)
-        return true
-    }
-
-    return console.log('Element not found.')
-}
-
-/* harmony default export */ __webpack_exports__["default"] = (scrollTo);
 
 /***/ })
 

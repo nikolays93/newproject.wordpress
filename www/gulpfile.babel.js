@@ -197,7 +197,7 @@ const buildStyles = (src, minify = !!production, force = !!production) => gulp.s
     .on("end", () => minify || '' == domain ? browserSync.reload : null)
 
 const buildScripts = (done, src, minify = !!production) => {
-    const regex = new RegExp(`([\\w\\d.-_/]+)${source}([\\w\\d._-]+).js$`, 'g')
+    const regex = new RegExp(`([\\w\\d\-._\/]+)${source}([\\w\\d._-]+).js$`, 'g')
     const config = {
         entry: src.reduce((entries, entry) => {
             if (0 !== entry.indexOf('!')) {
