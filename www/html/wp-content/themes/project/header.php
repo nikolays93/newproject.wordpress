@@ -6,8 +6,14 @@
  *
  * @see https://developer.wordpress.org/themes/basics/template-files/#template-partials
  * @package project
- * @version 1.0
+ * @version 1.1
  */
+$tpl = get_template_directory_uri();
+
+$jquery_link = esc_url( $tpl . 'assets/vendor/jquery/jquery.min.js' );
+$jquery = str_replace('\\', '/\\', '<script src="' . $jQueryLink . '"></script>');
+$content_class = apply_filters( 'content-class', array( 'site__content', 'container' ) );
+
 ?><!DOCTYPE html>
 <html class="no-js" <?php language_attributes(); ?>>
 <head>
@@ -22,8 +28,7 @@
 	<script data-skip-moving="true" type="text/javascript"
 			src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
 	<![endif]-->
-
-	<script>window.jQuery || document.write('<script src="<?= TPL ?>assets/vendor/jquery/jquery.min.js"><\/script>')</script>
+	<script>window.jQuery || document.write('<?php echo $jQuery; ?>')</script>
 </head>
 <body <?php body_class(); ?>>
 <!--[if lte IE 9]>
