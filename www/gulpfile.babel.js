@@ -163,7 +163,11 @@ const buildStyles = (src, minify = !!production, force = !!production) => gulp.s
     })))
     // .pipe(gulp.newer({ dest: buildRelativePath(args['src']) + '../', ext: production ? '.min.css' : '.css' }))
     // .pipe(gulp.sourcemaps())
-    .pipe(gulp.sass({ includePaths: ['node_modules', root + template + assets + source] }))
+    .pipe(gulp.sass({ includePaths: [
+        'node_modules',
+        root + template + assets + source,
+        root + template + assets + vendor + source
+    ] }))
     .pipe(gulp.groupCssMediaQueries())
     .pipe(gulp.autoprefixer({ cascade: false, grid: true }))
     .pipe(gulp.if(!minify, browserSync.stream()))
