@@ -8,10 +8,10 @@ services:
       - ./.docker/databases:/var/lib/mysql
     restart: always
     environment:
-      MYSQL_DATABASE: wordpress
-      MYSQL_USER: root
-      MYSQL_PASSWORD: root
-      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
     networks:
       - wpsite
   # Database manager
@@ -25,16 +25,16 @@ services:
   wordpress:
     depends_on:
       - db
-    build: ./.docker
+    build: ./.docker/${WP_VERSION}
     ports:
       - '8000:80'
     restart: always
     volumes:
-      - ./www/html:/var/www/html
+      - ${SITE_PATH}:/var/www/html
     environment:
       WORDPRESS_DB_HOST: db:3306
-      WORDPRESS_DB_USER: root
-      WORDPRESS_DB_PASSWORD: root
+      WORDPRESS_DB_USER: ${MYSQL_USER}
+      WORDPRESS_DB_PASSWORD: ${MYSQL_PASSWORD}
       XDEBUG_CONFIG: remote_host=host.docker.internal remote_port=9000 remote_enable=1
       PHP_EXTENSION_XDEBUG: 1
     networks:
