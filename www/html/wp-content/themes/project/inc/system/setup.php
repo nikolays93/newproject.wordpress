@@ -4,21 +4,24 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 
-if( ! function_exists( 'theme_setup' ) ) {
+if ( ! function_exists( 'theme_setup' ) ) {
 	function theme_setup() {
 		load_theme_textdomain( 'project', get_template_directory() . '/languages' );
 
 		add_theme_support( 'custom-logo' );
 		add_theme_support( 'title-tag' );
 		add_theme_support( 'post-thumbnails' );
-		add_theme_support( 'html5', array(
-			'search-form',
-			'gallery',
-		) );
+		add_theme_support(
+			'html5',
+			array(
+				'search-form',
+				'gallery',
+			)
+		);
 	}
 }
 
-if( ! function_exists( 'head_cleanup' ) ) {
+if ( ! function_exists( 'head_cleanup' ) ) {
 	function head_cleanup() {
 		remove_action( 'wp_head', 'feed_links_extra', 3 );                 // Category Feeds
 		remove_action( 'wp_head', 'feed_links', 2 );                       // Post and Comment Feeds
@@ -32,7 +35,7 @@ if( ! function_exists( 'head_cleanup' ) ) {
 	}
 }
 
-if( ! function_exists( 'disable_emojis' ) ) {
+if ( ! function_exists( 'disable_emojis' ) ) {
 	function disable_emojis() {
 		remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
 		remove_action( 'admin_print_scripts', 'print_emoji_detection_script' );
@@ -46,7 +49,7 @@ if( ! function_exists( 'disable_emojis' ) ) {
 	}
 }
 
-if( ! function_exists( 'disable_emojis_tinymce' ) ) {
+if ( ! function_exists( 'disable_emojis_tinymce' ) ) {
 	/**
 	 * Filter function used to remove the tinymce emoji plugin.
 	 *
@@ -62,11 +65,11 @@ if( ! function_exists( 'disable_emojis_tinymce' ) ) {
 	}
 }
 
-if( ! function_exists( 'disable_emojis_remove_dns_prefetch' ) ) {
+if ( ! function_exists( 'disable_emojis_remove_dns_prefetch' ) ) {
 	/**
 	 * Remove emoji CDN hostname from DNS prefetching hints.
 	 *
-	 * @param array $urls URLs to print for resource hints.
+	 * @param array  $urls URLs to print for resource hints.
 	 * @param string $relation_type The relation type the URLs are printed for.
 	 * @return array Difference betwen the two arrays.
 	 */

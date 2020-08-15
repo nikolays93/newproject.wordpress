@@ -3,9 +3,9 @@
 class SMS_Provider {
 	public $to;
 	public $text;
-	public $from = '';
-	public $test = 0;
-	public $translit = 0;
+	public $from       = '';
+	public $test       = 0;
+	public $translit   = 0;
 	public $partner_id = 1;
 
 	public function __construct() {

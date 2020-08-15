@@ -4,12 +4,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 
-if( ! function_exists( 'get_current_ip' ) ) {
-    function get_current_ip() {
-        return ( empty( $_SERVER['HTTP_CLIENT_IP'] ) && empty( $_SERVER['HTTP_X_FORWARDED_FOR'] ) ) ?
+if ( ! function_exists( 'get_current_ip' ) ) {
+	function get_current_ip() {
+		return ( empty( $_SERVER['HTTP_CLIENT_IP'] ) && empty( $_SERVER['HTTP_X_FORWARDED_FOR'] ) ) ?
 			$_SERVER['REMOTE_ADDR'] : empty( $_SERVER['HTTP_CLIENT_IP'] ) ?
 			$_SERVER['HTTP_X_FORWARDED_FOR'] : $_SERVER['HTTP_CLIENT_IP'];
-    }
+	}
 }
 
 /**
@@ -17,8 +17,11 @@ if( ! function_exists( 'get_current_ip' ) ) {
  */
 if ( ! function_exists( 'is_local' ) ) {
 	function is_local() {
-		return ! empty( $_SERVER['SERVER_ADDR'] ) && in_array( $_SERVER['SERVER_ADDR'],
-			array( '127.0.0.1', defined( 'DEVELOPMENT_ID' ) ? DEVELOPMENT_IP : '' ), true );
+		return ! empty( $_SERVER['SERVER_ADDR'] ) && in_array(
+			$_SERVER['SERVER_ADDR'],
+			array( '127.0.0.1', defined( 'DEVELOPMENT_ID' ) ? DEVELOPMENT_IP : '' ),
+			true
+		);
 	}
 }
 
@@ -78,12 +81,14 @@ if ( ! function_exists( 'has_children_terms' ) ) {
 			$parent = $o->term_id;
 		}
 
-		$children = get_terms( array(
-			'taxanomy'   => $tax,
-			'parent'     => $parent,
-			'hide_empty' => $hide_empty,
-			'number'     => 1,
-		) );
+		$children = get_terms(
+			array(
+				'taxanomy'   => $tax,
+				'parent'     => $parent,
+				'hide_empty' => $hide_empty,
+				'number'     => 1,
+			)
+		);
 
 		if ( $children ) {
 			return true;
@@ -197,6 +202,7 @@ if ( ! function_exists( 'get_default_bs_columns' ) ) {
 if ( ! function_exists( 'get_validate_phone_pattern' ) ) {
 	/**
 	 * Validate russian phone number (for billing phone)
+	 *
 	 * @return string
 	 */
 	function get_validate_phone_pattern() {

@@ -35,15 +35,17 @@ if ( ! function_exists( 'widget__woocommerce' ) ) {
 	 * SideBar For WooCommerce pages
 	 */
 	function widget__woocommerce() {
-		register_sidebar( array(
-			'name'          => __( 'Витрины магазина', 'project' ),
-			'id'            => 'woocommerce',
-			'description'   => __( 'Показываются на витринах магазина WooCommerce', 'project' ),
-			'before_widget' => '<section id="%1$s" class="widget %2$s">',
-			'after_widget'  => '</section>',
-			'before_title'  => '<h3 class="widget-title">',
-			'after_title'   => '</h3>',
-		) );
+		register_sidebar(
+			array(
+				'name'          => __( 'Витрины магазина', 'project' ),
+				'id'            => 'woocommerce',
+				'description'   => __( 'Показываются на витринах магазина WooCommerce', 'project' ),
+				'before_widget' => '<section id="%1$s" class="widget %2$s">',
+				'after_widget'  => '</section>',
+				'before_title'  => '<h3 class="widget-title">',
+				'after_title'   => '</h3>',
+			)
+		);
 	}
 }
 
@@ -72,7 +74,7 @@ if ( ! function_exists( 'price__wc20_variation_format' ) ) {
 	function wc20_get_variation_price( $product ) {
 		return array(
 			'min' => $product->get_variation_price( 'min', true ),
-			'max' => $product->get_variation_price( 'max', true )
+			'max' => $product->get_variation_price( 'max', true ),
 		);
 	}
 
@@ -82,12 +84,12 @@ if ( ! function_exists( 'price__wc20_variation_format' ) ) {
 	function wc20_get_variation_regular_price( $product ) {
 		return array(
 			'min' => $product->get_variation_regular_price( 'min', true ),
-			'max' => $product->get_variation_regular_price( 'max', true )
+			'max' => $product->get_variation_regular_price( 'max', true ),
 		);
 	}
 
 	/**
-	 * @param string $price woocommerce 2.0 variation price formatter
+	 * @param string              $price woocommerce 2.0 variation price formatter
 	 * @param WC_Product_Variable $product
 	 *
 	 * @return string
@@ -132,7 +134,7 @@ if ( ! function_exists( 'price__currency_symbol' ) ) {
 
 if ( ! function_exists( 'checkout__validate_billing_phone' ) ) {
 	/**
-	 * @param array $fields
+	 * @param array    $fields
 	 * @param WP_Error $errors
 	 */
 	function checkout__validate_billing_phone( $fields, $errors ) {
@@ -145,28 +147,32 @@ if ( ! function_exists( 'checkout__validate_billing_phone' ) ) {
 
 /**
  * #bilig_phone ES validation
+ *
  * @TODO Not working now
  */
-add_action( 'wp_footer', function () {
-	// we need it only on our checkout page
-	if ( ! is_checkout() ) {
-		return;
+add_action(
+	'wp_footer',
+	function () {
+		// we need it only on our checkout page
+		if ( ! is_checkout() ) {
+			return;
+		}
+
+		$pattern = get_validate_phone_pattern();
+
+		?>
+	<script>
+		jQuery(function ($) {
+			$('body').on('blur change', '#billing_phone', function () {
+				$(this).closest('.form-row').addClass(
+					/<?php echo $pattern; ?>/.test( $(this).val() ) ? 'woocommerce-validated' : 'woocommerce-invalid'
+				);
+			});
+		});
+	</script>
+		<?php
 	}
-
-	$pattern = get_validate_phone_pattern();
-
-	?>
-    <script>
-        jQuery(function ($) {
-            $('body').on('blur change', '#billing_phone', function () {
-                $(this).closest('.form-row').addClass(
-                    /<?= $pattern ?>/.test( $(this).val() ) ? 'woocommerce-validated' : 'woocommerce-invalid'
-                );
-            });
-        });
-    </script>
-	<?php
-} );
+);
 
 if ( ! function_exists( 'checkout__default_address_fields' ) ) {
 	function checkout__default_address_fields( $fields ) {
@@ -178,11 +184,11 @@ if ( ! function_exists( 'checkout__default_address_fields' ) ) {
 		unset( $fields['address_2'], $fields['postcode'] );
 
 		// Add bootstrap class for all fields
-		//foreach ( $fields as &$field ) {
-		//	if ( is_array( $field['input_class'] ) && ! in_array( 'form-control', $field['input_class'] ) ) {
-		//		array_push( $field['input_class'], 'form-control' );
-		//	}
-		//}
+		// foreach ( $fields as &$field ) {
+		// if ( is_array( $field['input_class'] ) && ! in_array( 'form-control', $field['input_class'] ) ) {
+		// array_push( $field['input_class'], 'form-control' );
+		// }
+		// }
 
 		return $fields;
 	}
@@ -198,15 +204,18 @@ if ( ! function_exists( 'checkout__set_fields_priority' ) ) {
 			'phone'     => 22,
 		);
 
-		array_map( function ( $label ) use ( &$fields, $priority ) {
+		array_map(
+			function ( $label ) use ( &$fields, $priority ) {
 
-			foreach ( $priority as $k => $v ) {
-				if ( isset( $fields[ $label ]["{$label}_{$k}"] ) ) {
-					$fields[ $label ]["{$label}_{$k}"]['priority'] = $v;
+				foreach ( $priority as $k => $v ) {
+					if ( isset( $fields[ $label ][ "{$label}_{$k}" ] ) ) {
+						$fields[ $label ][ "{$label}_{$k}" ]['priority'] = $v;
+					}
 				}
-			}
 
-		}, array( 'billing', 'shipping' ) );
+			},
+			array( 'billing', 'shipping' )
+		);
 
 		return $fields;
 	}
@@ -222,7 +231,7 @@ if ( ! function_exists( 'checkout__add_fields_bootstrap_class' ) ) {
 
 			// Add bootstrap class for all fields
 			foreach ( $fields[ $field_key ] as $key => &$field ) {
-				if( empty( $field['input_class'] ) ) {
+				if ( empty( $field['input_class'] ) ) {
 					$field['input_class'] = array();
 				}
 
@@ -239,11 +248,11 @@ if ( ! function_exists( 'checkout__add_fields_bootstrap_class' ) ) {
 if ( ! function_exists( 'account__menu_items' ) ) {
 	function account__menu_items( $items ) {
 		// $items = array(
-		//     'orders' => __( 'Orders', 'woocommerce' ),
-		//     'edit-address' => __( 'Addresses', 'woocommerce' ),
-		//     'payment-methods' => __( 'Payment methods', 'woocommerce' ),
-		//     'edit-account' => __( 'Account details', 'woocommerce' ),
-		//     'customer-logout' => __( 'Logout', 'woocommerce' ),
+		// 'orders' => __( 'Orders', 'woocommerce' ),
+		// 'edit-address' => __( 'Addresses', 'woocommerce' ),
+		// 'payment-methods' => __( 'Payment methods', 'woocommerce' ),
+		// 'edit-account' => __( 'Account details', 'woocommerce' ),
+		// 'customer-logout' => __( 'Logout', 'woocommerce' ),
 		// );
 
 		unset( $items['dashboard'], $items['downloads'] );

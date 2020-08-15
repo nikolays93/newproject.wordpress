@@ -12,7 +12,7 @@ get_header();
 ?>
 	<div class="container">
 		<div class="row">
-			<div id="primary" class="<?php echo ( is_active_sidebar( 'archive' ) ) ? "col-9" : "col-12"; ?>">
+			<div id="primary" class="<?php echo ( is_active_sidebar( 'archive' ) ) ? 'col-9' : 'col-12'; ?>">
 				<main id="main" class="404 content" role="main">
 					<article class="error-404 not-found">
 						<h1 class="error-404__title">Ошибка #404: страница не найдена.</h1>

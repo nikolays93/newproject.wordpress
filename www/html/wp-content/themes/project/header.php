@@ -6,11 +6,11 @@
  *
  * @see https://developer.wordpress.org/themes/basics/template-files/#template-partials
  * @package project
- * @version 1.1
+ * @version 1.2
  */
 
-$jquery_link = esc_url( TPL . 'assets/vendor/jquery/jquery.min.js' );
-$jquery = str_replace( '/', '\/', '<script src="' . $jquery_link . '"></script>' );
+$jquery_link   = esc_url( TPL . 'assets/vendor/jquery/jquery.min.js' );
+$jquery        = str_replace( '/', '\/', '<script src="' . $jquery_link . '"></script>' );
 $content_class = apply_filters( 'content-class', array( 'site__content', 'container' ) );
 
 ?><!DOCTYPE html>
@@ -35,8 +35,14 @@ $content_class = apply_filters( 'content-class', array( 'site__content', 'contai
 		href="https://browsehappy.com/">обновите ваш браузер</a> для лучшего отображения и безопасности.</p>
 <![endif]-->
 <div id="page" class="site">
-	<!-- <a class="skip-link screen-reader-text sr-only" href="#content"><?php esc_html_e( 'Skip to content',
-		'_s' ); ?></a> -->
+	<!-- <a class="skip-link screen-reader-text sr-only" href="#content">
+	<?php
+	esc_html_e(
+		'Skip to content',
+		'_s'
+	);
+	?>
+		</a> -->
 	<div class="site__header" id="masthead">
 		<div class="site-head container">
 			<!-- <div itemscope itemtype="http://schema.org/LocalBusiness"> -->

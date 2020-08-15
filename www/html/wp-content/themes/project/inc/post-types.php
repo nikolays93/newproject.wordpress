@@ -58,13 +58,17 @@ if ( ! function_exists( 'register_tax__slider' ) ) {
 			'menu_name'                  => __( 'Слайдер', 'project' ),
 		);
 
-		register_taxonomy( 'slider', 'slide', array(
-			'hierarchical' => false,
-			'labels'       => $labels,
-			'show_ui'      => true,
-			'query_var'    => true,
+		register_taxonomy(
+			'slider',
+			'slide',
+			array(
+				'hierarchical' => false,
+				'labels'       => $labels,
+				'show_ui'      => true,
+				'query_var'    => true,
 			// 'rewrite'       => array( 'slug' => 'slider' ),
-		) );
+			)
+		);
 	}
 }
 

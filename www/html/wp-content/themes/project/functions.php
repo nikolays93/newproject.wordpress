@@ -46,11 +46,14 @@ if ( ! function_exists( 'init_theme' ) ) {
 		/**
 		 * Include classes
 		 */
-		array_map( 'require_path', array(
-			'/inc/class/wp-bootstrap-navwalker.php',
-			'/inc/class/sms.ru.php',
-			'/inc/class/sms-provider.php',
-		) );
+		array_map(
+			'require_path',
+			array(
+				'/inc/class/wp-bootstrap-navwalker.php',
+				'/inc/class/sms.ru.php',
+				'/inc/class/sms-provider.php',
+			)
+		);
 
 		/**
 		 * Include required system files
@@ -59,22 +62,28 @@ if ( ! function_exists( 'init_theme' ) ) {
 		 * Все классы и функции можно предопределить, объявив до подключения файла к примеру:
 		 * function breadcrumbs_by_yoast() { yoast_breadcrumb('<div class="breadcrumbs">','</div>'); }
 		 */
-		array_map( 'require_path', array(
-			'/inc/system/setup.php',         // *
-			'/inc/system/utilites.php',      // * Вспомогательные функции
-			'/inc/system/admin.php',         // * Фильтры и функции административной части WP
-			'/inc/system/template.php',      // * Основные функции вывода информации в шаблон
-			'/inc/system/navigation.php',    // * Навигация
-			'/inc/system/gallery.php',       // * Шаблон встроенной галереи wordpress
-			'/inc/system/customizer.php',    // * Дополнительные функии в настройки внешнего вида
-			'/inc/system/notifications.php', // * Дополнение к отправке уведомлений
-		) );
+		array_map(
+			'require_path',
+			array(
+				'/inc/system/setup.php',         // *
+				'/inc/system/utilites.php',      // * Вспомогательные функции
+				'/inc/system/admin.php',         // * Фильтры и функции административной части WP
+				'/inc/system/template.php',      // * Основные функции вывода информации в шаблон
+				'/inc/system/navigation.php',    // * Навигация
+				'/inc/system/gallery.php',       // * Шаблон встроенной галереи wordpress
+				'/inc/system/customizer.php',    // * Дополнительные функии в настройки внешнего вида
+				'/inc/system/notifications.php', // * Дополнение к отправке уведомлений
+			)
+		);
 
 		if ( class_exists( 'woocommerce' ) ) {
-			array_map( 'require_path', array(
-				'/inc/system/woocommerce.php',   // *
-				'/inc/system/wc-customizer.php', // *
-			) );
+			array_map(
+				'require_path',
+				array(
+					'/inc/system/woocommerce.php',   // *
+					'/inc/system/wc-customizer.php', // *
+				)
+			);
 		}
 	}
 }
@@ -82,27 +91,33 @@ if ( ! function_exists( 'init_theme' ) ) {
 /**
  * Include custom files
  */
-array_map( 'require_path', array(
-	'/inc/assets.php',     // * Дополнительные ресурсы (Скрипты, стили..)
-	'/inc/widgets.php',    // * Сайдбар панели (Виджеты)
-	'/inc/post-types.php', // * Функции добавления типа записи slide
-	'/inc/shortcodes.php', // * Функции добавления шорткода
-) );
+array_map(
+	'require_path',
+	array(
+		'/inc/assets.php',     // * Дополнительные ресурсы (Скрипты, стили..)
+		'/inc/widgets.php',    // * Сайдбар панели (Виджеты)
+		'/inc/post-types.php', // * Функции добавления типа записи slide
+		'/inc/shortcodes.php', // * Функции добавления шорткода
+	)
+);
 
 /**
  * Include woocommerce custom files
  */
 if ( class_exists( 'woocommerce' ) ) {
-	array_map( 'require_path', array(
-		'/woocommerce/functions.php',          // * Функции магазина
-		'/woocommerce/template-functions.php', // * Функции и фильтры шаблона магазина
-		'/woocommerce/filters.php',            // * Объявление основных функций магазина
-	) );
+	array_map(
+		'require_path',
+		array(
+			'/woocommerce/functions.php',          // * Функции магазина
+			'/woocommerce/template-functions.php', // * Функции и фильтры шаблона магазина
+			'/woocommerce/filters.php',            // * Объявление основных функций магазина
+		)
+	);
 }
 
 init_theme();
 
-// Подключить поддержку "фишек" wordpress
+// Подключить поддержку "фишек" WordPress
 add_action( 'after_setup_theme', 'theme_setup' );
 // Зарегистрировать стандартное меню (В шапке/в подвале, ./system/navigation.php)
 add_action( 'after_setup_theme', 'register_theme_navigation' );
@@ -147,13 +162,16 @@ add_shortcode( 'slider', 'slider_shortcode' );
 /**
  * Development server attention
  */
-add_action( 'wp_footer', function () {
-	if ( function_exists( 'is_local' ) && is_local() ) {
-		echo '<h3 id="development" style="position:fixed;bottom:32px;background-color:red;margin:0;padding:8px;">Это локальный сервер</h3>',
-		'<script type="text/javascript">setTimeout(function(){document.getElementById("development").style.display="none"},10000);</script>';
+add_action(
+	'wp_footer',
+	function () {
+		if ( function_exists( 'is_local' ) && is_local() ) {
+			echo '<h3 id="development" style="position:fixed;bottom:32px;background-color:red;margin:0;padding:8px;">Это локальный сервер</h3>',
+			'<script type="text/javascript">setTimeout(function(){document.getElementById("development").style.display="none"},10000);</script>';
+		}
 	}
-} );
+);
 
-// change default wordpress to custom authentication
+// change default WordPress to custom authentication
 remove_filter( 'authenticate', 'wp_authenticate_username_password', 20 );
 add_filter( 'authenticate', 'wp_authenticate_username_phone_password', 20, 3 );

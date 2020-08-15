@@ -1,6 +1,6 @@
 <?php
 /**
- * Основной файл темы Wordpress
+ * Основной файл темы WordPress
  *
  * Это самый первичный файл в теме WordPress
  * И один из двух необходимых (еще необходим style.css).
@@ -14,15 +14,16 @@
 
 get_header();
 ?>
-    <div class="row">
+	<div class="row">
 		<?php do_action( 'site_before_main_row_content' ); ?>
 
-        <div id="primary" class="<?= apply_filters( 'site_primary_class', 'site-primary col-12' ); ?>">
-            <main id="main" class="main content" role="main">
+		<div id="primary" class="<?php echo apply_filters( 'site_primary_class', 'site-primary col-12' ); ?>">
+			<main id="main" class="main content" role="main">
 				<?php
 				if ( have_posts() ) {
 					if ( is_search() ) {
-						echo sprintf( '<header class="archive-header"><h1>%s %s</h1></header>',
+						echo sprintf(
+							'<header class="archive-header"><h1>%s %s</h1></header>',
 							'Результаты поиска:',
 							get_search_query()
 						);
@@ -42,10 +43,10 @@ get_header();
 					get_template_part( 'template-parts/content', 'none' );
 				}
 				?>
-            </main><!-- #main -->
-        </div><!-- .col -->
+			</main><!-- #main -->
+		</div><!-- .col -->
 
 		<?php do_action( 'site_after_main_row_content' ); ?>
-    </div><!-- .row -->
+	</div><!-- .row -->
 <?php
 get_footer();

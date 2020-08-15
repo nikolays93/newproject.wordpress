@@ -19,13 +19,13 @@ if ( ! function_exists( 'login_header_logo_css' ) ) {
 		if ( $logo_id = get_theme_mod( 'custom_logo' ) ) {
 			@list( $src, $width, $height ) = wp_get_attachment_image_src( $logo_id, 'full' );
 			?>
-			<?php if ( $src && $width && $height ): ?>
+			<?php if ( $src && $width && $height ) : ?>
 				<style type="text/css">
 					.login h1 a {
 						position: relative;
-						width: <?= $width ?>px;
-						height: <?= $height ?>px;
-						background: url("<?= $src ?>") no-repeat;
+						width: <?php echo $width; ?>px;
+						height: <?php echo $height; ?>px;
+						background: url("<?php echo $src; ?>") no-repeat;
 					}
 				</style>
 			<?php endif; ?>
@@ -47,14 +47,16 @@ if ( ! function_exists( 'customize_toolbar_link' ) ) {
 		/**
 		 * Developer menu link
 		 */
-		$wp_admin_bar->add_node( array(
-			'id'    => 'developer',
-			'title' => DEVELOPER_NAME,
-			'href'  => DEVELOPER_LINK,
-			'meta'  => array(
-				'title' => __( 'Go to developer\'s website', 'project' ),
-			),
-		) );
+		$wp_admin_bar->add_node(
+			array(
+				'id'    => 'developer',
+				'title' => DEVELOPER_NAME,
+				'href'  => DEVELOPER_LINK,
+				'meta'  => array(
+					'title' => __( 'Go to developer\'s website', 'project' ),
+				),
+			)
+		);
 	}
 }
 
@@ -68,12 +70,14 @@ if ( ! function_exists( 'custom_admin_footer' ) ) {
 			return $msg;
 		}
 
-		$dev_message = sprintf( '<span id="footer-thankyou">%s %s</span>.',
+		$dev_message = sprintf(
+			'<span id="footer-thankyou">%s %s</span>.',
 			__( 'Developed by', 'theme' ),
 			DEVELOPER_NAME
 		);
 
-		$wp_message = sprintf( '<small><a href="wordpress.com">%s WordPress (%s)</a>. </small>',
+		$wp_message = sprintf(
+			'<small><a href="wordpress.com">%s WordPress (%s)</a>. </small>',
 			__( 'Based on', 'theme' ),
 			get_bloginfo( 'version' ) . '-' . get_bloginfo( 'charset' )
 		);
@@ -87,12 +91,11 @@ if ( ! function_exists( 'wp_authenticate_username_phone_password' ) ) {
 	 * Authenticate a user, confirming the username or phonenumber and password are valid.
 	 *
 	 * @param WP_User|WP_Error|null $user WP_User or WP_Error object from a previous callback. Default null.
-	 * @param string $username Username for authentication.
-	 * @param string $password Password for authentication.
+	 * @param string                $username Username for authentication.
+	 * @param string                $password Password for authentication.
 	 *
 	 * @return WP_User|WP_Error WP_User on success, WP_Error on failure.
 	 * @since 2.8.0
-	 *
 	 */
 	function wp_authenticate_username_phone_password( $user, $username, $password ) {
 		if ( $user instanceof WP_User ) {
@@ -121,15 +124,17 @@ if ( ! function_exists( 'wp_authenticate_username_phone_password' ) ) {
 		$user_phone = preg_replace( '/[^0-9]/', '', $username );
 
 		// Then username is phone
-		if ( in_array( substr( $user_phone, 0, 1 ), [ 7, 8 ] ) ) {
+		if ( in_array( substr( $user_phone, 0, 1 ), array( 7, 8 ) ) ) {
 			// Check if user exists in WordPress database
 			$user = reset(
-				get_users( [
-					'meta_key'    => 'billing_phone',
-					'meta_value'  => $user_phone,
-					'number'      => 1,
-					'count_total' => false
-				] )
+				get_users(
+					array(
+						'meta_key'    => 'billing_phone',
+						'meta_value'  => $user_phone,
+						'number'      => 1,
+						'count_total' => false,
+					)
+				)
 			);
 		} else {
 			$user = get_user_by( 'login', $username );
@@ -153,7 +158,6 @@ if ( ! function_exists( 'wp_authenticate_username_phone_password' ) ) {
 		 * @param string $password Password to check against the user.
 		 *
 		 * @since 2.5.0
-		 *
 		 */
 		$user = apply_filters( 'wp_authenticate_user', $user, $password );
 		if ( is_wp_error( $user ) ) {

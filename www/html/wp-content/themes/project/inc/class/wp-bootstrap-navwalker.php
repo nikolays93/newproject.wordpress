@@ -15,14 +15,13 @@ if ( ! class_exists( 'WP_Bootstrap_Navwalker' ) ) {
 		/**
 		 * Starts the list before the elements are added.
 		 *
-		 * @param string $output Used to append additional content (passed by reference).
-		 * @param int $depth Depth of menu item. Used for padding.
+		 * @param string   $output Used to append additional content (passed by reference).
+		 * @param int      $depth Depth of menu item. Used for padding.
 		 * @param stdClass $args An object of wp_nav_menu() arguments.
 		 *
 		 * @see Walker_Nav_Menu::start_lvl()
 		 *
 		 * @since WP 3.0.0
-		 *
 		 */
 		public function start_lvl( &$output, $depth = 0, $args = array() ) {
 			if ( isset( $args->item_spacing ) && 'discard' === $args->item_spacing ) {
@@ -46,7 +45,6 @@ if ( ! class_exists( 'WP_Bootstrap_Navwalker' ) ) {
 			 * @param int $depth Depth of menu item. Used for padding.
 			 *
 			 * @since WP 4.8.0
-			 *
 			 */
 			$class_names = join( ' ', apply_filters( 'nav_menu_submenu_css_class', $classes, $args, $depth ) );
 			$class_names = $class_names ? ' class="' . esc_attr( $class_names ) . '"' : '';
@@ -75,17 +73,16 @@ if ( ! class_exists( 'WP_Bootstrap_Navwalker' ) ) {
 		/**
 		 * Starts the element output.
 		 *
-		 * @param string $output Used to append additional content (passed by reference).
-		 * @param WP_Post $item Menu item data object.
-		 * @param int $depth Depth of menu item. Used for padding.
+		 * @param string   $output Used to append additional content (passed by reference).
+		 * @param WP_Post  $item Menu item data object.
+		 * @param int      $depth Depth of menu item. Used for padding.
 		 * @param stdClass $args An object of wp_nav_menu() arguments.
-		 * @param int $id Current item ID.
+		 * @param int      $id Current item ID.
 		 *
 		 * @see Walker_Nav_Menu::start_el()
 		 *
 		 * @since WP 3.0.0
 		 * @since WP 4.4.0 The {@see 'nav_menu_item_args'} filter was added.
-		 *
 		 */
 		public function start_el( &$output, $item, $depth = 0, $args = array(), $id = 0 ) {
 			if ( isset( $args->item_spacing ) && 'discard' === $args->item_spacing ) {
@@ -127,8 +124,11 @@ if ( ! class_exists( 'WP_Bootstrap_Navwalker' ) ) {
 				$classes[] = 'dropdown';
 			}
 
-			if ( in_array( 'current-menu-item', $classes, true ) || in_array( 'current-menu-parent', $classes,
-					true ) ) {
+			if ( in_array( 'current-menu-item', $classes, true ) || in_array(
+				'current-menu-parent',
+				$classes,
+				true
+			) ) {
 				$classes[] = 'active';
 			}
 
@@ -153,7 +153,6 @@ if ( ! class_exists( 'WP_Bootstrap_Navwalker' ) ) {
 			 *
 			 * @since WP 3.0.1
 			 * @since WP 4.1.0 The `$depth` parameter was added.
-			 *
 			 */
 			$id = apply_filters( 'nav_menu_item_id', 'menu-item-' . $item->ID, $item, $args, $depth );
 			$id = $id ? ' id="' . esc_attr( $id ) . '"' : '';
@@ -205,7 +204,7 @@ if ( ! class_exists( 'WP_Bootstrap_Navwalker' ) ) {
 			$attributes = '';
 			foreach ( $atts as $attr => $value ) {
 				if ( ! empty( $value ) ) {
-					$value      = ( 'href' === $attr ) ? esc_url( $value ) : esc_attr( $value );
+					$value       = ( 'href' === $attr ) ? esc_url( $value ) : esc_attr( $value );
 					$attributes .= ' ' . $attr . '="' . $value . '"';
 				}
 			}
@@ -241,7 +240,6 @@ if ( ! class_exists( 'WP_Bootstrap_Navwalker' ) ) {
 			 * @param int $depth Depth of menu item. Used for padding.
 			 *
 			 * @since WP 4.4.0
-			 *
 			 */
 			$title = apply_filters( 'nav_menu_item_title', $title, $item, $args, $depth );
 
@@ -268,16 +266,15 @@ if ( ! class_exists( 'WP_Bootstrap_Navwalker' ) ) {
 		 * This method should not be called directly, use the walk() method instead.
 		 *
 		 * @param object $element Data object.
-		 * @param array $children_elements List of elements to continue traversing (passed by reference).
-		 * @param int $max_depth Max depth to traverse.
-		 * @param int $depth Depth of current element.
-		 * @param array $args An array of arguments.
+		 * @param array  $children_elements List of elements to continue traversing (passed by reference).
+		 * @param int    $max_depth Max depth to traverse.
+		 * @param int    $depth Depth of current element.
+		 * @param array  $args An array of arguments.
 		 * @param string $output Used to append additional content (passed by reference).
 		 *
 		 * @since WP 2.5.0
 		 *
 		 * @see Walker::start_lvl()
-		 *
 		 */
 		public function display_element( $element, &$children_elements, $max_depth, $depth, $args, &$output ) {
 			if ( ! $element ) {
@@ -340,9 +337,13 @@ if ( ! class_exists( 'WP_Bootstrap_Navwalker' ) ) {
 				}
 
 				$fallback_output .= '>';
-				$fallback_output .= '<li><a href="' . esc_url( admin_url( 'nav-menus.php' ) ) . '" title="' . esc_attr__( 'Add a menu',
-						'wp-bootstrap-navwalker' ) . '">' . esc_html__( 'Add a menu',
-						'wp-bootstrap-navwalker' ) . '</a></li>';
+				$fallback_output .= '<li><a href="' . esc_url( admin_url( 'nav-menus.php' ) ) . '" title="' . esc_attr__(
+					'Add a menu',
+					'wp-bootstrap-navwalker'
+				) . '">' . esc_html__(
+					'Add a menu',
+					'wp-bootstrap-navwalker'
+				) . '</a></li>';
 				$fallback_output .= '</ul>';
 
 				if ( $container ) {
@@ -366,13 +367,12 @@ if ( ! class_exists( 'WP_Bootstrap_Navwalker' ) ) {
 		 *
 		 * NOTE: This accepts the icon arrays by reference.
 		 *
-		 * @param array $classes an array of classes currently assigned to the item.
-		 * @param array $icon_classes an array to hold icon classes.
+		 * @param array   $classes an array of classes currently assigned to the item.
+		 * @param array   $icon_classes an array to hold icon classes.
 		 * @param integer $depth an integer holding current depth level.
 		 *
 		 * @return array  $classes         a maybe modified array of classnames.
 		 * @since 4.0.0
-		 *
 		 */
 		private function separate_icons_from_classes( $classes, &$icon_classes, $depth ) {
 			// Loop through $classes array to find icon classes.
@@ -400,7 +400,6 @@ if ( ! class_exists( 'WP_Bootstrap_Navwalker' ) ) {
 		 *
 		 * @return string      the string wrapped in a span with the class.
 		 * @since 4.0.0
-		 *
 		 */
 		private function wrap_for_screen_reader( $text = '' ) {
 			if ( $text ) {

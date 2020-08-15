@@ -20,7 +20,7 @@ if ( ! function_exists( 'wpcf7_additional_info' ) ) {
 	/**
 	 * @param WPCF7_ContactForm $WPCF7_ContactForm
 	 * @param $abort
-	 * @param WPCF7_Submission $WPCF7_Submission
+	 * @param WPCF7_Submission  $WPCF7_Submission
 	 */
 	function wpcf7_additional_info( $WPCF7_ContactForm, $abort, $WPCF7_Submission ) {
 		$posted_data = $WPCF7_Submission->get_posted_data();
@@ -28,19 +28,19 @@ if ( ! function_exists( 'wpcf7_additional_info' ) ) {
 		$post_id = intval( $posted_data[ POST_ID_FIELD_NAME ] );
 		$title   = get_the_title( $post_id );
 
-		$protocol = isset( $_SERVER['HTTPS'] ) && $_SERVER['HTTPS'] === 'on' ? "https" : "http";
+		$protocol                   = isset( $_SERVER['HTTPS'] ) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http';
 		@list( $ref_url, $ref_uri ) = explode( '?', $_SERVER['HTTP_REFERER'] );
 
 		// redefine mail
-		$mail         = $WPCF7_ContactForm->prop( 'mail' );
+		$mail          = $WPCF7_ContactForm->prop( 'mail' );
 		$mail['body'] .= "\r\n\r\n_______________ Техническая информация _________________\r\n\r\n";
 
 		if ( $title ) {
-			$mail['body'] .= "Название страницы: " . $title . "\r\n";
+			$mail['body'] .= 'Название страницы: ' . $title . "\r\n";
 		}
 
 		if ( $ref_url ) {
-			$mail['body'] .= "URL источника запроса: " . str_replace( $protocol . ':', '', $ref_url ) . "\r\n";
+			$mail['body'] .= 'URL источника запроса: ' . str_replace( $protocol . ':', '', $ref_url ) . "\r\n";
 		}
 
 		if ( $ref_uri ) {
@@ -48,9 +48,12 @@ if ( ! function_exists( 'wpcf7_additional_info' ) ) {
 			parse_str( $ref_uri, $get_params );
 
 			$mail['body'] .= "Параметры запроса: \r\n";
-			array_walk( $get_params, function ( $value, $key ) use ( &$mail ) {
-				$mail['body'] .= "$key: $value\r\n";
-			} );
+			array_walk(
+				$get_params,
+				function ( $value, $key ) use ( &$mail ) {
+					$mail['body'] .= "$key: $value\r\n";
+				}
+			);
 		}
 
 		$WPCF7_ContactForm->set_properties( array( 'mail' => $mail ) );
@@ -75,7 +78,7 @@ if ( ! function_exists( 'wpcf7_send_sms' ) ) {
 	/**
 	 * @param WPCF7_ContactForm $WPCF7_ContactForm
 	 * @param $abort
-	 * @param WPCF7_Submission $WPCF7_Submission
+	 * @param WPCF7_Submission  $WPCF7_Submission
 	 */
 	function wpcf7_send_sms( $WPCF7_ContactForm, $abort, $WPCF7_Submission ) {
 		$posted_data = $WPCF7_Submission->get_posted_data();

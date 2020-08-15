@@ -12,16 +12,16 @@
 	</div><!-- #content -->
 
 	<footer class="site__footer" id="colophon">
-        <div class="container">
-            <div class="row align-items-center site-foot">
-                <?php footer_links( array( 'menu_class' => 'site-foot__menu' ) ); ?>
+		<div class="container">
+			<div class="row align-items-center site-foot">
+				<?php footer_links( array( 'menu_class' => 'site-foot__menu' ) ); ?>
 
-                <div class="col-12 col-md-3">
-                    <div class="site-foot__by">Developed by: Me</div>
-                    <a href="javascript:;" class="privacy">Политика конфедициальности</a>
-                </div>
-            </div>
-        </div>
+				<div class="col-12 col-md-3">
+					<div class="site-foot__by">Developed by: Me</div>
+					<a href="javascript:;" class="privacy">Политика конфедициальности</a>
+				</div>
+			</div>
+		</div>
 	</footer><!-- #colophon -->
 </div><!-- #page -->
 

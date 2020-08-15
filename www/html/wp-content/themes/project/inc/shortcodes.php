@@ -2,9 +2,13 @@
 
 if ( ! function_exists( 'slider_shortcode' ) ) {
 	function slider_shortcode( $atts = array(), $content = '' ) {
-		$atts = shortcode_atts( array(
-			'id' => 0,
-		), $atts, 'slider' );
+		$atts = shortcode_atts(
+			array(
+				'id' => 0,
+			),
+			$atts,
+			'slider'
+		);
 
 		if ( ! $atts['id'] = intval( $atts['id'] ) ) {
 			return '';

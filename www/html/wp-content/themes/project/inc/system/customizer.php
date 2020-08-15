@@ -11,12 +11,15 @@ apply_filters( 'nav_menu_link_attributes', 'nav_menu_link_allow_click', 10, 4 );
 
 if ( ! function_exists( 'add_theme_post_class' ) ) {
 	function add_theme_post_class( $classes, $class, $post_id ) {
-		if( is_archive() ) {
+		if ( is_archive() ) {
 			/** @var int $columns Default columns count */
 			$columns = (int) apply_filters( 'content_columns', 4 );
 			// Insert classes in results on start.
-			array_unshift( $classes, function_exists( 'get_default_bs_columns' ) ?
-				get_default_bs_columns( $columns ) : 'columns-' .  $columns );
+			array_unshift(
+				$classes,
+				function_exists( 'get_default_bs_columns' ) ?
+				get_default_bs_columns( $columns ) : 'columns-' . $columns
+			);
 		}
 
 		return $classes;

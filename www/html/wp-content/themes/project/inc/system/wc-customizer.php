@@ -31,8 +31,11 @@ function add_theme_product_post_class( $classes, $class, $post_id ) {
 	$is_related = is_singular( 'product' ) && is_array( $related_posts ) && in_array( $post_id, $related_posts );
 
 	if ( 'product' === get_post_type() && ( ! is_singular( 'product' ) || $is_related ) ) {
-		$columns   = apply_filters( 'product_content_columns', get_theme_mod( 'woocommerce_catalog_columns', 4 ),
-			$classes );
+		$columns   = apply_filters(
+			'product_content_columns',
+			get_theme_mod( 'woocommerce_catalog_columns', 4 ),
+			$classes
+		);
 		$classes[] = function_exists( 'get_default_bs_columns' ) ?
 			get_default_bs_columns( (int) $columns ) : '';
 	}
@@ -76,8 +79,10 @@ add_action( 'init', 'change_product_labels' );
 function change_product_labels() {
 	global $wp_post_types;
 
-	$label                                       = $wp_post_types['product']->label = get_theme_mod( 'woo_product_label',
-		'Каталог' );
+	$label                                       = $wp_post_types['product']->label = get_theme_mod(
+		'woo_product_label',
+		'Каталог'
+	);
 	$wp_post_types['product']->labels->name      = __( $label );
 	$wp_post_types['product']->labels->all_items = __( $label );
 	$wp_post_types['product']->labels->archives  = __( $label );
