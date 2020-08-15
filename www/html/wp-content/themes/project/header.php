@@ -15,15 +15,6 @@
 	<link rel="profile" href="https://gmpg.org/xfn/11">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<?php /* $viewport = 1170; $max_width = $viewport - (15*2); ?>
-	<meta name="viewport" content="width='<?= $viewport ?>'">
-	<style type="text/css">
-	.container {
-		max-width: <?= $max_width ?>px !important;
-		width: <?= $max_width ?>px !important;
-	}
-	</style>
-	<?php // */ ?>
 
 	<?php wp_head(); ?>
 
