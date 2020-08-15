@@ -11,7 +11,7 @@
 $tpl = get_template_directory_uri();
 
 $jquery_link = esc_url( $tpl . 'assets/vendor/jquery/jquery.min.js' );
-$jquery = str_replace('\\', '/\\', '<script src="' . $jQueryLink . '"></script>');
+$jquery = str_replace('\\', '/\\', '<script src="' . $jquery_link . '"></script>');
 $content_class = apply_filters( 'content-class', array( 'site__content', 'container' ) );
 
 ?><!DOCTYPE html>
@@ -28,7 +28,7 @@ $content_class = apply_filters( 'content-class', array( 'site__content', 'contai
 	<script data-skip-moving="true" type="text/javascript"
 			src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
 	<![endif]-->
-	<script>window.jQuery || document.write('<?php echo $jQuery; ?>')</script>
+	<script>window.jQuery || document.write('<?php echo $jquery; ?>')</script>
 </head>
 <body <?php body_class(); ?>>
 <!--[if lte IE 9]>
