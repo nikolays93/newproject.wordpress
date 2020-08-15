@@ -82,7 +82,8 @@ if ( ! function_exists( 'bootstrap_nav' ) ) {
 if ( ! function_exists( 'footer_links' ) ) {
 	function footer_links( $args = array() ) {
 		$args = wp_parse_args( $args, array(
-			'menu'            => 'footer_links',
+			'menu'            => 'footer',
+			'menu_class'      => 'site-footer__menu',
 			'theme_location'  => 'footer',
 			'container_class' => 'footer clearfix',
 		) );

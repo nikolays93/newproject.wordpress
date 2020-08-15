@@ -38,18 +38,17 @@ $content_class = apply_filters( 'content-class', array( 'site__content', 'contai
 <div id="page" class="site">
 	<!-- <a class="skip-link screen-reader-text sr-only" href="#content"><?php esc_html_e( 'Skip to content',
 		'_s' ); ?></a> -->
-
-	<div id="masthead" class="container site-header">
-		<!-- <div itemscope itemtype="http://schema.org/LocalBusiness"> -->
-		<div class="row head-info">
-			<div class="col-4 logotype">
+	<div class="site__header" id="masthead">
+		<div class="site-head container">
+			<!-- <div itemscope itemtype="http://schema.org/LocalBusiness"> -->
+			<div class="site-head__logo">
 				<?php
 				// echo ( shortcode_exists( 'company' ) ) ? do_shortcode('[company field="image"]') : get_bloginfo("name");
 				// the_custom_logo();
 				bloginfo( 'description' );
 				?>
 			</div>
-			<div class="col-4 contacts">
+			<div class="site-head__contacts">
 				<?php
 
 				/**
@@ -62,23 +61,19 @@ $content_class = apply_filters( 'content-class', array( 'site__content', 'contai
 					echo do_shortcode( '[company field="email"]' );
 					echo do_shortcode( '[company field="time_work"]' );
 					echo do_shortcode( '[company field="socials"]' );
-
 					// echo do_shortcode('[phone del="," num="1"]'); // only first phone between ,
 				}
 				?>
 			</div>
-			<div class="col-4 callback">
-				<!-- <a href="#" id="get-recall"></a> -->
-			</div>
-		</div><!--.row head-info-->
-
-		<!-- <div class="hidden hidden-xs-up d-none">
-			<span itemprop="priceRange">RUB</span>
-		</div> -->
-		<!-- </div> -->
-	</div><!-- .site-header -->
-
+			<div class="site-head__callback"></div>
+			<!-- <div class="hidden hidden-xs-up d-none">
+				<span itemprop="priceRange">RUB</span>
+			</div> -->
+			<!-- </div> -->
+		</div>
+	</div><!-- #masthead -->
 	<?php
+
 	/**
 	 * Hook: before_main_content.
 	 *
@@ -86,7 +81,6 @@ $content_class = apply_filters( 'content-class', array( 'site__content', 'contai
 	 * may be @hooked breadcrumbs_from_yoast - 10
 	 */
 	do_action( 'before_main_content' );
-	?>
 
-	<div id="content" class="site-content">
-		<div class="<?= apply_filters( 'site-container', 'container' ); ?>">
+	?>
+	<div class="<?php echo implode( ' ', $content_class ); ?>" id="content">
