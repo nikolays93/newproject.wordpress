@@ -1,5 +1,5 @@
 <?php
 
-$path = realpath( __DIR__ . '/index.php' );
+$index = realpath( __DIR__ . '/index.php' );
 
-require $path;
+require $index;

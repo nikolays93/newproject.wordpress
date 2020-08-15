@@ -32,7 +32,9 @@ if ( ! defined( 'TPL' ) ) {
 
 if ( ! function_exists( 'require_path' ) ) {
 	/**
-	 * @param string $path path to required file
+	 * Function for array_map easy way.
+	 *
+	 * @param string $path path to required file.
 	 *
 	 * @return void
 	 */
@@ -41,69 +43,44 @@ if ( ! function_exists( 'require_path' ) ) {
 	}
 }
 
-if ( ! function_exists( 'init_theme' ) ) {
-	function init_theme() {
-		/**
-		 * Include classes
-		 */
-		array_map(
-			'require_path',
-			array(
-				'/inc/class/wp-bootstrap-navwalker.php',
-				'/inc/class/sms.ru.php',
-				'/inc/class/sms-provider.php',
-			)
-		);
-
-		/**
-		 * Include required system files
-		 *
-		 * Редактировать файлы в папке system не рекомендуется, так как они обновляются, но..
-		 * Все классы и функции можно предопределить, объявив до подключения файла к примеру:
-		 * function breadcrumbs_by_yoast() { yoast_breadcrumb('<div class="breadcrumbs">','</div>'); }
-		 */
-		array_map(
-			'require_path',
-			array(
-				'/inc/system/setup.php',         // *
-				'/inc/system/utilites.php',      // * Вспомогательные функции
-				'/inc/system/admin.php',         // * Фильтры и функции административной части WP
-				'/inc/system/template.php',      // * Основные функции вывода информации в шаблон
-				'/inc/system/navigation.php',    // * Навигация
-				'/inc/system/gallery.php',       // * Шаблон встроенной галереи wordpress
-				'/inc/system/customizer.php',    // * Дополнительные функии в настройки внешнего вида
-				'/inc/system/notifications.php', // * Дополнение к отправке уведомлений
-			)
-		);
-
-		if ( class_exists( 'woocommerce' ) ) {
-			array_map(
-				'require_path',
-				array(
-					'/inc/system/woocommerce.php',   // *
-					'/inc/system/wc-customizer.php', // *
-				)
-			);
-		}
-	}
-}
-
 /**
- * Include custom files
+ * Include classes
  */
 array_map(
 	'require_path',
 	array(
-		'/inc/assets.php',     // * Дополнительные ресурсы (Скрипты, стили..)
-		'/inc/widgets.php',    // * Сайдбар панели (Виджеты)
-		'/inc/post-types.php', // * Функции добавления типа записи slide
-		'/inc/shortcodes.php', // * Функции добавления шорткода
+		'/inc/class/wp-bootstrap-navwalker.php',
+		'/inc/class/sms.ru.php',
+		'/inc/class/sms-provider.php',
 	)
 );
 
 /**
- * Include woocommerce custom files
+ * Include required system files
+ *
+ * Редактировать файлы в папке system не рекомендуется, так как они обновляются, но..
+ * Все классы и функции можно предопределить, объявив до подключения файла к примеру:
+ * function breadcrumbs_by_yoast() { yoast_breadcrumb('<div class="breadcrumbs">','</div>'); }
  */
+array_map(
+	'require_path',
+	array(
+		'/inc/assets.php',               // * Дополнительные ресурсы (Скрипты, стили..)
+		'/inc/widgets.php',              // * Сайдбар панели (Виджеты)
+		'/inc/post-types.php',           // * Функции добавления типа записи slide
+		'/inc/shortcodes.php',           // * Функции добавления шорткода
+		// Include system files.
+		'/inc/system/setup.php',         // *
+		'/inc/system/utilites.php',      // * Вспомогательные функции
+		'/inc/system/admin.php',         // * Фильтры и функции административной части WP
+		'/inc/system/template.php',      // * Основные функции вывода информации в шаблон
+		'/inc/system/navigation.php',    // * Навигация
+		'/inc/system/gallery.php',       // * Шаблон встроенной галереи wordpress
+		'/inc/system/customizer.php',    // * Дополнительные функии в настройки внешнего вида
+		'/inc/system/notifications.php', // * Дополнение к отправке уведомлений
+	)
+);
+
 if ( class_exists( 'woocommerce' ) ) {
 	array_map(
 		'require_path',
@@ -111,52 +88,53 @@ if ( class_exists( 'woocommerce' ) ) {
 			'/woocommerce/functions.php',          // * Функции магазина
 			'/woocommerce/template-functions.php', // * Функции и фильтры шаблона магазина
 			'/woocommerce/filters.php',            // * Объявление основных функций магазина
+			// Include woocommerce system files.
+			'/inc/system/woocommerce.php',         // *
+			'/inc/system/wc-customizer.php',       // *
 		)
 	);
 }
 
-init_theme();
-
-// Подключить поддержку "фишек" WordPress
+// Подключить поддержку "фишек" WordPress.
 add_action( 'after_setup_theme', 'theme_setup' );
-// Зарегистрировать стандартное меню (В шапке/в подвале, ./system/navigation.php)
+// Зарегистрировать стандартное меню (В шапке/в подвале, ./system/navigation.php).
 add_action( 'after_setup_theme', 'register_theme_navigation' );
-// Зарегистрировать виджеты из файла ./system/widgets.php
+// Зарегистрировать виджеты из файла './system/widgets.php'.
 add_action( 'widgets_init', 'theme_widgets' );
-// Очистить тэг head от излишек
+// Очистить тэг head от излишек.
 add_action( 'init', 'head_cleanup' );
-// Отключить поддержку смайлов емодзи
+// Отключить поддержку смайлов емодзи.
 add_action( 'init', 'disable_emojis' );
-// Убрать заголовок Архивы: или Категория: в заголовке страницы списка записей
+// Убрать заголовок Архивы: или Категория: в заголовке страницы списка записей.
 add_filter( 'get_the_archive_title', 'theme_archive_title_filter', 10, 1 );
 
-// Подключить скрипты и стили указанные в файле ./inc/assets.php
+// Подключить скрипты и стили указанные в файле './inc/assets.php'.
 add_action( 'wp_enqueue_scripts', 'enqueue_assets', 997 );
-// Подлкючить скрипты и стили используемые шаблоном (на всем сайте)
+// Подлкючить скрипты и стили используемые шаблоном (на всем сайте).
 add_action( 'wp_enqueue_scripts', 'enqueue_template_assets', 998 );
-// Подлкючить скрипты и стили на данной (сейчас открытой) странице
+// Подлкючить скрипты и стили на данной (сейчас открытой) странице.
 add_action( 'wp_enqueue_scripts', 'enqueue_page_assets', 999 );
 
-// Добавляем bootstrap навигационное меню
+// Добавляем bootstrap навигационное меню.
 add_action( 'before_main_content', 'bootstrap_navbar', 10, 1 );
-// Добавляем мякиш от yoast
+// Добавляем мякиш от yoast.
 add_action( 'before_main_content', 'breadcrumbs_by_yoast', 10, 1 );
-// Добавляем техническую информацию в письма Contact Form 7
+// Добавляем техническую информацию в письма Contact Form 7.
 add_action( 'wpcf7_before_send_mail', 'wpcf7_additional_info', 10, 3 );
 add_filter( 'wpcf7_form_hidden_fields', 'wpcf7_post_id_field' );
 
-// Зарегистрировать виджеты из файла ./inc/widgets.php
+// Зарегистрировать виджеты из файла './inc/widgets.php'.
 add_action( 'widgets_init', 'theme_widgets' );
-// Зарегистрировать тип записи слайдер "slide" (для примера)
+// Зарегистрировать тип записи слайдер "slide" (для примера).
 add_action( 'init', 'register_type__slide' );
-// Зарегистрировать таксономию slider
+// Зарегистрировать таксономию slider.
 add_action( 'init', 'register_tax__slider' );
-// Заменить местами ссылки на таксономию (Эта ссылка нужна первой) и тип записи
+// Заменить местами ссылки на таксономию (Эта ссылка нужна первой) и тип записи.
 add_action( 'admin_menu', 'sort_menu_slider', 99 );
 
-// Показать принадлежащий слайдеру код вызова
+// Показать принадлежащий слайдеру код вызова.
 add_filter( 'slider_row_actions', 'show_slider_shortcode', 10, 2 );
-// Зарегистрировать шорткод для вывода элементов типа записи с помощью квадратных скобок [slider]
+// Зарегистрировать шорткод для вывода элементов типа записи с помощью квадратных скобок [slider].
 add_shortcode( 'slider', 'slider_shortcode' );
 
 /**
@@ -172,6 +150,6 @@ add_action(
 	}
 );
 
-// change default WordPress to custom authentication
+// change default WordPress to custom authentication.
 remove_filter( 'authenticate', 'wp_authenticate_username_password', 20 );
 add_filter( 'authenticate', 'wp_authenticate_username_phone_password', 20, 3 );

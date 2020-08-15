@@ -8,7 +8,9 @@
  * @package project
  * @version 1.0
  */
+
 get_header();
+
 ?>
 	<div class="container">
 		<div class="row">

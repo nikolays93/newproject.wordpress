@@ -13,6 +13,7 @@
  */
 
 get_header();
+
 ?>
 	<div class="row">
 		<?php do_action( 'site_before_main_row_content' ); ?>
