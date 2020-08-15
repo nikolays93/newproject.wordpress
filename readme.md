@@ -6,6 +6,7 @@
 1. Docker (или [Docker Desktop](https://docs.docker.com/desktop/)) - для запуска сайта
 2. [Node.js](https://nodejs.org/en/download/) - для запуска JavaScript на вашем компьютере
 3. [Yarn](https://yarnpkg.com/en/docs/install/) - Как альтернатива Npm для сборки проекта
+4. [Composer](https://getcomposer.org) - Пакетный менаджер PHP
 
 ## Как запустить сервер
 
