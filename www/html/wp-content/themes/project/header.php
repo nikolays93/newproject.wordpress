@@ -8,10 +8,9 @@
  * @package project
  * @version 1.1
  */
-$tpl = get_template_directory_uri();
 
-$jquery_link = esc_url( $tpl . 'assets/vendor/jquery/jquery.min.js' );
-$jquery = str_replace('\\', '/\\', '<script src="' . $jquery_link . '"></script>');
+$jquery_link = esc_url( TPL . 'assets/vendor/jquery/jquery.min.js' );
+$jquery = str_replace( '/', '\/', '<script src="' . $jquery_link . '"></script>' );
 $content_class = apply_filters( 'content-class', array( 'site__content', 'container' ) );
 
 ?><!DOCTYPE html>
