@@ -2,7 +2,7 @@
 // Variables
 @import "site-settings";
 @import "utils/mixins";
-@import "../vendor/_source/_smart-grid";
+@import "_smart-grid";
 
 // Frequently asked classes
 @import "utils/utilites";
@@ -16,7 +16,4 @@
 @import "layout/sidebar";
 
 // Modules
-@import "module/post";
-
-// Properties (ex.)
-// @import "property/color/green";
+// @import "module/post";

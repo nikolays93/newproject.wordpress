@@ -127,8 +127,30 @@ h1 {
 }
 
 .site__footer {
-  margin-top: 2rem;
-  padding-bottom: 2rem;
+  color: #fff;
+  background: #191e23;
+  margin-top: 2.5rem;
+  padding: 2.5rem 0;
+}
+
+.site-foot__menu {
+  padding: 0 15px;
+}
+
+.site-foot__menu ul {
+  list-style: none;
+  margin: 0 0 2rem;
+  padding: 0;
+}
+
+.site-foot__menu a {
+  display: inline-block;
+  padding: 0.5rem 0;
+  color: #fff;
+}
+
+.site-foot__by {
+  font-size: 0.875rem;
 }
 
 .site__navigation {
@@ -242,11 +264,11 @@ h1 {
 
 @media screen and (min-width: 576px) {
   h1 {
-    font-size: calc( 22px + 18 * (100vw - 576px) / 1104);
+    font-size: calc( 22px + 18 * (100vw - 576px) / 1104);
   }
 
   .site__sidebar__title {
-    font-size: calc( 18px + 4 * (100vw - 576px) / 1104);
+    font-size: calc( 18px + 4 * (100vw - 576px) / 1104);
   }
 }
 
@@ -258,6 +280,21 @@ h1 {
 
   .offset-md-2-4 {
     margin-left: 20%;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .site-foot__menu {
+    flex: 0 0 75%;
+    max-width: 75%;
+    order: 20;
+  }
+
+  .site-foot__menu ul {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 0;
   }
 }
 
