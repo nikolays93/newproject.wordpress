@@ -1,4 +1,13 @@
 <?php
+/**
+ * Файл ошибки 404 темы WordPress
+ *
+ * Этот файл используется когда запрашиваемая страница не найдена
+ *
+ * @see https://developer.wordpress.org/themes/basics/template-hierarchy/
+ * @package project
+ * @version 1.0
+ */
 get_header();
 ?>
 	<div class="container">
