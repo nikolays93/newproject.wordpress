@@ -32,6 +32,20 @@ $ docker-compose up -d
 - Введите ```yarn build``` или ```gulp build --production``` для сборки проекта;
 - Введите ```yarn dev``` или ```gulp``` для запуска сервера разработки;
 
+## Как установить Code Sniffer
+
+> Убедитесь что пакетный менаджер composer установлен на вашем компьютере
+
+0. Откройте консоль в папке `./www`
+1. Запустите команду `composer install`
+
+> Проверить установку можно командой `vendor/bin/phpcs --version`
+
+2. Установите WordPress проект wp-coding-standards командой `composer create-project wp-coding-standards/wpcs:dev-master --no-dev`
+3. Установите правила в PHP CodeSniffer командой `vendor/bin/phpcs --config-set installed_paths wpcs`
+
+> Проверить список правил можно командой `vendor/bin/phpcs -i`
+
 ## Как исользовать Code Sniffer
 
 Скопируйте команду `scripts.sniff` для проверки и `scripts.fix` для автоисправлений и запустите в консоли для автозапуска
