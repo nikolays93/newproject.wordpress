@@ -1,5 +1,6 @@
 {
-    "name": "newproject/wordpress",
+    "name": "nikolays93/newproject.wordpress",
+    "description": "Boilerplate theme",
     "authors": [
         {
             "name": "NikolayS93",
